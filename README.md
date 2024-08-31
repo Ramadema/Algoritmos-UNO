@@ -16,12 +16,12 @@ Tomas Schiabone
 Preview Modularización
 
 FUNCIONES
-def cargaDeDatos
-def Menu
-def busquedaDeVuelos
-def hacerReservaDeVuelos
-def cancelarReserva
-def manipulacionArchivos
+def cargaDeDatos --> juan
+def Menu --> rama
+def busquedaDeVuelos --> juan
+def hacerReservaDeVuelos --> tomi
+def cancelarReserva --> tomi
+def manipulacionArchivos --> rama
 
 PROGRAMA PRINCIPAL
 printeo 
