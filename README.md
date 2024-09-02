@@ -17,43 +17,40 @@ Preview Modularización
 
 FUNCIONES
 
-def MenuInicial
+def MenuInicial --> rama
 "Esta Funcion actúa como el punto central de navegación para el usuario. Primero, muestra un listado de opciones disponibles, como buscar vuelos, hacer una reserva o ver reservas existentes. Luego, captura la selección del usuario y dirige la acción correspondiente: llama a la función adecuada para realizar la tarea elegida. Finalmente, después de completar la acción, el menú se vuelve a mostrar para permitir nuevas opciones o salir del programa. En resumen, la función menu organiza y facilita la interacción del usuario con el sistema, manteniendo el flujo de operaciones sencillo y accesible."
 
 
 #Usuario
-def registrarUsuario
+def registrarUsuario --> juan
 "Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas."
 
-def iniciarSesion
+def iniciarSesion --> juan
 "Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones."
 
-def cerrarSesion
+def cerrarSesion --> juan
 "Funcion que cierra la sesión del usuario actual, asegurando que la información personal y las reservas estén protegidas."
-
-def busquedaDeVuelos
-"Esta Funcion permite al usuario buscar vuelos disponibles según los criterios especificados, como destino, fecha y número de pasajeros."
 
 
 #Vuelos
-def BusquedaDeVuelos
+def BusquedaDeVuelos --> juan
 "Esta funcion permite al usuario buscar vuelos disponibles según los criterios especificados, como destino, fecha y número de pasajeros."
 
 
 #Reservas
-def hacerReservaDeVuelos
+def hacerReservaDeVuelos --> tomi
 "Esta funcion Facilita la reserva de un vuelo seleccionado, solicitando la información del usuario y confirmando la reserva."
 
-def cancelarReserva
+def cancelarReserva --> tomi
 "Esta funcion permite al usuario cancelar una reserva existente, gestionando el reembolso o cambios según las políticas del sistema."
 
-def consultarStatusDeVuelo
+def consultarStatusDeVuelo --> tomi
 "Esta funcion proporciona información actualizada sobre el estado de un vuelo, como retrasos o cambios en la programación"
 
-def pagarReserva
+def pagarReserva --> rama
 "Esta funcion gestiona el proceso de pago para completar una reserva, incluyendo la elección del método de pago y la confirmación de la transacción"
 
-def historialReservas
+def historialReservas --> rama
 "Esta funcion muestra un historial de reservas realizadas por el usuario, incluyendo reservas anteriores y pagos.(antiguas y actuales)"
 
 
