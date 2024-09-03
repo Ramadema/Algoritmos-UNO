@@ -39,6 +39,38 @@ def imprimirMatrizOrdenada(matriz):
     for fila in matriz:
         print(fila)
 
+#Usuario
+def registrarUsuario(): 
+#--> juan "Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas."
+    lista_usuarios=[]
+    
+    nuevo_usuario=int(input("Ingrese un pin de 4 digitos que lo identificará como nuevo usuario: \n"))
+    bandera=True
+
+    while bandera:
+        if nuevo_usuario<999 or nuevo_usuario>10000 or nuevo_usuario in lista_usuarios:
+            print("Número de usuario invalido o ya existente\n")
+            nuevo_usuario=int(input("Ingrese un pin de 4 digitos que lo identificará como nuevo usuario: \n"))
+        else:
+            lista_usuarios.append(nuevo_usuario)
+            bandera=False
+            
+    return lista_usuarios
+
+
+def iniciarSesion(lista_usuarios): 
+#--> juan "Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones."
+    iniciarSesion=int(input("Ingrese su número de usuario: \n"))
+    bandera=True
+
+    while bandera:
+        if iniciarSesion not in lista_usuarios:
+            print("Usuario no existente\n")
+            iniciarSesion=int(input("Ingrese su número de usuario: \n"))
+        else:  
+             print("Login exitoso")
+             bandera=False  
+
 
 # Programa Principal
 
