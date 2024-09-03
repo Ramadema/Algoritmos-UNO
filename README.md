@@ -33,6 +33,9 @@ def cerrarSesion --> juan
 
 
 #Vuelos
+def generarVuelos --> rama
+"La funcion permite generar una cantidad establecida de vuelos entre paises de sudamerica y america del norte o combinacion de ambas.
+
 def BusquedaDeVuelos --> juan
 "Esta funcion permite al usuario buscar vuelos disponibles según los criterios especificados, como destino, fecha y número de pasajeros."
 

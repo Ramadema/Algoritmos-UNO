@@ -1,5 +1,7 @@
 # Programa de sistemas de reserva de Vuelos
 
+import random 
+
 # Funciones 
 def menuInicial():
     ok=True
@@ -18,9 +20,54 @@ def menuInicial():
 
     return -1
 
+# Generar pares de vuelos entre países y capitales
+def generarVuelos(matriz):
+    vuelos = []
+    
+    for i in range(len(matriz)):
+        random.shuffle(matriz)
+        for j in range(i + 1, len(matriz)):
+            # Se limita a 10 para realizar prueba
+            if len(vuelos)<10:
+                random.shuffle(matriz)
+                origen_pais, origen_capital = matriz[i]
+                destino_pais, destino_capital = matriz[j]
+                vuelos.append((origen_pais, origen_capital, destino_pais, destino_capital))
+    return vuelos
+
+def imprimirMatrizOrdenada(matriz):
+    for fila in matriz:
+        print(fila)
+
 
 # Programa Principal
-#Menu de interaccion
+
+
+# Paises unicamente de america del norte y sur
+matrizPaisesCapitales = [
+    ["Canadá", "Ottawa"],
+    ["Estados Unidos", "Washington, D.C."],
+    ["México", "Ciudad de México"],
+    ["Guatemala", "Ciudad de Guatemala"],
+    ["Belice", "Belmopán"],
+    ["Honduras", "Tegucigalpa"],
+    ["El Salvador", "San Salvador"],
+    ["Nicaragua", "Managua"],
+    ["Costa Rica", "San José"],
+    ["Panamá", "Ciudad de Panamá"],
+    ["Argentina", "Buenos Aires"],
+    ["Bolivia", "La Paz"],
+    ["Brasil", "Brasília"],
+    ["Chile", "Santiago"],
+    ["Colombia", "Bogotá"],
+    ["Ecuador", "Quito"],
+    ["Paraguay", "Asunción"],
+    ["Perú", "Lima"],
+    ["Uruguay", "Montevideo"],
+    ["Venezuela", "Caracas"]
+]
+
+# Menu de interaccion
 salir = True
 while salir:
     seleccion = menuInicial()
@@ -29,7 +76,11 @@ while salir:
         pass
         # menu_1()
     elif seleccion == 2:
-        pass
+        # Obtener la lista de vuelos
+        vuelos = generarVuelos(matrizPaisesCapitales)
+
+        imprimirMatrizOrdenada(vuelos)
+       
         # menu_2()
     elif seleccion == 3:
         pass
@@ -38,3 +89,6 @@ while salir:
         print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
         print("\n\t\t***** ADIOS *****\n")
         salir=False
+
+
+
