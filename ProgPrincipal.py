@@ -71,6 +71,19 @@ def iniciarSesion(lista_usuarios):
              print("Login exitoso")
              bandera=False  
 
+def cerrarSesion(lista_usuarios): 
+#--> juan "Funcion que cierra la sesión del usuario actual, asegurando que la información personal y las reservas estén protegidas."
+    cerrarUsuario=int(input("Ingrese su pin para cerrar la sesión. Los cambios serán guardados automaticamente. \n"))
+    bandera=True
+
+    while bandera:
+        if cerrarUsuario not in lista_usuarios:
+            print("Usuario no existente\n")
+            cerrarUsuario=int(input("Ingrese su número de usuario para cerrar la sesión: \n"))
+        else:  
+             print("Sesión cerrada.")
+             bandera=False 
+
 
 # Programa Principal
 
