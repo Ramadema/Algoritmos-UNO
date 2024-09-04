@@ -84,6 +84,86 @@ def cerrarSesion(lista_usuarios):
              print("Sesión cerrada.")
              bandera=False 
 
+# Hacer reserva de vuelos
+def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
+    usuario = int(input("Ingrese su número de usuario: \n"))
+    bandera = True
+    
+    while bandera:
+        if usuario not in lista_usuarios:
+            print("Usuario no existente\n")
+            usuario = int(input("Ingrese su número de usuario: \n"))
+        else:
+            print("Usuario válido\n")
+            bandera = False
+
+    print("\nLista de vuelos disponibles:")
+    for i, vuelo in enumerate(vuelos):
+        print(f"{i+1}. Origen: {vuelo[1]}, {vuelo[0]} -> Destino: {vuelo[3]}, {vuelo[2]}")
+
+    seleccion = int(input("\nSeleccione el número del vuelo que desea reservar: \n"))
+    bandera = True
+
+    while bandera:
+        if seleccion < 1 or seleccion > len(vuelos):
+            print("Selección de vuelo inválida\n")
+            seleccion = int(input("Seleccione el número del vuelo que desea reservar: \n"))
+        else:
+            vuelo_seleccionado = vuelos[seleccion-1]
+            bandera = False
+
+    reservas.append((usuario, vuelo_seleccionado))
+    print(f"\nReserva realizada con éxito. Vuelo reservado: Origen: {vuelo_seleccionado[1]}, {vuelo_seleccionado[0]} -> Destino: {vuelo_seleccionado[3]}, {vuelo_seleccionado[2]}\n")
+
+    consultarStatusDeVuelo(vuelo_seleccionado)
+
+
+# Cancelar reserva
+def cancelarReserva(lista_usuarios, reservas):
+    usuario = int(input("Ingrese su número de usuario: \n"))
+    bandera = True
+
+    while bandera:
+        if usuario not in lista_usuarios:
+            print("Usuario no existente\n")
+            usuario = int(input("Ingrese su número de usuario: \n"))
+        else:
+            bandera = False
+
+    print("\nReservas del usuario:")
+    reservas_usuario = [reserva for reserva in reservas if reserva[0] == usuario]
+
+    if not reservas_usuario:
+        print("No tiene reservas para cancelar.\n")
+        return
+
+    for i, reserva in enumerate(reservas_usuario):
+        vuelo = reserva[1]
+        print(f"{i+1}. Origen: {vuelo[1]}, {vuelo[0]} -> Destino: {vuelo[3]}, {vuelo[2]}")
+
+    seleccion = int(input("\nSeleccione el número de la reserva que desea cancelar: \n"))
+    bandera = True
+
+    while bandera:
+        if seleccion < 1 or seleccion > len(reservas_usuario):
+            print("Selección de reserva inválida\n")
+            seleccion = int(input("Seleccione el número de la reserva que desea cancelar: \n"))
+        else:
+            reserva_seleccionada = reservas_usuario[seleccion-1]
+            reservas.remove(reserva_seleccionada)
+            bandera = False
+
+    print(f"\nReserva cancelada con éxito. Vuelo cancelado: Origen: {reserva_seleccionada[1][1]}, {reserva_seleccionada[1][0]} -> Destino: {reserva_seleccionada[1][3]}, {reserva_seleccionada[1][2]}\n")
+
+
+# Consultar status de vuelo
+def consultarStatusDeVuelo(vuelo_seleccionado):
+    estados = ["A tiempo", "Retrasado", "Cancelado", "Reprogramado"]
+    estado_vuelo = random.choice(estados)
+    
+    print(f"Estado del vuelo seleccionado: Origen: {vuelo_seleccionado[1]}, {vuelo_seleccionado[0]} -> Destino: {vuelo_seleccionado[3]}, {vuelo_seleccionado[2]}")
+    print(f"Estado actual del vuelo: {estado_vuelo}\n")
+
 
 # Programa Principal
 
