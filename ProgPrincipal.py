@@ -90,6 +90,7 @@ def registrarUsuario(lista_usuarios):
 
     os.system('clear')
     return lista_usuarios
+    # Nota: registrar no solo mediante numero de usuario sino tamb con contraseña
 
 def iniciarSesion(lista_usuarios): 
 #--> juan "Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones."
