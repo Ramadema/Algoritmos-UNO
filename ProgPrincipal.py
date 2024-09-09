@@ -1,18 +1,38 @@
 # Programa de sistemas de reserva de Vuelos
 
 import random 
+import os
 
 # Funciones 
+
+#--> Rama "Funcion que permite seleccionar una opcion de accion."
 def menuInicial():
     ok=True
     while ok:
         print("\nMenu principal de selección")
-        print("1. Busqueda de Vuelos")
-        print("2. Reservar vuelos")
-        print("3. Historial de reservas")
-        print("4. Salir\n")
+        print("1. Registro de Usuario")
+        print("2. Iniciar Sesión")
+        print("3. Salir\n")
     
         opcion = int(input("Seleccionar una opción: "))
+        
+        if opcion >= 1 and opcion < 4:
+           ok=False
+           return opcion
+
+    return -1
+
+#--> Rama "Funcion que permite seleccionar una opcion de accion relacionada a los vuelos segun el usuario ingresado."
+def menuVuelos():
+    ok=True
+    while ok:
+        print("\nMenu principal de selección Vuelos")
+        print("1. Busqueda de Vuelos")
+        print("2. Reserva de vuelos")
+        print("3. Historial de Vuelos")
+        print("4. Cerrar Sesión")
+    
+        opcion = int(input("\nSeleccionar una opción: "))
         
         if opcion >= 1 and opcion < 5:
            ok=False
@@ -20,7 +40,7 @@ def menuInicial():
 
     return -1
 
-# Generar pares de vuelos entre países y capitales
+#--> Rama "La funcion permite generar una cantidad establecida de vuelos entre paises de sudamerica y america del norte o combinacion de ambas.
 def generarVuelos(matriz):
     vuelos = []
     
@@ -35,15 +55,15 @@ def generarVuelos(matriz):
                 vuelos.append((origen_pais, origen_capital, destino_pais, destino_capital))
     return vuelos
 
+#--> Rama "Funcion que permite la prueba rapida de matriz y datos"
 def imprimirMatrizOrdenada(matriz):
     for fila in matriz:
         print(fila)
 
 #Usuario
-def registrarUsuario(): 
+def registrarUsuario(lista_usuarios): 
 #--> juan "Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas."
-    lista_usuarios=[]
-    
+    os.system('clear')
     nuevo_usuario=int(input("Ingrese un pin de 4 digitos que lo identificará como nuevo usuario: \n"))
     bandera=True
 
@@ -54,9 +74,9 @@ def registrarUsuario():
         else:
             lista_usuarios.append(nuevo_usuario)
             bandera=False
-            
-    return lista_usuarios
 
+    os.system('clear')
+    return lista_usuarios
 
 def iniciarSesion(lista_usuarios): 
 #--> juan "Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones."
@@ -65,11 +85,15 @@ def iniciarSesion(lista_usuarios):
 
     while bandera:
         if iniciarSesion not in lista_usuarios:
+            os.system('clear')
             print("Usuario no existente\n")
             iniciarSesion=int(input("Ingrese su número de usuario: \n"))
         else:  
-             print("Login exitoso")
-             bandera=False  
+             print("\nLogin exitoso")
+
+             bandera=False 
+     
+
 
 def cerrarSesion(lista_usuarios): 
 #--> juan "Funcion que cierra la sesión del usuario actual, asegurando que la información personal y las reservas estén protegidas."
@@ -116,7 +140,6 @@ def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
     print(f"\nReserva realizada con éxito. Vuelo reservado: Origen: {vuelo_seleccionado[1]}, {vuelo_seleccionado[0]} -> Destino: {vuelo_seleccionado[3]}, {vuelo_seleccionado[2]}\n")
 
     consultarStatusDeVuelo(vuelo_seleccionado)
-
 
 # Cancelar reserva
 def cancelarReserva(lista_usuarios, reservas):
@@ -192,27 +215,68 @@ matrizPaisesCapitales = [
 ]
 
 # Menu de interaccion
+lista_usuarios=[]
+    
 salir = True
 while salir:
     seleccion = menuInicial()
 
     if seleccion == 1:
-        pass
-        # menu_1()
-    elif seleccion == 2:
-        # Obtener la lista de vuelos
-        vuelos = generarVuelos(matrizPaisesCapitales)
+        lista_usuarios = registrarUsuario(lista_usuarios)
 
-        imprimirMatrizOrdenada(vuelos)
-       
-        # menu_2()
-    elif seleccion == 3:
-        pass
-        # menu_3()
+    elif seleccion == 2:
+        os.system('clear')
+        iniciarSesion(lista_usuarios)
+
+        salir = True
+
+        while salir:
+            seleccion = menuVuelos()
+
+            if seleccion == 1:
+                pass
+                # menu_1()
+            elif seleccion == 2:
+                # Obtener la lista de vuelos
+                vuelos = generarVuelos(matrizPaisesCapitales)
+
+                imprimirMatrizOrdenada(vuelos)
+            
+                # menu_2()
+            elif seleccion == 3:
+                pass
+                # menu_3()
+            else:
+                print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
+                print("\n\t\t***** ADIOS *****\n")
+                salir=False
     else:
         print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
         print("\n\t\t***** ADIOS *****\n")
         salir=False
+
+
+# salir = True
+# while salir:
+#     seleccion = menuInicial()
+
+#     if seleccion == 1:
+#         pass
+#         # menu_1()
+#     elif seleccion == 2:
+#         # Obtener la lista de vuelos
+#         vuelos = generarVuelos(matrizPaisesCapitales)
+
+#         imprimirMatrizOrdenada(vuelos)
+       
+#         # menu_2()
+#     elif seleccion == 3:
+#         pass
+#         # menu_3()
+#     else:
+#         print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
+#         print("\n\t\t***** ADIOS *****\n")
+#         salir=False
 
 
 
