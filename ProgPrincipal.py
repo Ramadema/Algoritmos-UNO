@@ -53,12 +53,25 @@ def generarVuelos(matriz):
                 origen_pais, origen_capital = matriz[i]
                 destino_pais, destino_capital = matriz[j]
                 vuelos.append((origen_pais, origen_capital, destino_pais, destino_capital))
+
+    # print(vuelos)
     return vuelos
 
 #--> Rama "Funcion que permite la prueba rapida de matriz y datos"
 def imprimirMatrizOrdenada(matriz):
-    for fila in matriz:
-        print(fila)
+    ancho_pais = 20
+    ancho_capital = 20
+    
+    print("\n")
+    print('-'*87)
+    print("\t    Ubicacion de Salida\t\t\t        Ubicacion de Llegada")
+    print('-'*87)
+    
+
+    for vuelo in matriz:
+        origen_pais, origen_capital, destino_pais, destino_capital = vuelo
+        print(f"{origen_pais:<{ancho_pais}},{origen_capital:<{ancho_capital}}-->   {destino_pais:<{ancho_pais}},{destino_capital:<{ancho_capital}}")
+        print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 7))  # Línea divisoria
 
 #Usuario
 def registrarUsuario(lista_usuarios): 
@@ -187,8 +200,9 @@ def consultarStatusDeVuelo(vuelo_seleccionado):
     print(f"Estado del vuelo seleccionado: Origen: {vuelo_seleccionado[1]}, {vuelo_seleccionado[0]} -> Destino: {vuelo_seleccionado[3]}, {vuelo_seleccionado[2]}")
     print(f"Estado actual del vuelo: {estado_vuelo}\n")
 
-# Programa Principal
 
+
+# Programa Principal
 
 # Paises unicamente de america del norte y sur
 matrizPaisesCapitales = [
@@ -234,18 +248,18 @@ while salir:
             seleccion = menuVuelos()
 
             if seleccion == 1:
-                pass
-                # menu_1()
-            elif seleccion == 2:
+                # menu_1
                 # Obtener la lista de vuelos
                 vuelos = generarVuelos(matrizPaisesCapitales)
 
                 imprimirMatrizOrdenada(vuelos)
-            
-                # menu_2()
+                # menu_1
+            elif seleccion == 2:
+                pass        
+                # menu_2
             elif seleccion == 3:
                 pass
-                # menu_3()
+                # menu_3
             else:
                 print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
                 print("\n\t\t***** ADIOS *****\n")
@@ -254,29 +268,7 @@ while salir:
         print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
         print("\n\t\t***** ADIOS *****\n")
         salir=False
-
-
-# salir = True
-# while salir:
-#     seleccion = menuInicial()
-
-#     if seleccion == 1:
-#         pass
-#         # menu_1()
-#     elif seleccion == 2:
-#         # Obtener la lista de vuelos
-#         vuelos = generarVuelos(matrizPaisesCapitales)
-
-#         imprimirMatrizOrdenada(vuelos)
-       
-#         # menu_2()
-#     elif seleccion == 3:
-#         pass
-#         # menu_3()
-#     else:
-#         print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
-#         print("\n\t\t***** ADIOS *****\n")
-#         salir=False
-
-
-
+        
+# APUNTE: Logica para funcion de busqueda de vuelo, se podria crear una matriz con minimo y un maximo de registros (salida llegada),
+# para luego filtrarla segun el pais de salida y el de llegada que desee el usuario, tamb pienso agregar horarios (con o sin biblio time)
+# con esta tengo ligada las funciones hacer reserva, cancelar reserva e historial reserva
