@@ -86,11 +86,23 @@ def registrarUsuario(lista_usuarios):
             nuevo_usuario=int(input("Ingrese un pin de 4 digitos que lo identificará como nuevo usuario: \n"))
         else:
             lista_usuarios.append(nuevo_usuario)
+            print("Usuario registrado\n")
             bandera=False
+
+    nueva_contraseña=str(input("Ingrese una contraseña de 8 digitos: \n"))
+
+    caracteres= True
+
+    while caracteres:
+        if len(nueva_contraseña)<8:
+            print("Contraseña inválida\n")
+            nueva_contraseña=str(input("Ingrese una contraseña de 8 digitos: \n"))
+        else:
+            print("Nueva contraseña registrada\n")
+            caracteres=False
 
     os.system('clear')
     return lista_usuarios
-    # Nota: registrar no solo mediante numero de usuario sino tamb con contraseña
 
 def iniciarSesion(lista_usuarios): 
 #--> juan "Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones."
