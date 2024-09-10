@@ -64,7 +64,7 @@ def imprimirMatrizOrdenada(matriz):
     
     print("\n")
     print('-'*87)
-    print("\t    Ubicacion de Salida\t\t\t        Ubicacion de Llegada")
+    print("\t    Ubicacion de Origen\t\t\t        Ubicacion de Llegada")
     print('-'*87)
     
 
@@ -233,9 +233,10 @@ def pagarReserva():
         #Vuelvo a la funcion cuando el usuario ponga cualquier otro metodo de pago no existente
         return pagarReserva()
 
+    #Utilizacion de procesamiento de pago aleatoreo
     print("Espere un momento, su pago se esta procesando...")
     transaccion_exitosa = random.choice([True, False, True, True])
-
+    
     if transaccion_exitosa:
         print("Pago completado con éxito.")
         return True
@@ -248,6 +249,7 @@ def historialReservas(reservas, lista_usuarios):
     usuario = int(input("Ingrese su número de usuario: \n"))
     bandera = True
 
+    # Opcional pedir usuario "consultarlo"
     while bandera:
         if usuario not in lista_usuarios:
             print("Usuario no existente\n")
@@ -264,13 +266,18 @@ def historialReservas(reservas, lista_usuarios):
 
     for i, reserva in enumerate(reservas_usuario):
         vuelo = reserva[1]
-        print(f"{i+1}. Origen: {vuelo[1]}, {vuelo[0]} -> Destino: {vuelo[3]}, {vuelo[2]}")
-        print('-' * 50)
+        print('-' * 80)
+        print(f"{i+1}. ! Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}")
+    print('-' * 80) 
 
+#--> Rama modificacion y acople a codigo
 def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
     usuario = int(input("Ingrese su número de usuario: \n"))
     bandera = True
+    ancho_pais = 20
+    ancho_capital = 20
     
+    # Opcional pedir usuario "consultarlo"
     while bandera:
         if usuario not in lista_usuarios:
             print("Usuario no existente\n")
@@ -279,9 +286,16 @@ def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
             print("Usuario válido\n")
             bandera = False
 
-    print("\nLista de vuelos disponibles:")
-    for i, vuelo in enumerate(vuelos):
-        print(f"{i+1}. Origen: {vuelo[1]}, {vuelo[0]} -> Destino: {vuelo[3]}, {vuelo[2]}")
+    # print("\nLista de vuelos disponibles:\n")
+    # for i, vuelo in enumerate(vuelos):
+    #     print(f"{i+1}. Origen: {vuelo[1]}, {vuelo[0]} -> Destino: {vuelo[3]}, {vuelo[2]}")
+    
+    print("\nLista de vuelos disponibles:\n")
+    print('-'*90)
+    for i,vuelo in enumerate(vuelos):
+        origen_pais, origen_capital, destino_pais, destino_capital = vuelo
+        print(f"{i+1}. | {origen_pais:<{ancho_pais}},{origen_capital:<{ancho_capital}}-->   {destino_pais:<{ancho_pais}},{destino_capital:<{ancho_capital}}")
+        print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 10))
 
     seleccion = int(input("\nSeleccione el número del vuelo que desea reservar: \n"))
     bandera = True
@@ -333,6 +347,7 @@ lista_usuarios = []
 reservas = []
 
 salir = True
+salir2 = True
 
 vuelos = generarVuelos(matrizPaisesCapitales)
 while salir:
@@ -345,9 +360,9 @@ while salir:
         os.system('clear')
         iniciarSesion(lista_usuarios)
 
-        salir = True
+        salir2 = True
 
-        while salir:
+        while salir2:
             seleccion = menuVuelos()
 
             if seleccion == 1:
@@ -362,7 +377,7 @@ while salir:
             else:
                 print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
                 print("\n\t\t***** ADIOS *****\n")
-                salir = False
+                salir2 = False
     else:
         print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
         print("\n\t\t***** ADIOS *****\n")
