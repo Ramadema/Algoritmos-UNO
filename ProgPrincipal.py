@@ -3,6 +3,7 @@
 import random 
 import os
 
+
 # Funciones 
 
 #--> Rama "Funcion que permite seleccionar una opcion de accion."
@@ -22,6 +23,7 @@ def menuInicial():
 
     return -1
 
+
 #--> Rama "Funcion que permite seleccionar una opcion de accion relacionada a los vuelos segun el usuario ingresado."
 def menuVuelos():
     ok=True
@@ -39,6 +41,7 @@ def menuVuelos():
            return opcion
 
     return -1
+
 
 #--> Rama "La funcion permite generar una cantidad establecida de vuelos entre paises de sudamerica y america del norte o combinacion de ambas.
 def generarVuelos(matriz):
@@ -73,6 +76,7 @@ def imprimirMatrizOrdenada(matriz):
         print(f"{origen_pais:<{ancho_pais}},{origen_capital:<{ancho_capital}}-->   {destino_pais:<{ancho_pais}},{destino_capital:<{ancho_capital}}")
         print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 7))  # Línea divisoria
 
+
 #Usuario
 def registrarUsuario(lista_usuarios): 
 #--> juan "Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas."
@@ -104,6 +108,7 @@ def registrarUsuario(lista_usuarios):
     os.system('clear')
     return lista_usuarios
 
+
 def iniciarSesion(lista_usuarios): 
 #--> juan "Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones."
     iniciarSesion=int(input("Ingrese su número de usuario: \n"))
@@ -120,7 +125,6 @@ def iniciarSesion(lista_usuarios):
              bandera=False 
      
 
-
 def cerrarSesion(lista_usuarios): 
 #--> juan "Funcion que cierra la sesión del usuario actual, asegurando que la información personal y las reservas estén protegidas."
     cerrarUsuario=int(input("Ingrese su pin para cerrar la sesión. Los cambios serán guardados automaticamente. \n"))
@@ -134,38 +138,6 @@ def cerrarSesion(lista_usuarios):
              print("Sesión cerrada.")
              bandera=False 
 
-# Hacer reserva de vuelos
-# def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
-#     usuario = int(input("Ingrese su número de usuario: \n"))
-#     bandera = True
-    
-#     while bandera:
-#         if usuario not in lista_usuarios:
-#             print("Usuario no existente\n")
-#             usuario = int(input("Ingrese su número de usuario: \n"))
-#         else:
-#             print("Usuario válido\n")
-#             bandera = False
-
-#     print("\nLista de vuelos disponibles:")
-#     for i, vuelo in enumerate(vuelos):
-#         print(f"{i+1}. Origen: {vuelo[1]}, {vuelo[0]} -> Destino: {vuelo[3]}, {vuelo[2]}")
-
-#     seleccion = int(input("\nSeleccione el número del vuelo que desea reservar: \n"))
-#     bandera = True
-
-#     while bandera:
-#         if seleccion < 1 or seleccion > len(vuelos):
-#             print("Selección de vuelo inválida\n")
-#             seleccion = int(input("Seleccione el número del vuelo que desea reservar: \n"))
-#         else:
-#             vuelo_seleccionado = vuelos[seleccion-1]
-#             bandera = False
-
-#     reservas.append((usuario, vuelo_seleccionado))
-#     print(f"\nReserva realizada con éxito. Vuelo reservado: Origen: {vuelo_seleccionado[1]}, {vuelo_seleccionado[0]} -> Destino: {vuelo_seleccionado[3]}, {vuelo_seleccionado[2]}\n")
-
-#     consultarStatusDeVuelo(vuelo_seleccionado)
 
 # Cancelar reserva
 def cancelarReserva(lista_usuarios, reservas):
@@ -219,7 +191,7 @@ def pagarReserva():
     print("Opciones de método de pago:")
     print("1. Tarjeta de crédito")
     print("2. Tarjeta de débito")
-    print("3. PayPal")
+    print("3. QR Mercado Pago")
     metodo_pago = int(input("Selecciona un método de pago: "))
 
     if metodo_pago == 1:
@@ -238,14 +210,15 @@ def pagarReserva():
     transaccion_exitosa = random.choice([True, False, True, True])
     
     if transaccion_exitosa:
-        print("Pago completado con éxito.")
+        print("\nPago completado con éxito.")
         return True
     else:
-        print("Error en la transacción. Vuelve a intentarlo.")
+        print("\nError en la transacción. Vuelve a intentarlo.")
         return False
 
 #--> Rama "Esta funcion muestra un historial de reservas realizadas por el usuario, incluyendo reservas anteriores y pagos.(antiguas y actuales)"
 def historialReservas(reservas, lista_usuarios):
+    os.system('clear')
     usuario = int(input("Ingrese su número de usuario: \n"))
     bandera = True
 
@@ -267,11 +240,12 @@ def historialReservas(reservas, lista_usuarios):
     for i, reserva in enumerate(reservas_usuario):
         vuelo = reserva[1]
         print('-' * 80)
-        print(f"{i+1}. ! Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}")
+        print(f"{i+1}. | Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}")
     print('-' * 80) 
 
 #--> Rama modificacion y acople a codigo
 def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
+    os.system('clear')
     usuario = int(input("Ingrese su número de usuario: \n"))
     bandera = True
     ancho_pais = 20
@@ -310,11 +284,12 @@ def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
 
     if pagarReserva():
         reservas.append((usuario, vuelo_seleccionado))
-        print(f"\nReserva realizada con éxito. Vuelo reservado: Origen: {vuelo_seleccionado[1]}, {vuelo_seleccionado[0]} -> Destino: {vuelo_seleccionado[3]}, {vuelo_seleccionado[2]}\n")
+        print(f"\nReserva realizada con éxito. Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}\n")
         consultarStatusDeVuelo(vuelo_seleccionado)
     else:
         print("La reserva no se pudo completar debido a un error en el pago.")
         
+
 # Programa Principal
 
 # Paises unicamente de america del norte y sur
@@ -375,6 +350,7 @@ while salir:
                 # Historial de reservas
                 historialReservas(reservas, lista_usuarios)  # Aquí se llama a historialReservas
             else:
+                os.system('clear')
                 print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
                 print("\n\t\t***** ADIOS *****\n")
                 salir2 = False
