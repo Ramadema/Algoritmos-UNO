@@ -2,6 +2,7 @@
 
 import random 
 import os
+import re
 
 
 # Funciones 
@@ -79,35 +80,34 @@ def imprimirMatrizOrdenada(matriz):
 
 #Usuario
 def registrarUsuario(lista_usuarios): 
-#--> juan "Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas."
+# --> juan "Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas."
     os.system('clear')
-    nuevo_usuario=int(input("Ingrese un pin de 4 digitos que lo identificará como nuevo usuario: \n"))
-    bandera=True
+    nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
+    bandera = True
 
     while bandera:
-        if nuevo_usuario<999 or nuevo_usuario>10000 or nuevo_usuario in lista_usuarios:
-            print("Número de usuario invalido o ya existente\n")
-            nuevo_usuario=int(input("Ingrese un pin de 4 digitos que lo identificará como nuevo usuario: \n"))
+        if nuevo_usuario < 1000 or nuevo_usuario > 9999 or nuevo_usuario in lista_usuarios:
+            print("Número de usuario inválido o ya existente\n")
+            nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
         else:
             lista_usuarios.append(nuevo_usuario)
             print("Usuario registrado\n")
-            bandera=False
+            bandera = False
 
-    nueva_contraseña=str(input("Ingrese una contraseña de 8 digitos: \n"))
-
-    caracteres= True
-
-    while caracteres:
-        if len(nueva_contraseña)<8:
-            print("Contraseña inválida\n")
-            nueva_contraseña=str(input("Ingrese una contraseña de 8 digitos: \n"))
-        else:
+    while True:
+        nueva_contraseña = input("Ingrese una contraseña de al menos 8 caracteres con al menos un número, una letra y una letra mayúscula: \n")
+        
+        # Expresión regular para validar la contraseña
+        patron = re.compile(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$')
+        
+        if patron.match(nueva_contraseña):
             print("Nueva contraseña registrada\n")
-            caracteres=False
+            break
+        else:
+            print("Contraseña inválida. Debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número.\n")
 
-    os.system('cls' if os.name=='nt' else 'clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
     return lista_usuarios
-
 
 def iniciarSesion(lista_usuarios): 
 #--> juan "Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones."
@@ -123,7 +123,7 @@ def iniciarSesion(lista_usuarios):
              print("\nLogin exitoso")
 
              bandera=False 
-     
+
 
 def cerrarSesion(lista_usuarios): 
 #--> juan "Funcion que cierra la sesión del usuario actual, asegurando que la información personal y las reservas estén protegidas."
