@@ -105,7 +105,7 @@ def registrarUsuario(lista_usuarios):
             print("Nueva contraseña registrada\n")
             caracteres=False
 
-    os.system('clear')
+    os.system('cls' if os.name=='nt' else 'clear')
     return lista_usuarios
 
 
@@ -187,19 +187,21 @@ def consultarStatusDeVuelo(vuelo_seleccionado):
 
 #--> Rama "Esta funcion gestiona el proceso de pago para completar una reserva, incluyendo la elección del método de pago y la confirmación de la transacción"
 def pagarReserva():
+    # Creo diccionario que contenga las opciones de pago
+    metodos_pago = {
+        1: "Tarjeta de crédito",
+        2: "Tarjeta de débito",
+        3: "QR Mercado Pago"
+    }
     print("\nProceso de pago iniciado.")
     print("Opciones de método de pago:")
-    print("1. Tarjeta de crédito")
-    print("2. Tarjeta de débito")
-    print("3. QR Mercado Pago")
+    for clave, valor in metodos_pago.items():
+        print(f"{clave}. {valor}")
+    
     metodo_pago = int(input("Selecciona un método de pago: "))
 
-    if metodo_pago == 1:
-        print("Método de pago seleccionado: Tarjeta de crédito.")
-    elif metodo_pago == 2:
-        print("Método de pago seleccionado: Tarjeta de débito.")
-    elif metodo_pago == 3:
-        print("Método de pago seleccionado: Qr Mercado Pago.")
+    if metodo_pago in metodos_pago:
+        print(f"Método de pago seleccionado: {metodos_pago[metodo_pago]}.")
     else:
         print("Método de pago inválido. Intenta de nuevo.")
         #Vuelvo a la funcion cuando el usuario ponga cualquier otro metodo de pago no existente
@@ -218,17 +220,17 @@ def pagarReserva():
 
 #--> Rama "Esta funcion muestra un historial de reservas realizadas por el usuario, incluyendo reservas anteriores y pagos.(antiguas y actuales)"
 def historialReservas(reservas, lista_usuarios):
-    os.system('clear')
+    os.system('cls' if os.name=='nt' else 'clear')
     usuario = int(input("Ingrese su número de usuario: \n"))
     bandera = True
 
     # Opcional pedir usuario "consultarlo"
-    while bandera:
-        if usuario not in lista_usuarios:
-            print("Usuario no existente\n")
-            usuario = int(input("Ingrese su número de usuario: \n"))
-        else:
-            bandera = False
+    # while bandera:
+    #     if usuario not in lista_usuarios:
+    #         print("Usuario no existente\n")
+    #         usuario = int(input("Ingrese su número de usuario: \n"))
+    #     else:
+    #         bandera = False
 
     print("\nHistorial de reservas del usuario:")
     reservas_usuario = [reserva for reserva in reservas if reserva[0] == usuario]
@@ -245,7 +247,8 @@ def historialReservas(reservas, lista_usuarios):
 
 #--> Rama modificacion y acople a codigo
 def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
-    os.system('clear')
+    os.system('cls' if os.name=='nt' else 'clear')
+    # Opcional pedir usuario "consultarlo"
     usuario = int(input("Ingrese su número de usuario: \n"))
     bandera = True
     ancho_pais = 20
@@ -283,11 +286,13 @@ def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
             bandera = False
 
     if pagarReserva():
+        os.system('cls' if os.name=='nt' else 'clear')
         reservas.append((usuario, vuelo_seleccionado))
-        print(f"\nReserva realizada con éxito. Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}\n")
+        print("\nReserva realizada con ÉXITO\n")
+        print(f"Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}\n")
         consultarStatusDeVuelo(vuelo_seleccionado)
     else:
-        print("La reserva no se pudo completar debido a un error en el pago.")
+        print("ERROR. La reserva no se pudo completar debido a un problema con el pago.")
         
 
 # Programa Principal
@@ -334,6 +339,8 @@ while salir:
     elif seleccion == 2:
         os.system('clear')
         iniciarSesion(lista_usuarios)
+        # Prueba - Chequeo de usuarios activos 
+        print(lista_usuarios)
 
         salir2 = True
 
@@ -358,6 +365,7 @@ while salir:
         print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
         print("\n\t\t***** ADIOS *****\n")
         salir = False
+
 
 # APUNTE: Logica para funcion de busqueda de vuelo, se podria crear una matriz con minimo y un maximo de registros (salida llegada),
 # para luego filtrarla segun el pais de salida y el de llegada que desee el usuario, tamb pienso agregar horarios (con o sin biblio time)
