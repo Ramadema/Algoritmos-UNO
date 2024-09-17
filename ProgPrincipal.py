@@ -95,7 +95,7 @@ def registrarUsuario(lista_usuarios):
             bandera = False
 
     while True:
-        nueva_contraseña = input("Ingrese una contraseña de al menos 8 caracteres con al menos un número, una letra y una letra mayúscula: \n")
+        nueva_contraseña = input("Ingrese una contraseña de al menos 8 caracteres con al menos un número, una letra minúscula y una letra mayúscula: \n")
         
         # Expresión regular para validar la contraseña
         patron = re.compile(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$')
@@ -104,7 +104,7 @@ def registrarUsuario(lista_usuarios):
             print("Nueva contraseña registrada\n")
             break
         else:
-            print("Contraseña inválida. Debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número.\n")
+            print("Contraseña inválida. Debe tener al menos 8 caracteres, un número, una letra minúscula y una letra mayúscula.\n")
 
     os.system('cls' if os.name == 'nt' else 'clear')
     return lista_usuarios
