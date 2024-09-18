@@ -32,11 +32,12 @@ def menuVuelos():
         print("1. Busqueda de Vuelos")
         print("2. Reserva de vuelos")
         print("3. Historial de Vuelos")
-        print("4. Cerrar Sesión")
+        print("4. Cancelar reservas")
+        print("5. Cerrar Sesión")
     
         opcion = int(input("\nSeleccionar una opción: "))
         
-        if opcion >= 1 and opcion < 5:
+        if opcion >= 1 and opcion < 6:
            ok=False
            return opcion
 
@@ -142,6 +143,7 @@ def cerrarSesion(lista_usuarios):
 
 def cancelarReserva(lista_usuarios, reservas):
     """Funcion Esta funcion permite al usuario cancelar una reserva existente, gestionando el reembolso o cambios según las políticas del sistema. Recibe lista de usuarios y lista de reservas existentes"""
+    os.system('cls' if os.name == 'nt' else 'clear')
     usuario = int(input("Ingrese su número de usuario: \n"))
     bandera = True
 
@@ -363,6 +365,9 @@ while salir:
             elif seleccion == 3:
                 # Historial de reservas
                 historialReservas(reservas, lista_usuarios)  # Aquí se llama a historialReservas
+            elif seleccion == 4:
+                # Cancelar reservas
+                cancelarReserva(lista_usuarios, reservas)
             else:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
