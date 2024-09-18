@@ -6,9 +6,8 @@ import re
 
 
 # Funciones 
-
-#--> Rama "Funcion que permite seleccionar una opcion de accion."
 def menuInicial():
+    """Funcion que permite seleccionar una opcion de accion de sesion de usuario."""
     ok=True
     while ok:
         print("\nMenu principal de selección")
@@ -25,8 +24,8 @@ def menuInicial():
     return -1
 
 
-#--> Rama "Funcion que permite seleccionar una opcion de accion relacionada a los vuelos segun el usuario ingresado."
 def menuVuelos():
+    """Funcion que permite seleccionar una opcion de accion relacionada a los vuelos segun el usuario ingresado."""
     ok=True
     while ok:
         print("\nMenu principal de selección Vuelos")
@@ -44,8 +43,8 @@ def menuVuelos():
     return -1
 
 
-#--> Rama "La funcion permite generar una cantidad establecida de vuelos entre paises de sudamerica y america del norte o combinacion de ambas.
 def generarVuelos(matriz):
+    """La funcion permite generar una cantidad establecida de vuelos entre paises de sudamerica y america del norte o combinacion de ambas. Recibe la matriz de vuelos"""
     vuelos = []
     
     for i in range(len(matriz)):
@@ -61,8 +60,9 @@ def generarVuelos(matriz):
     # print(vuelos)
     return vuelos
 
-#--> Rama "Funcion que permite la prueba rapida de matriz y datos"
+
 def imprimirMatrizOrdenada(matriz):
+    """Funcion que permite la prueba rapida de matriz y datos"""
     ancho_pais = 20
     ancho_capital = 20
     
@@ -80,8 +80,8 @@ def imprimirMatrizOrdenada(matriz):
 
 #Usuario
 def registrarUsuario(lista_usuarios): 
-# --> juan "Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas."
-    os.system('clear')
+    """Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas. Recibe la lista de usuarios existente"""
+    os.system('cls' if os.name == 'nt' else 'clear')
     nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
     bandera = True
 
@@ -110,13 +110,13 @@ def registrarUsuario(lista_usuarios):
     return lista_usuarios
 
 def iniciarSesion(lista_usuarios): 
-#--> juan "Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones."
+    """Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones. Recibe lista de usuarios existentes"""
     iniciarSesion=int(input("Ingrese su número de usuario: \n"))
     bandera=True
 
     while bandera:
         if iniciarSesion not in lista_usuarios:
-            os.system('clear')
+            os.system('cls' if os.name == 'nt' else 'clear')
             print("Usuario no existente\n")
             iniciarSesion=int(input("Ingrese su número de usuario: \n"))
         else:  
@@ -126,7 +126,7 @@ def iniciarSesion(lista_usuarios):
 
 
 def cerrarSesion(lista_usuarios): 
-#--> juan "Funcion que cierra la sesión del usuario actual, asegurando que la información personal y las reservas estén protegidas."
+    """Funcion que cierra la sesión del usuario actual, asegurando que la información personal y las reservas estén protegidas. Recibe lista de usuarios existente"""
     cerrarUsuario=int(input("Ingrese su pin para cerrar la sesión. Los cambios serán guardados automaticamente. \n"))
     bandera=True
 
@@ -139,8 +139,9 @@ def cerrarSesion(lista_usuarios):
              bandera=False 
 
 
-# Cancelar reserva
+
 def cancelarReserva(lista_usuarios, reservas):
+    """Funcion Esta funcion permite al usuario cancelar una reserva existente, gestionando el reembolso o cambios según las políticas del sistema. Recibe lista de usuarios y lista de reservas existentes"""
     usuario = int(input("Ingrese su número de usuario: \n"))
     bandera = True
 
@@ -177,16 +178,18 @@ def cancelarReserva(lista_usuarios, reservas):
     print(f"\nReserva cancelada con éxito. Vuelo cancelado: Origen: {reserva_seleccionada[1][1]}, {reserva_seleccionada[1][0]} -> Destino: {reserva_seleccionada[1][3]}, {reserva_seleccionada[1][2]}\n")
 
 
-# Consultar status de vuelo
+
 def consultarStatusDeVuelo(vuelo_seleccionado):
+    """Funcion que proporciona información actualizada sobre el estado de un vuelo, como retrasos o cambios en la programación. Recibe el vuelo que quedo seleccionado en el sector de pagos"""
     estados = ["A tiempo", "Retrasado", "Cancelado", "Reprogramado"]
     estado_vuelo = random.choice(estados)
     
     print(f"Estado del vuelo seleccionado: Origen: {vuelo_seleccionado[1]}, {vuelo_seleccionado[0]} -> Destino: {vuelo_seleccionado[3]}, {vuelo_seleccionado[2]}")
     print(f"Estado actual del vuelo: {estado_vuelo}\n")
 
-#--> Rama "Esta funcion gestiona el proceso de pago para completar una reserva, incluyendo la elección del método de pago y la confirmación de la transacción"
+
 def pagarReserva():
+    """Esta funcion gestiona el proceso de pago para completar una reserva, incluyendo la elección del método de pago y la confirmación de la transacción."""
     # Creo diccionario que contenga las opciones de pago
     metodos_pago = {
         1: "Tarjeta de crédito",
@@ -218,8 +221,9 @@ def pagarReserva():
         print("\nError en la transacción. Vuelve a intentarlo.")
         return False
 
-#--> Rama "Esta funcion muestra un historial de reservas realizadas por el usuario, incluyendo reservas anteriores y pagos.(antiguas y actuales)"
+
 def historialReservas(reservas, lista_usuarios):
+    """Esta funcion muestra un historial de reservas realizadas por el usuario, incluyendo reservas anteriores y pagos.(antiguas y actuales) Recibe reservas actuales"""
     os.system('cls' if os.name=='nt' else 'clear')
     usuario = int(input("Ingrese su número de usuario: \n"))
     bandera = True
@@ -245,8 +249,9 @@ def historialReservas(reservas, lista_usuarios):
         print(f"{i+1}. | Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}")
     print('-' * 80) 
 
-#--> Rama modificacion y acople a codigo
+
 def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
+    """Esta funcion Facilita la reserva de un vuelo seleccionado, solicitando la información del usuario y confirmando la reserva. Recibe la matriz de Vuelos, la lista de usuarios existentes y las reservas actuales"""
     os.system('cls' if os.name=='nt' else 'clear')
     # Opcional pedir usuario "consultarlo"
     usuario = int(input("Ingrese su número de usuario: \n"))
@@ -263,6 +268,7 @@ def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
             print("Usuario válido\n")
             bandera = False
 
+    # Muestreo de prueba
     # print("\nLista de vuelos disponibles:\n")
     # for i, vuelo in enumerate(vuelos):
     #     print(f"{i+1}. Origen: {vuelo[1]}, {vuelo[0]} -> Destino: {vuelo[3]}, {vuelo[2]}")
@@ -290,6 +296,7 @@ def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
         reservas.append((usuario, vuelo_seleccionado))
         print("\nReserva realizada con ÉXITO\n")
         print(f"Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}\n")
+        print(f"PRUEBA matriz muetro vuelo seleccionado {vuelo_seleccionado}")
         consultarStatusDeVuelo(vuelo_seleccionado)
     else:
         print("ERROR. La reserva no se pudo completar debido a un problema con el pago.")
@@ -337,7 +344,7 @@ while salir:
         lista_usuarios = registrarUsuario(lista_usuarios)
 
     elif seleccion == 2:
-        os.system('clear')
+        os.system('cls' if os.name == 'nt' else 'clear')
         iniciarSesion(lista_usuarios)
         # Prueba - Chequeo de usuarios activos 
         print(lista_usuarios)
@@ -357,7 +364,7 @@ while salir:
                 # Historial de reservas
                 historialReservas(reservas, lista_usuarios)  # Aquí se llama a historialReservas
             else:
-                os.system('clear')
+                os.system('cls' if os.name == 'nt' else 'clear')
                 print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
                 print("\n\t\t***** ADIOS *****\n")
                 salir2 = False
