@@ -186,7 +186,7 @@ def consultarStatusDeVuelo(vuelo_seleccionado):
     estados = ["A tiempo", "Retrasado", "Cancelado", "Reprogramado"]
     estado_vuelo = random.choice(estados)
     
-    print(f"Estado del vuelo seleccionado: Origen: {vuelo_seleccionado[1]}, {vuelo_seleccionado[0]} -> Destino: {vuelo_seleccionado[3]}, {vuelo_seleccionado[2]}")
+    print(f"Estado del vuelo seleccionado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}")
     print(f"Estado actual del vuelo: {estado_vuelo}\n")
 
 
@@ -298,7 +298,7 @@ def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
         reservas.append((usuario, vuelo_seleccionado))
         print("\nReserva realizada con ÉXITO\n")
         print(f"Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}\n")
-        print(f"PRUEBA matriz muetro vuelo seleccionado {vuelo_seleccionado}")
+        print(f"PRUEBA matriz muetro vuelo seleccionado {vuelo_seleccionado}/n")
         consultarStatusDeVuelo(vuelo_seleccionado)
     else:
         print("ERROR. La reserva no se pudo completar debido a un problema con el pago.")
@@ -364,7 +364,7 @@ while salir:
                 hacerReservaDeVuelos(vuelos, lista_usuarios, reservas)
             elif seleccion == 3:
                 # Historial de reservas
-                historialReservas(reservas, lista_usuarios)  # Aquí se llama a historialReservas
+                historialReservas(reservas, lista_usuarios)  
             elif seleccion == 4:
                 # Cancelar reservas
                 cancelarReserva(lista_usuarios, reservas)
