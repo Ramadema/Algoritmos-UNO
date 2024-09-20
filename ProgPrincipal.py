@@ -72,11 +72,12 @@ def imprimirMatrizOrdenada(matriz):
     print("\t    Ubicacion de Origen\t\t\t        Ubicacion de Llegada")
     print('-'*87)
     
+    imprimir_vuelo = lambda vuelo: print(f"{vuelo[0]:<{ancho_pais}},{vuelo[1]:<{ancho_capital}}-->   {vuelo[2]:<{ancho_pais}},{vuelo[3]:<{ancho_capital}}")
 
     for vuelo in matriz:
-        origen_pais, origen_capital, destino_pais, destino_capital = vuelo
-        print(f"{origen_pais:<{ancho_pais}},{origen_capital:<{ancho_capital}}-->   {destino_pais:<{ancho_pais}},{destino_capital:<{ancho_capital}}")
-        print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 7))  # Línea divisoria
+        # Llamada a la función lambda
+        imprimir_vuelo(vuelo)  
+        print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 7))
 
 
 #Usuario
@@ -140,19 +141,17 @@ def cerrarSesion(lista_usuarios):
              bandera=False 
 
 
-
 def cancelarReserva(lista_usuarios, reservas):
-    """Funcion Esta funcion permite al usuario cancelar una reserva existente, gestionando el reembolso o cambios según las políticas del sistema. Recibe lista de usuarios y lista de reservas existentes"""
+    """Función que permite al usuario cancelar una reserva existente, gestionando el reembolso o cambios según las políticas del sistema. Recibe lista de usuarios y lista de reservas existentes."""
     os.system('cls' if os.name == 'nt' else 'clear')
-    usuario = int(input("Ingrese su número de usuario: \n"))
-    bandera = True
+    
+    # Función lambda para validar la existencia del usuario
+    validar_usuario = lambda usuario: usuario in lista_usuarios
 
-    while bandera:
-        if usuario not in lista_usuarios:
-            print("Usuario no existente\n")
-            usuario = int(input("Ingrese su número de usuario: \n"))
-        else:
-            bandera = False
+    usuario = int(input("Ingrese su número de usuario: \n"))
+    while not validar_usuario(usuario):
+        print("Usuario no existente\n")
+        usuario = int(input("Ingrese su número de usuario: \n"))
 
     print("\nReservas del usuario:")
     reservas_usuario = [reserva for reserva in reservas if reserva[0] == usuario]
@@ -163,24 +162,23 @@ def cancelarReserva(lista_usuarios, reservas):
 
     for i, reserva in enumerate(reservas_usuario):
         vuelo = reserva[1]
-        print(f"{i+1}. Origen: {vuelo[1]}, {vuelo[0]} -> Destino: {vuelo[3]}, {vuelo[2]}")
+        print(f"{i + 1}. Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}")
+
+    # Función lambda para validar la selección de reserva
+    validar_seleccion = lambda seleccion: 1 <= seleccion <= len(reservas_usuario)
 
     seleccion = int(input("\nSeleccione el número de la reserva que desea cancelar: \n"))
-    bandera = True
+    while not validar_seleccion(seleccion):
+        print("Selección de reserva inválida\n")
+        seleccion = int(input("Seleccione el número de la reserva que desea cancelar: \n"))
 
-    while bandera:
-        if seleccion < 1 or seleccion > len(reservas_usuario):
-            print("Selección de reserva inválida\n")
-            seleccion = int(input("Seleccione el número de la reserva que desea cancelar: \n"))
-        else:
-            reserva_seleccionada = reservas_usuario[seleccion-1]
-            reservas.remove(reserva_seleccionada)
-            bandera = False
+    reserva_seleccionada = reservas_usuario[seleccion - 1]
+    reservas.remove(reserva_seleccionada)
 
     print(f"\nReserva cancelada con éxito. Vuelo cancelado: Origen: {reserva_seleccionada[1][1]}, {reserva_seleccionada[1][0]} -> Destino: {reserva_seleccionada[1][3]}, {reserva_seleccionada[1][2]}\n")
 
 
-
+# Consultas Vuelos
 def consultarStatusDeVuelo(vuelo_seleccionado):
     """Funcion que proporciona información actualizada sobre el estado de un vuelo, como retrasos o cambios en la programación. Recibe el vuelo que quedo seleccionado en el sector de pagos"""
     estados = ["A tiempo", "Retrasado", "Cancelado", "Reprogramado"]
@@ -231,12 +229,12 @@ def historialReservas(reservas, lista_usuarios):
     bandera = True
 
     # Opcional pedir usuario "consultarlo"
-    # while bandera:
-    #     if usuario not in lista_usuarios:
-    #         print("Usuario no existente\n")
-    #         usuario = int(input("Ingrese su número de usuario: \n"))
-    #     else:
-    #         bandera = False
+    while bandera:
+        if usuario not in lista_usuarios:
+            print("Usuario no existente\n")
+            usuario = int(input("Ingrese su número de usuario: \n"))
+        else:
+            bandera = False
 
     print("\nHistorial de reservas del usuario:")
     reservas_usuario = [reserva for reserva in reservas if reserva[0] == usuario]
@@ -377,8 +375,3 @@ while salir:
         print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
         print("\n\t\t***** ADIOS *****\n")
         salir = False
-
-
-# APUNTE: Logica para funcion de busqueda de vuelo, se podria crear una matriz con minimo y un maximo de registros (salida llegada),
-# para luego filtrarla segun el pais de salida y el de llegada que desee el usuario, tamb pienso agregar horarios (con o sin biblio time)
-# con esta tengo ligada las funciones hacer reserva, cancelar reserva e historial reserva
