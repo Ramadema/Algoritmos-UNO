@@ -111,8 +111,9 @@ def registrarUsuario(lista_usuarios):
     os.system('cls' if os.name == 'nt' else 'clear')
     return lista_usuarios
 
-def iniciarSesion(lista_usuarios): 
+def iniciarSesion(lista_usuarios,Vexit): 
     """Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones. Recibe lista de usuarios existentes"""
+    usuario_actual=0
     iniciarSesion=int(input("Ingrese su número de usuario: \n"))
     bandera=True
 
@@ -120,11 +121,22 @@ def iniciarSesion(lista_usuarios):
         if iniciarSesion not in lista_usuarios:
             os.system('cls' if os.name == 'nt' else 'clear')
             print("Usuario no existente\n")
+            Vexit+=1
+            
             iniciarSesion=int(input("Ingrese su número de usuario: \n"))
+            if Vexit == 3:
+                Vexit=1
+                print(Vexit)
+                bandera=False
+
         else:  
              print("\nLogin exitoso")
+             Vexit=0
+             usuario_actual=iniciarSesion
 
              bandera=False 
+    
+    return Vexit, usuario_actual
 
 
 def cerrarSesion(lista_usuarios): 
@@ -141,20 +153,20 @@ def cerrarSesion(lista_usuarios):
              bandera=False 
 
 
-def cancelarReserva(lista_usuarios, reservas):
+def cancelarReserva(lista_usuarios, reservas, usuario_actual):
     """Función que permite al usuario cancelar una reserva existente, gestionando el reembolso o cambios según las políticas del sistema. Recibe lista de usuarios y lista de reservas existentes."""
     os.system('cls' if os.name == 'nt' else 'clear')
     
     # Función lambda para validar la existencia del usuario
-    validar_usuario = lambda usuario: usuario in lista_usuarios
+    # validar_usuario = lambda usuario: usuario in lista_usuarios
 
-    usuario = int(input("Ingrese su número de usuario: \n"))
-    while not validar_usuario(usuario):
-        print("Usuario no existente\n")
-        usuario = int(input("Ingrese su número de usuario: \n"))
+    # usuario = int(input("Ingrese su número de usuario: \n"))
+    # while not validar_usuario(usuario):
+    #     print("Usuario no existente\n")
+    #     usuario = int(input("Ingrese su número de usuario: \n"))
 
     print("\nReservas del usuario:")
-    reservas_usuario = [reserva for reserva in reservas if reserva[0] == usuario]
+    reservas_usuario = [reserva for reserva in reservas if reserva[0] == usuario_actual]
 
     if not reservas_usuario:
         print("No tiene reservas para cancelar.\n")
@@ -222,22 +234,22 @@ def pagarReserva():
         return False
 
 
-def historialReservas(reservas, lista_usuarios):
+def historialReservas(reservas, lista_usuarios, usuario_actual):
     """Esta funcion muestra un historial de reservas realizadas por el usuario, incluyendo reservas anteriores y pagos.(antiguas y actuales) Recibe reservas actuales"""
     os.system('cls' if os.name=='nt' else 'clear')
-    usuario = int(input("Ingrese su número de usuario: \n"))
+    # usuario = int(input("Ingrese su número de usuario: \n"))
     bandera = True
 
     # Opcional pedir usuario "consultarlo"
-    while bandera:
-        if usuario not in lista_usuarios:
-            print("Usuario no existente\n")
-            usuario = int(input("Ingrese su número de usuario: \n"))
-        else:
-            bandera = False
+    # while bandera:
+    #     if usuario not in lista_usuarios:
+    #         print("Usuario no existente\n")
+    #         usuario = int(input("Ingrese su número de usuario: \n"))
+    #     else:
+    #         bandera = False
 
     print("\nHistorial de reservas del usuario:")
-    reservas_usuario = [reserva for reserva in reservas if reserva[0] == usuario]
+    reservas_usuario = [reserva for reserva in reservas if reserva[0] == usuario_actual]
 
     if not reservas_usuario:
         print("No tiene reservas registradas.\n")
@@ -250,23 +262,23 @@ def historialReservas(reservas, lista_usuarios):
     print('-' * 80) 
 
 
-def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
+def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas, usuario_actual):
     """Esta funcion Facilita la reserva de un vuelo seleccionado, solicitando la información del usuario y confirmando la reserva. Recibe la matriz de Vuelos, la lista de usuarios existentes y las reservas actuales"""
     os.system('cls' if os.name=='nt' else 'clear')
     # Opcional pedir usuario "consultarlo"
-    usuario = int(input("Ingrese su número de usuario: \n"))
+    # usuario = int(input("Ingrese su número de usuario: \n"))
     bandera = True
     ancho_pais = 20
     ancho_capital = 20
     
     # Opcional pedir usuario "consultarlo"
-    while bandera:
-        if usuario not in lista_usuarios:
-            print("Usuario no existente\n")
-            usuario = int(input("Ingrese su número de usuario: \n"))
-        else:
-            print("Usuario válido\n")
-            bandera = False
+    # while bandera:
+    #     if usuario not in lista_usuarios:
+    #         print("Usuario no existente\n")
+    #         usuario = int(input("Ingrese su número de usuario: \n"))
+    #     else:
+    #         print("Usuario válido\n")
+    #         bandera = False
 
     # Muestreo de prueba
     # print("\nLista de vuelos disponibles:\n")
@@ -293,11 +305,11 @@ def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
 
     if pagarReserva():
         os.system('cls' if os.name=='nt' else 'clear')
-        reservas.append((usuario, vuelo_seleccionado))
+        reservas.append((usuario_actual, vuelo_seleccionado))
         print("\nReserva realizada con ÉXITO\n")
         print(f"Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}\n")
-        print(f"PRUEBA matriz muetro vuelo seleccionado {vuelo_seleccionado}/n")
-        consultarStatusDeVuelo(vuelo_seleccionado)
+        #print(f"PRUEBA matriz muetro vuelo seleccionado {vuelo_seleccionado}/n")
+        #consultarStatusDeVuelo(vuelo_seleccionado) --> PROXIMO ENTREGABLE: funcion consultar status 
     else:
         print("ERROR. La reserva no se pudo completar debido a un problema con el pago.")
         
@@ -344,28 +356,35 @@ while salir:
         lista_usuarios = registrarUsuario(lista_usuarios)
 
     elif seleccion == 2:
+        Vexit=0
         os.system('cls' if os.name == 'nt' else 'clear')
-        iniciarSesion(lista_usuarios)
+        Vexit, usuario_actual = iniciarSesion(lista_usuarios,Vexit)
         # Prueba - Chequeo de usuarios activos 
-        print(lista_usuarios)
+        print("Prueba Lista Usuarios existentes: ",lista_usuarios)
+
 
         salir2 = True
 
         while salir2:
-            seleccion = menuVuelos()
+            
+            if Vexit==1:
+                Vexit=0
+                seleccion=5
+            else:
+                seleccion = menuVuelos()
 
             if seleccion == 1:
                 # Buscar vuelos               
                 imprimirMatrizOrdenada(vuelos)
             elif seleccion == 2:
                 # Hacer reserva y pagar
-                hacerReservaDeVuelos(vuelos, lista_usuarios, reservas)
+                hacerReservaDeVuelos(vuelos, lista_usuarios, reservas, usuario_actual)
             elif seleccion == 3:
                 # Historial de reservas
-                historialReservas(reservas, lista_usuarios)  
+                historialReservas(reservas, lista_usuarios, usuario_actual)  
             elif seleccion == 4:
                 # Cancelar reservas
-                cancelarReserva(lista_usuarios, reservas)
+                cancelarReserva(lista_usuarios, reservas, usuario_actual)
             else:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
