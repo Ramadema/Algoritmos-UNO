@@ -298,7 +298,7 @@ def hacerReservaDeVuelos(vuelos, lista_usuarios, reservas):
         reservas.append((usuario, vuelo_seleccionado))
         print("\nReserva realizada con ÉXITO\n")
         print(f"Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}\n")
-        print(f"PRUEBA matriz muetro vuelo seleccionado {vuelo_seleccionado}/n")
+        #print(f"PRUEBA matriz muetro vuelo seleccionado {vuelo_seleccionado}/n")
         #consultarStatusDeVuelo(vuelo_seleccionado) --> PROXIMO ENTREGABLE: funcion consultar status 
     else:
         print("ERROR. La reserva no se pudo completar debido a un problema con el pago.")
