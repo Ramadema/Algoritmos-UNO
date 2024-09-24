@@ -360,7 +360,7 @@ while salir:
         os.system('cls' if os.name == 'nt' else 'clear')
         Vexit, usuario_actual = iniciarSesion(lista_usuarios,Vexit)
         # Prueba - Chequeo de usuarios activos 
-        print("Prueba Lista Usuarios existentes: ",lista_usuarios)
+        #print("Prueba Lista Usuarios existentes: ",lista_usuarios)
 
 
         salir2 = True
