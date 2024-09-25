@@ -137,7 +137,7 @@ def iniciarSesion(lista_usuarios, diccionario_usuarios, Vexit):
                 print("\nLogin exitoso")
                 Vexit = 0
                 usuario_actual = iniciarSesion
-                bandera = False``
+                bandera = False
             else:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("Contraseña incorrecta\n")
