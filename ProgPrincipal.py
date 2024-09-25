@@ -105,7 +105,8 @@ def registrarUsuario(lista_usuarios, diccionario_usuarios):
             print("Nueva contraseña registrada\n")
             break
         else:
-            print("Contraseña inválida. Debe tener al menos 8 caracteres, un número, una letra minúscula y una letra mayúscula.\n")
+            print("Contraseña inválida. Debe tener al menos:\n")
+            print(". 8 caracteres\n. 1 letra mayúscula\n. 1 letra minúscula\n. 1 número")
 
     diccionario_usuarios[nuevo_usuario] = nueva_contraseña
 
