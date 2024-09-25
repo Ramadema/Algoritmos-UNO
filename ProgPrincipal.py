@@ -376,6 +376,7 @@ while salir:
         Vexit, usuario_actual = iniciarSesion(lista_usuarios,diccionario_usuarios, Vexit)
 
         # Prueba - Chequeo de usuarios activos 
+        #print("Prueba Lista Usuarios existentes: ",lista_usuarios)
         print("Prueba Lista Usuarios existentes: ",lista_usuarios)
         print("Prueba Diccionario Usuarios existentes: ",diccionario_usuarios)
 
