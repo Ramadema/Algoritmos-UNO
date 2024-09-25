@@ -165,6 +165,35 @@ def cerrarSesion(lista_usuarios):
              print("Sesión cerrada.")
              bandera=False 
 
+def mostrar_filtro_vuelos():
+    pais_origen, pais_llegada = obtener_paises()
+
+    #Buscar vuelos
+    resultados = buscar_vuelos(vuelos, pais_origen, pais_llegada)
+
+    print(f"\nVuelos encontrados para ir desde {pais_origen} hasta {pais_llegada}")
+    if resultados:
+        for vuelo in resultados:
+            print(f"{vuelo[0]} - {vuelo[1]} --> {vuelo[2]} - {vuelo[3]}")
+    else:
+        print("No se encontraron vuelos que coincidan.")
+
+def buscar_vuelos(vuelos, pais_origen, pais_llegada):
+    # Filtrar la matriz según el país de origen y país de llegada
+    resultados = []
+    
+    for vuelo in vuelos:
+        if vuelo[0] == pais_origen and vuelo[2] == pais_llegada:
+            resultados.append(vuelo)
+    
+    return resultados
+
+
+def obtener_paises():
+    pais_origen = input("Ingrese el país de origen: ")
+    pais_llegada = input("Ingrese el país de llegada: ")
+    return pais_origen, pais_llegada
+
 
 def cancelarReserva(lista_usuarios, reservas, usuario_actual):
     """Función que permite al usuario cancelar una reserva existente, gestionando el reembolso o cambios según las políticas del sistema. Recibe lista de usuarios y lista de reservas existentes."""
@@ -395,6 +424,8 @@ while salir:
             if seleccion == 1:
                 # Buscar vuelos               
                 imprimirMatrizOrdenada(vuelos)
+                # Seleccionar segun pais de origen y llegada
+                mostrar_filtro_vuelos()
             elif seleccion == 2:
                 # Hacer reserva y pagar
                 hacerReservaDeVuelos(vuelos, lista_usuarios, reservas, usuario_actual)
@@ -413,3 +444,4 @@ while salir:
         print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
         print("\n\t\t***** ADIOS *****\n")
         salir = False
+
