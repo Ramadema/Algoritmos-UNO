@@ -165,7 +165,7 @@ def cerrarSesion(lista_usuarios):
              print("Sesión cerrada.")
              bandera=False 
 
-def quitar_tildes(texto):
+def sacar_tildes(texto):
     tildes = {
         'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
         'Á': 'A', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U',
@@ -192,11 +192,11 @@ def buscar_vuelos(vuelos, pais_origen, pais_llegada):
     # Filtrar la matriz según el país de origen y país de llegada
     resultados = []
     
-    pais_origen_sin_tildes = quitar_tildes(pais_origen)
-    pais_llegada_sin_tildes = quitar_tildes(pais_llegada)
+    pais_origen_sin_tildes = sacar_tildes(pais_origen)
+    pais_llegada_sin_tildes = sacar_tildes(pais_llegada)
 
     for vuelo in vuelos:
-        if quitar_tildes(vuelo[0]) == pais_origen_sin_tildes and quitar_tildes(vuelo[2]) == pais_llegada_sin_tildes:
+        if sacar_tildes(vuelo[0]) == pais_origen_sin_tildes and sacar_tildes(vuelo[2]) == pais_llegada_sin_tildes:
             resultados.append(vuelo)
     
     return resultados
@@ -210,15 +210,6 @@ def obtener_paises():
 def cancelarReserva(lista_usuarios, reservas, usuario_actual):
     """Función que permite al usuario cancelar una reserva existente, gestionando el reembolso o cambios según las políticas del sistema. Recibe lista de usuarios y lista de reservas existentes."""
     os.system('cls' if os.name == 'nt' else 'clear')
-    
-    # Validacion de existencia de usuario
-    # Función lambda para validar la existencia del usuario
-    # validar_usuario = lambda usuario: usuario in lista_usuarios
-
-    # usuario = int(input("Ingrese su número de usuario: \n"))
-    # while not validar_usuario(usuario):
-    #     print("Usuario no existente\n")
-    #     usuario = int(input("Ingrese su número de usuario: \n"))
 
     print("\nReservas del usuario:")
     reservas_usuario = [reserva for reserva in reservas if reserva[0] == usuario_actual]
@@ -324,21 +315,6 @@ def hacerReservaDeVuelos(vuelos,lista_usuarios, reservas, usuario_actual):
     bandera = True
     ancho_pais = 20
     ancho_capital = 20
-    
-    # Validacion de existencia de usuario
-    # usuario = int(input("Ingrese su número de usuario: \n"))
-    # while bandera:
-    #     if usuario not in lista_usuarios:
-    #         print("Usuario no existente\n")
-    #         usuario = int(input("Ingrese su número de usuario: \n"))
-    #     else:
-    #         print("Usuario válido\n")
-    #         bandera = False
-
-    # Muestreo de prueba
-    # print("\nLista de vuelos disponibles:\n")
-    # for i, vuelo in enumerate(vuelos):
-    #     print(f"{i+1}. Origen: {vuelo[1]}, {vuelo[0]} -> Destino: {vuelo[3]}, {vuelo[2]}")
     
     print("\nLista de vuelos disponibles:\n")
     print('-'*90)
