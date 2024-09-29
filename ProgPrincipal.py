@@ -165,10 +165,20 @@ def cerrarSesion(lista_usuarios):
              print("Sesión cerrada.")
              bandera=False 
 
+def quitar_tildes(texto):
+    tildes = {
+        'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
+        'Á': 'A', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U',
+        'ñ': 'n', 'Ñ': 'N'
+    }
+    for acento, sin_acento in tildes.items():
+        texto = texto.replace(acento, sin_acento)
+    return texto
+
 def mostrar_filtro_vuelos():
     pais_origen, pais_llegada = obtener_paises()
 
-    #Buscar vuelos
+    # Buscar vuelos
     resultados = buscar_vuelos(vuelos, pais_origen, pais_llegada)
 
     print(f"\nVuelos encontrados para ir desde {pais_origen} hasta {pais_llegada}")
@@ -182,16 +192,18 @@ def buscar_vuelos(vuelos, pais_origen, pais_llegada):
     # Filtrar la matriz según el país de origen y país de llegada
     resultados = []
     
+    pais_origen_sin_tildes = quitar_tildes(pais_origen)
+    pais_llegada_sin_tildes = quitar_tildes(pais_llegada)
+
     for vuelo in vuelos:
-        if vuelo[0] == pais_origen and vuelo[2] == pais_llegada:
+        if quitar_tildes(vuelo[0]) == pais_origen_sin_tildes and quitar_tildes(vuelo[2]) == pais_llegada_sin_tildes:
             resultados.append(vuelo)
     
     return resultados
 
-
 def obtener_paises():
-    pais_origen = input("Ingrese el país de origen: ")
-    pais_llegada = input("Ingrese el país de llegada: ")
+    pais_origen = input("Ingrese el país de origen: ").title()
+    pais_llegada = input("Ingrese el país de llegada: ").title()
     return pais_origen, pais_llegada
 
 
