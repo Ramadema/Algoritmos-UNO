@@ -207,7 +207,7 @@ def obtener_paises():
     return pais_origen, pais_llegada
 
 
-def cancelarReserva(lista_usuarios, reservas, usuario_actual):
+def cancelarReserva(reservas, usuario_actual):
     """Función que permite al usuario cancelar una reserva existente, gestionando el reembolso o cambios según las políticas del sistema. Recibe lista de usuarios y lista de reservas existentes."""
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -259,7 +259,7 @@ def pagarReserva():
     for clave, valor in metodos_pago.items():
         print(f"{clave}. {valor}")
     
-    metodo_pago = int(input("Selecciona un método de pago: "))
+    metodo_pago = int(input("\nSelecciona un método de pago: "))
 
     if metodo_pago in metodos_pago:
         print(f"Método de pago seleccionado: {metodos_pago[metodo_pago]}.")
@@ -280,7 +280,7 @@ def pagarReserva():
         return False
 
 
-def historialReservas(reservas, lista_usuarios, usuario_actual):
+def historialReservas(reservas, usuario_actual):
     """Esta funcion muestra un historial de reservas realizadas por el usuario, incluyendo reservas anteriores y pagos.(antiguas y actuales) Recibe reservas actuales"""
     os.system('cls' if os.name=='nt' else 'clear')
     bandera = True
@@ -308,7 +308,7 @@ def historialReservas(reservas, lista_usuarios, usuario_actual):
     print('-' * 80) 
 
 
-def hacerReservaDeVuelos(vuelos,lista_usuarios, reservas, usuario_actual):
+def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     """Esta funcion Facilita la reserva de un vuelo seleccionado, solicitando la información del usuario y confirmando la reserva. Recibe la matriz de Vuelos, la lista de usuarios existentes y las reservas actuales"""
     os.system('cls' if os.name=='nt' else 'clear')
 
@@ -416,13 +416,13 @@ while salir:
                 mostrar_filtro_vuelos()
             elif seleccion == 2:
                 # Hacer reserva y pagar
-                hacerReservaDeVuelos(vuelos, lista_usuarios, reservas, usuario_actual)
+                hacerReservaDeVuelos(vuelos, reservas, usuario_actual)
             elif seleccion == 3:
                 # Historial de reservas
-                historialReservas(reservas, lista_usuarios, usuario_actual)  
+                historialReservas(reservas, usuario_actual)  
             elif seleccion == 4:
                 # Cancelar reservas
-                cancelarReserva(lista_usuarios, reservas, usuario_actual)
+                cancelarReserva(reservas, usuario_actual)
             else:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
