@@ -88,18 +88,17 @@ def imprimirMatrizOrdenada(matriz):
 
 
 #Usuario
-def registrarUsuario(lista_usuarios, diccionario_usuarios): 
+def registrarUsuario(diccionario_usuarios): 
     """Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas. Recibe la lista de usuarios existente"""
     os.system('cls' if os.name == 'nt' else 'clear')
     nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
     bandera = True
 
     while bandera:
-        if nuevo_usuario < 1000 or nuevo_usuario > 9999 or nuevo_usuario in lista_usuarios:
+        if nuevo_usuario < 1000 or nuevo_usuario > 9999 or nuevo_usuario in diccionario_usuarios:
             print("Número de usuario inválido o ya existente\n")
             nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
         else:
-            lista_usuarios.append(nuevo_usuario)
             print("Usuario registrado\n")
             bandera = False
 
@@ -121,10 +120,7 @@ def registrarUsuario(lista_usuarios, diccionario_usuarios):
     print(diccionario_usuarios)
     # os.system('cls' if os.name == 'nt' else 'clear')
 
-    #chequear tema diccionario   sacar lista_usuarios  no tiene sentido retornar si carga directam al dicc global
-    return lista_usuarios
-
-def iniciarSesion(lista_usuarios, diccionario_usuarios, Vexit): 
+def iniciarSesion(diccionario_usuarios, Vexit): 
     """Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones."""
     usuario_actual = 0
     iniciarSesion = int(input("Ingrese su número de usuario: \n"))
@@ -162,13 +158,13 @@ def iniciarSesion(lista_usuarios, diccionario_usuarios, Vexit):
     return Vexit, usuario_actual
 
 
-def cerrarSesion(lista_usuarios): 
+def cerrarSesion(diccionario_usuarios): 
     """Funcion que cierra la sesión del usuario actual, asegurando que la información personal y las reservas estén protegidas. Recibe lista de usuarios existente"""
     cerrarUsuario=int(input("Ingrese su pin para cerrar la sesión. Los cambios serán guardados automaticamente. \n"))
     bandera=True
 
     while bandera:
-        if cerrarUsuario not in lista_usuarios:
+        if cerrarUsuario not in diccionario_usuarios:
             print("Usuario no existente\n")
             cerrarUsuario=int(input("Ingrese su número de usuario para cerrar la sesión: \n"))
         else:  
@@ -298,15 +294,6 @@ def historialReservas(reservas, usuario_actual):
     os.system('cls' if os.name=='nt' else 'clear')
     bandera = True
 
-    # Validacion de existencia de usuario
-    # usuario = int(input("Ingrese su número de usuario: \n"))
-    # while bandera:
-    #     if usuario not in lista_usuarios:
-    #         print("Usuario no existente\n")
-    #         usuario = int(input("Ingrese su número de usuario: \n"))
-    #     else:
-    #         bandera = False
-
     print("\nHistorial de reservas del usuario:")
     reservas_usuario = [reserva for reserva in reservas if reserva[0] == usuario_actual]
 
@@ -387,7 +374,6 @@ matrizPaisesCapitales = [
 
 
 # Menu de interaccion
-lista_usuarios = []
 reservas = []
 diccionario_usuarios = {0000:"admin"}
 
@@ -399,15 +385,13 @@ while salir:
     seleccion = menuInicial()
 
     if seleccion == 1:
-        lista_usuarios = registrarUsuario(lista_usuarios, diccionario_usuarios)
+        registrarUsuario(diccionario_usuarios)
 
     elif seleccion == 2:
         Vexit=0
         os.system('cls' if os.name == 'nt' else 'clear')
-        Vexit, usuario_actual = iniciarSesion(lista_usuarios,diccionario_usuarios, Vexit)
+        Vexit, usuario_actual = iniciarSesion(diccionario_usuarios, Vexit)
 
-        # Prueba - Chequeo de usuarios activos 
-        #print("Prueba Lista Usuarios existentes: ",lista_usuarios)
         print("Prueba Diccionario Usuarios existentes: ",diccionario_usuarios)
 
 
@@ -435,7 +419,9 @@ while salir:
             elif seleccion == 4:
                 # Cancelar reservas
                 cancelarReserva(reservas, usuario_actual)
-            else:
+            elif seleccion==5:
+                # Cerrar sesion
+                cerrarSesion(diccionario_usuarios)
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
                 print("\n\t\t***** ADIOS *****\n")
