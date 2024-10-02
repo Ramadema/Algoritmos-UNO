@@ -157,21 +157,6 @@ def iniciarSesion(diccionario_usuarios, Vexit):
 
     return Vexit, usuario_actual
 
-
-def cerrarSesion(diccionario_usuarios): 
-    """Funcion que cierra la sesión del usuario actual, asegurando que la información personal y las reservas estén protegidas. Recibe lista de usuarios existente"""
-    cerrarUsuario=int(input("Ingrese su pin para cerrar la sesión. Los cambios serán guardados automaticamente. \n"))
-    bandera=True
-
-    while bandera:
-        if cerrarUsuario not in diccionario_usuarios:
-            print("Usuario no existente\n")
-            cerrarUsuario=int(input("Ingrese su número de usuario para cerrar la sesión: \n"))
-        else:  
-             print("Sesión cerrada.")
-             bandera=False 
-
-
 def sacar_tildes(texto):
     """Funcion que se encarga de reemplazar la variable q entra por la palabra sin tilde"""
     tildes = {
@@ -392,6 +377,7 @@ while salir:
         os.system('cls' if os.name == 'nt' else 'clear')
         Vexit, usuario_actual = iniciarSesion(diccionario_usuarios, Vexit)
 
+        # Pruba de usuarios activos diccionarios
         print("Prueba Diccionario Usuarios existentes: ",diccionario_usuarios)
 
 
@@ -421,10 +407,8 @@ while salir:
                 cancelarReserva(reservas, usuario_actual)
             elif seleccion==5:
                 # Cerrar sesion
-                cerrarSesion(diccionario_usuarios)
                 os.system('cls' if os.name == 'nt' else 'clear')
-                print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
-                print("\n\t\t***** ADIOS *****\n")
+                print("Sesión cerrada.")
                 salir2 = False
     else:
         print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
