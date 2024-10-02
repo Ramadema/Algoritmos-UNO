@@ -52,7 +52,7 @@ def generarVuelos(matriz):
         random.shuffle(matriz)
         for j in range(i + 1, len(matriz)):
             # Se limita a 10 para realizar prueba
-            if len(vuelos)<10:
+            if len(vuelos)<50:
                 random.shuffle(matriz)
                 origen_pais, origen_capital = matriz[i]
                 destino_pais, destino_capital = matriz[j]
@@ -112,6 +112,8 @@ def registrarUsuario(lista_usuarios, diccionario_usuarios):
 
     print(diccionario_usuarios)
     # os.system('cls' if os.name == 'nt' else 'clear')
+
+    #chequear tema diccionario   sacar lista_usuarios  no tiene sentido retornar si carga directam al dicc global
     return lista_usuarios
 
 def iniciarSesion(lista_usuarios, diccionario_usuarios, Vexit): 
@@ -165,7 +167,9 @@ def cerrarSesion(lista_usuarios):
              print("Sesión cerrada.")
              bandera=False 
 
+
 def sacar_tildes(texto):
+    """Funcion que se encarga de reemplazar la variable q entra por la palabra sin tilde"""
     tildes = {
         'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
         'Á': 'A', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U',
@@ -173,6 +177,7 @@ def sacar_tildes(texto):
     }
     for acento, sin_acento in tildes.items():
         texto = texto.replace(acento, sin_acento)
+
     return texto
 
 def mostrar_filtro_vuelos():
@@ -395,7 +400,6 @@ while salir:
 
         # Prueba - Chequeo de usuarios activos 
         #print("Prueba Lista Usuarios existentes: ",lista_usuarios)
-        print("Prueba Lista Usuarios existentes: ",lista_usuarios)
         print("Prueba Diccionario Usuarios existentes: ",diccionario_usuarios)
 
 
