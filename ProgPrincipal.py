@@ -8,21 +8,24 @@ import re
 # Funciones 
 def menuInicial():
     """Funcion que permite seleccionar una opcion de accion de sesion de usuario."""
-    ok=True
+    ok = True
     while ok:
         print("\nMenu principal de selección")
         print("1. Registro de Usuario")
         print("2. Iniciar Sesión")
         print("3. Salir\n")
-    
-        opcion = int(input("Seleccionar una opción: "))
-        
-        if opcion >= 1 and opcion < 4:
-           ok=False
-           return opcion
+
+        try:
+            opcion = int(input("Seleccionar una opción: "))
+            if opcion >= 1 and opcion < 4:
+                ok = False
+                return opcion
+            else:
+                print("Por favor, elige una opción válida (1-3).")
+        except ValueError:
+            print("Error: Debes ingresar un número.")
 
     return -1
-
 
 def menuVuelos():
     """Funcion que permite seleccionar una opcion de accion relacionada a los vuelos segun el usuario ingresado."""
@@ -34,12 +37,17 @@ def menuVuelos():
         print("3. Historial de Vuelos")
         print("4. Cancelar reservas")
         print("5. Cerrar Sesión")
-    
-        opcion = int(input("\nSeleccionar una opción: "))
-        
-        if opcion >= 1 and opcion < 6:
-           ok=False
-           return opcion
+
+        try:
+            opcion = int(input("\nSeleccionar una opción: "))
+            
+            if opcion >= 1 and opcion < 6:
+                ok = False
+                return opcion
+            else:
+                print("Por favor, elige una opción válida (1-5)")
+        except ValueError:
+            print("Error: Debes ingresar un número.")
 
     return -1
 
