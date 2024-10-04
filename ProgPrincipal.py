@@ -10,11 +10,16 @@ def menuInicial():
     """Funcion que permite seleccionar una opcion de accion de sesion de usuario."""
     ok = True
     while ok:
-        print("\nMenu principal de selección")
-        print("1. Registro de Usuario")
-        print("2. Iniciar Sesión")
-        print("3. Salir\n")
-
+        print("***************************************")
+        print("*           Sistema de Vuelos         *")
+        print("***************************************")
+        print("*                                     *")
+        print("*  1. Registro de Usuarios            *")
+        print("*  2. Iniciar Sesion                  *")
+        print("*  3. Salir                           *")
+        print("*                                     *")
+        print("***************************************")
+        
         try:
             opcion = int(input("Seleccionar una opción: "))
             if opcion >= 1 and opcion < 4:
@@ -31,12 +36,17 @@ def menuVuelos():
     """Funcion que permite seleccionar una opcion de accion relacionada a los vuelos segun el usuario ingresado."""
     ok=True
     while ok:
-        print("\nMenu principal de selección Vuelos")
-        print("1. Busqueda de Vuelos")
-        print("2. Reserva de vuelos")
-        print("3. Historial de Vuelos")
-        print("4. Cancelar reservas")
-        print("5. Cerrar Sesión")
+        print("***************************************************")
+        print("*       Menú Principal de Selección Vuelos        *")
+        print("***************************************************")
+        print("*                                                 *")
+        print("*  1. Búsqueda de Vuelos                          *")
+        print("*  2. Reserva de Vuelos                           *")
+        print("*  3. Historial de Vuelos                         *")
+        print("*  4. Cancelar Reservas                           *")
+        print("*  5. Cerrar Sesión                               *")
+        print("*                                                 *")
+        print("***************************************************")
 
         try:
             opcion = int(input("\nSeleccionar una opción: "))
@@ -50,23 +60,6 @@ def menuVuelos():
             print("Error: Debes ingresar un número.")
 
     return -1
-
-
-# def generarVuelos(matriz):
-#     """La funcion permite generar una cantidad establecida de vuelos entre paises de sudamerica y america del norte o combinacion de ambas. Recibe la matriz de vuelos"""
-#     vuelos = []
-    
-#     for i in range(len(matriz)):
-#         random.shuffle(matriz)
-#         for j in range(i + 1, len(matriz)):
-#             # Se limita a 10 para realizar prueba
-#             if len(vuelos)<50:
-#                 random.shuffle(matriz)
-#                 origen_pais, origen_capital = matriz[i]
-#                 destino_pais, destino_capital = matriz[j]
-#                 vuelos.append((origen_pais, origen_capital, destino_pais, destino_capital))
-
-#     return vuelos
 
 
 # Funciones
@@ -120,24 +113,6 @@ def imprimirMatrizOrdenada(matriz):
         print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
 
 
-# def imprimirMatrizOrdenada(matriz):
-#     """Funcion que permite la prueba rapida de matriz y datos"""
-#     ancho_pais = 20
-#     ancho_capital = 20
-    
-#     print("\n")
-#     print('-'*87)
-#     print("\t    Ubicacion de Origen\t\t\t        Ubicacion de Llegada")
-#     print('-'*87)
-    
-#     imprimir_vuelo = lambda vuelo: print(f"{vuelo[0]:<{ancho_pais}},{vuelo[1]:<{ancho_capital}}-->   {vuelo[2]:<{ancho_pais}},{vuelo[3]:<{ancho_capital}}")
-
-#     for vuelo in matriz:
-#         # Llamada a la función lambda
-#         imprimir_vuelo(vuelo)  
-#         print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 7))
-
-
 #Usuario
 def registrarUsuario(diccionario_usuarios): 
     """Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas. Recibe la lista de usuarios existente"""
@@ -170,6 +145,7 @@ def registrarUsuario(diccionario_usuarios):
 
     print(diccionario_usuarios)
     # os.system('cls' if os.name == 'nt' else 'clear')
+
 
 def iniciarSesion(diccionario_usuarios, Vexit): 
     """Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones."""
@@ -220,6 +196,7 @@ def sacar_tildes(texto):
 
     return texto
 
+
 def mostrar_filtro_vuelos():
     pais_origen, pais_llegada = obtener_paises()
 
@@ -233,6 +210,7 @@ def mostrar_filtro_vuelos():
     else:
         print("No se encontraron vuelos que coincidan.")
 
+
 def buscar_vuelos(vuelos, pais_origen, pais_llegada):
     # Filtrar la matriz según el país de origen y país de llegada
     resultados = []
@@ -245,6 +223,7 @@ def buscar_vuelos(vuelos, pais_origen, pais_llegada):
             resultados.append(vuelo)
     
     return resultados
+
 
 def obtener_paises():
     pais_origen = input("Ingrese el país de origen: ").title()
