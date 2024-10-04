@@ -3,7 +3,7 @@
 import random 
 import os
 import re
-
+from datetime import datetime, timedelta
 
 # Funciones 
 def menuInicial():
@@ -52,39 +52,90 @@ def menuVuelos():
     return -1
 
 
+# def generarVuelos(matriz):
+#     """La funcion permite generar una cantidad establecida de vuelos entre paises de sudamerica y america del norte o combinacion de ambas. Recibe la matriz de vuelos"""
+#     vuelos = []
+    
+#     for i in range(len(matriz)):
+#         random.shuffle(matriz)
+#         for j in range(i + 1, len(matriz)):
+#             # Se limita a 10 para realizar prueba
+#             if len(vuelos)<50:
+#                 random.shuffle(matriz)
+#                 origen_pais, origen_capital = matriz[i]
+#                 destino_pais, destino_capital = matriz[j]
+#                 vuelos.append((origen_pais, origen_capital, destino_pais, destino_capital))
+
+#     return vuelos
+
+
+# Funciones
+def generar_fecha_hora():
+    """Genera una fecha y hora aleatoria dentro de los próximos 30 días."""
+    # Obtener la fecha actual
+    fecha_actual = datetime.now()
+    # Generar un número aleatorio de días y horas
+    dias_adelante = random.randint(1, 30)
+    horas = random.randint(0, 23)
+    minutos = random.randint(0, 59)
+    
+    # Calcular la fecha y hora programada
+    fecha_programada = fecha_actual + timedelta(days=dias_adelante, hours=horas, minutes=minutos)
+    return fecha_programada.strftime("%Y-%m-%d"), fecha_programada.strftime("%H:%M")
+
+
 def generarVuelos(matriz):
-    """La funcion permite generar una cantidad establecida de vuelos entre paises de sudamerica y america del norte o combinacion de ambas. Recibe la matriz de vuelos"""
+    """Genera una cantidad establecida de vuelos entre países de Sudamérica y América del Norte o combinación de ambas."""
     vuelos = []
     
     for i in range(len(matriz)):
         random.shuffle(matriz)
         for j in range(i + 1, len(matriz)):
-            # Se limita a 10 para realizar prueba
-            if len(vuelos)<50:
+            # Se limita a 50 vuelos para realizar prueba
+            if len(vuelos) < 50:
                 random.shuffle(matriz)
                 origen_pais, origen_capital = matriz[i]
                 destino_pais, destino_capital = matriz[j]
-                vuelos.append((origen_pais, origen_capital, destino_pais, destino_capital))
+                fecha, hora = generar_fecha_hora()
+                vuelos.append((origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora))
 
     return vuelos
 
 
 def imprimirMatrizOrdenada(matriz):
-    """Funcion que permite la prueba rapida de matriz y datos"""
+    """Funcion que permite la prueba rápida de matriz y datos"""
     ancho_pais = 20
     ancho_capital = 20
     
     print("\n")
-    print('-'*87)
-    print("\t    Ubicacion de Origen\t\t\t        Ubicacion de Llegada")
-    print('-'*87)
+    print('-' * 110)
+    print("\t    Ubicación de Origen\t\t\t        Ubicación de Llegada\t\tFecha\t\tHora")
+    print('-' * 110)
     
-    imprimir_vuelo = lambda vuelo: print(f"{vuelo[0]:<{ancho_pais}},{vuelo[1]:<{ancho_capital}}-->   {vuelo[2]:<{ancho_pais}},{vuelo[3]:<{ancho_capital}}")
+    imprimir_vuelo = lambda vuelo: print(f"{vuelo[0]:<{ancho_pais}},{vuelo[1]:<{ancho_capital}}-->   {vuelo[2]:<{ancho_pais}},{vuelo[3]:<{ancho_capital}}\t{vuelo[4]}\t{vuelo[5]}")
 
     for vuelo in matriz:
         # Llamada a la función lambda
         imprimir_vuelo(vuelo)  
-        print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 7))
+        print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
+
+
+# def imprimirMatrizOrdenada(matriz):
+#     """Funcion que permite la prueba rapida de matriz y datos"""
+#     ancho_pais = 20
+#     ancho_capital = 20
+    
+#     print("\n")
+#     print('-'*87)
+#     print("\t    Ubicacion de Origen\t\t\t        Ubicacion de Llegada")
+#     print('-'*87)
+    
+#     imprimir_vuelo = lambda vuelo: print(f"{vuelo[0]:<{ancho_pais}},{vuelo[1]:<{ancho_capital}}-->   {vuelo[2]:<{ancho_pais}},{vuelo[3]:<{ancho_capital}}")
+
+#     for vuelo in matriz:
+#         # Llamada a la función lambda
+#         imprimir_vuelo(vuelo)  
+#         print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 7))
 
 
 #Usuario
@@ -178,7 +229,7 @@ def mostrar_filtro_vuelos():
     print(f"\nVuelos encontrados para ir desde {pais_origen} hasta {pais_llegada}")
     if resultados:
         for vuelo in resultados:
-            print(f"{vuelo[0]} - {vuelo[1]} --> {vuelo[2]} - {vuelo[3]}")
+            print(f"{vuelo[0]} - {vuelo[1]} --> {vuelo[2]} - {vuelo[3]}  ==  {vuelo[4]}\t{vuelo[5]}")
     else:
         print("No se encontraron vuelos que coincidan.")
 
@@ -214,7 +265,7 @@ def cancelarReserva(reservas, usuario_actual):
 
     for i, reserva in enumerate(reservas_usuario):
         vuelo = reserva[1]
-        print(f"{i + 1}. Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}")
+        print(f"{i + 1}. Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]} == {vuelo[4]}\t{vuelo[5]}")
 
     # Función lambda para validar la selección de reserva
     validar_seleccion = lambda seleccion: 1 <= seleccion <= len(reservas_usuario)
@@ -227,7 +278,7 @@ def cancelarReserva(reservas, usuario_actual):
     reserva_seleccionada = reservas_usuario[seleccion - 1]
     reservas.remove(reserva_seleccionada)
 
-    print(f"\nReserva cancelada con éxito. Vuelo cancelado: Origen: {reserva_seleccionada[1][1]}, {reserva_seleccionada[1][0]} -> Destino: {reserva_seleccionada[1][3]}, {reserva_seleccionada[1][2]}\n")
+    print(f"\nReserva cancelada con éxito. Vuelo cancelado: Origen: {reserva_seleccionada[1][0]}, {reserva_seleccionada[1][1]} -> Destino: {reserva_seleccionada[1][2]}, {reserva_seleccionada[1][3]} == {reserva_seleccionada[1][4]}\t{reserva_seleccionada[1][5]}\n")
 
 
 # Consultas Vuelos
@@ -289,7 +340,7 @@ def historialReservas(reservas, usuario_actual):
     for i, reserva in enumerate(reservas_usuario):
         vuelo = reserva[1]
         print('-' * 80)
-        print(f"{i+1}. | Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}")
+        print(f"{i+1}. | Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}  == {vuelo[4]}\t{vuelo[5]}")
     print('-' * 80) 
 
 
@@ -304,9 +355,9 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     print("\nLista de vuelos disponibles:\n")
     print('-'*90)
     for i,vuelo in enumerate(vuelos):
-        origen_pais, origen_capital, destino_pais, destino_capital = vuelo
-        print(f"{i+1}. | {origen_pais:<{ancho_pais}},{origen_capital:<{ancho_capital}}-->   {destino_pais:<{ancho_pais}},{destino_capital:<{ancho_capital}}")
-        print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 10))
+        origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora = vuelo
+        print(f"{i+1}. | {origen_pais:<{ancho_pais}},{origen_capital:<{ancho_capital}}-->   {destino_pais:<{ancho_pais}},{destino_capital:<{ancho_capital}}\t{fecha}\t{hora}")
+        print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
 
     seleccion = int(input("\nSeleccione el número del vuelo que desea reservar: \n"))
     bandera = True
@@ -323,7 +374,7 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
         os.system('cls' if os.name=='nt' else 'clear')
         reservas.append((usuario_actual, vuelo_seleccionado))
         print("\nReserva realizada con ÉXITO\n")
-        print(f"Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}\n")
+        print(f"Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}  ==  {vuelo_seleccionado[4]}\t{vuelo_seleccionado[5]}\n")
         
         #print(f"PRUEBA matriz muetro vuelo seleccionado {vuelo_seleccionado}/n")
         #consultarStatusDeVuelo(vuelo_seleccionado) --> PROXIMO ENTREGABLE: funcion consultar status 
