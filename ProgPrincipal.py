@@ -80,6 +80,8 @@ def generar_fecha_hora():
 def generarVuelos(matriz):
     """Genera una cantidad establecida de vuelos entre países de Sudamérica y América del Norte o combinación de ambas."""
     vuelos = []
+    estados = ["A tiempo", "Retrasado", "Cancelado"]
+    probabilidades = [0.7, 0.2, 0.1]
     
     for i in range(len(matriz)):
         random.shuffle(matriz)
@@ -90,7 +92,8 @@ def generarVuelos(matriz):
                 origen_pais, origen_capital = matriz[i]
                 destino_pais, destino_capital = matriz[j]
                 fecha, hora = generar_fecha_hora()
-                vuelos.append((origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora))
+                estado_vuelo = random.choices(estados, probabilidades)[0]
+                vuelos.append((origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado_vuelo))
 
     return vuelos
 
@@ -262,12 +265,22 @@ def cancelarReserva(reservas, usuario_actual):
 
 # Consultas Vuelos
 def consultarStatusDeVuelo(vuelo_seleccionado):
-    """Funcion que proporciona información actualizada sobre el estado de un vuelo, como retrasos o cambios en la programación. Recibe el vuelo que quedo seleccionado en el sector de pagos"""
-    estados = ["A tiempo", "Retrasado", "Cancelado", "Reprogramado"]
-    estado_vuelo = random.choice(estados)
+    """Consulta y muestra el estado actual del vuelo seleccionado, proporcionando razones aleatorias si está cancelado."""
+
+    origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado_vuelo = vuelo_seleccionado
+    razones_cancelacion = ["Tormenta", "Vientos fuertes", "Problemas técnicos", "Falta de personal"]
     
-    print(f"Estado del vuelo seleccionado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}")
-    print(f"Estado actual del vuelo: {estado_vuelo}\n")
+    print(f"Estado del vuelo seleccionado: Origen: {origen_pais}, {origen_capital} -> Destino: {destino_pais}, {destino_capital}")
+    print(f"Fecha: {fecha} Hora: {hora}")
+    
+    if estado_vuelo == "Cancelado":
+        razon = random.choice(razones_cancelacion)
+        print(f"Estado actual del vuelo: {estado_vuelo}. Razón: {razon}.\n")
+    else:
+        print(f"Estado actual del vuelo: {estado_vuelo}\n")
+    
+    return estado_vuelo
+
 
 
 def pagarReserva():
@@ -334,7 +347,7 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     print("\nLista de vuelos disponibles:\n")
     print('-'*90)
     for i,vuelo in enumerate(vuelos):
-        origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora = vuelo
+        origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado = vuelo
         print(f"{i+1}. | {origen_pais:<{ancho_pais}},{origen_capital:<{ancho_capital}}-->   {destino_pais:<{ancho_pais}},{destino_capital:<{ancho_capital}}\t{fecha}\t{hora}")
         print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
 
@@ -348,6 +361,12 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
         else:
             vuelo_seleccionado = vuelos[seleccion-1]
             bandera = False
+
+    estado_vuelo = consultarStatusDeVuelo(vuelo_seleccionado)
+
+    if estado_vuelo == "Cancelado":
+        print("No puedes reservar este vuelo porque está cancelado. Selecciona otro vuelo.\n")
+        return
 
     if pagarReserva():
         os.system('cls' if os.name=='nt' else 'clear')
