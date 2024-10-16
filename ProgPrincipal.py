@@ -150,7 +150,7 @@ def registrarUsuario(diccionario_usuarios):
     # os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def iniciarSesion(diccionario_usuarios, Vexit): 
+def iniciarSesion(diccionario_usuarios, intentos): 
     """Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones."""
     usuario_actual = 0
     iniciarSesion = int(input("Ingrese su número de usuario: \n"))
@@ -160,11 +160,11 @@ def iniciarSesion(diccionario_usuarios, Vexit):
         if iniciarSesion not in diccionario_usuarios:
             os.system('cls' if os.name == 'nt' else 'clear')
             print("Usuario no existente\n")
-            Vexit += 1
+            intentos += 1
             
             iniciarSesion = int(input("Ingrese su número de usuario: \n"))
-            if Vexit == 3:
-                Vexit = 1
+            if intentos == 3:
+                intentos = 1
                 print("Demasiados intentos fallidos.")
                 bandera = False
         else:
@@ -172,20 +172,20 @@ def iniciarSesion(diccionario_usuarios, Vexit):
             contrasena = input("Ingrese su contraseña: \n")
             if diccionario_usuarios[iniciarSesion] == contrasena:
                 print("\nLogin exitoso")
-                Vexit = 0
+                intentos = 0
                 usuario_actual = iniciarSesion
                 bandera = False
             else:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("Contraseña incorrecta\n")
-                Vexit += 1
+                intentos += 1
 
-                if Vexit == 3:
-                    Vexit = 1
+                if intentos == 3:
+                    intentos = 1
                     print("Demasiados intentos fallidos.")
                     bandera = False
 
-    return Vexit, usuario_actual
+    return intentos, usuario_actual
 
 def sacar_tildes(texto):
     """Funcion que se encarga de reemplazar la variable q entra por la palabra sin tilde"""
@@ -420,9 +420,9 @@ while salir:
         registrarUsuario(diccionario_usuarios)
 
     elif seleccion == 2:
-        Vexit=0
+        intentos=0
         os.system('cls' if os.name == 'nt' else 'clear')
-        Vexit, usuario_actual = iniciarSesion(diccionario_usuarios, Vexit)
+        intentos, usuario_actual = iniciarSesion(diccionario_usuarios, intentos)
 
         # Pruba de usuarios activos diccionarios
         print("Prueba Diccionario Usuarios existentes: ",diccionario_usuarios)
@@ -432,8 +432,8 @@ while salir:
 
         while salir2:
             
-            if Vexit==1:
-                Vexit=0
+            if intentos==1:
+                intentos=0
                 seleccion=5
             else:
                 seleccion = menuVuelos()
