@@ -1,5 +1,6 @@
 # Programa de sistemas de reserva de Vuelos
-
+import time
+import json
 import random 
 import os
 import re
@@ -171,7 +172,10 @@ def iniciarSesion(diccionario_usuarios, intentos):
             # Solicitar la contraseña
             contrasena = input("Ingrese su contraseña: \n")
             if diccionario_usuarios[iniciarSesion] == contrasena:
-                print("\nLogin exitoso")
+                os.system('cls' if os.name == 'nt' else 'clear')    
+                print("Login exitoso")
+                time.sleep(2)
+                os.system('cls' if os.name == 'nt' else 'clear') 
                 intentos = 0
                 usuario_actual = iniciarSesion
                 bandera = False
@@ -202,14 +206,16 @@ def sacar_tildes(texto):
 
 def mostrar_filtro_vuelos():
     pais_origen, pais_llegada = obtener_paises()
-
+    os.system('cls' if os.name == 'nt' else 'clear')
     # Buscar vuelos
     resultados = buscar_vuelos(vuelos, pais_origen, pais_llegada)
 
     print(f"\nVuelos encontrados para ir desde {pais_origen} hasta {pais_llegada}")
     if resultados:
-        for vuelo in resultados:
-            print(f"{vuelo[0]} - {vuelo[1]} --> {vuelo[2]} - {vuelo[3]}  ==  {vuelo[4]}\t{vuelo[5]}")
+        for index, vuelo in resultados:
+            # Imprimir índice seguido de los detalles del vuelo
+            print(f"{index}) {vuelo[0]} --> {vuelo[2]} - {vuelo[3]} == {vuelo[4]}\t{vuelo[5]}")
+        print("\n\n")
     else:
         print("No se encontraron vuelos que coincidan.")
 
@@ -221,9 +227,10 @@ def buscar_vuelos(vuelos, pais_origen, pais_llegada):
     pais_origen_sin_tildes = sacar_tildes(pais_origen)
     pais_llegada_sin_tildes = sacar_tildes(pais_llegada)
 
-    for vuelo in vuelos:
+    for index, vuelo in enumerate(vuelos):  
         if sacar_tildes(vuelo[0]) == pais_origen_sin_tildes and sacar_tildes(vuelo[2]) == pais_llegada_sin_tildes:
-            resultados.append(vuelo)
+            # Añadir tupla (index, vuelo), guardo index para posteriormente poder seleccionar la opcion del vuelo que quiero reservar
+            resultados.append((index+1, vuelo))  
     
     return resultados
 
@@ -377,6 +384,38 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     else:
         print("ERROR. La reserva no se pudo completar debido a un problema con el pago.")
         
+def generacion_de_ArPaises():
+    # Definir la ruta de la carpeta donde se guardarán los JSON
+    carpeta_json = 'Regiones'
+
+    # Verificar si la carpeta existe, si no, se crea
+    if not os.path.exists(carpeta_json):
+        os.makedirs(carpeta_json)
+
+        # Diccionarios para cada región
+    norteamerica = {}
+    centroamerica = {}
+    suramerica = {}
+
+    # Clasificar los países por región
+    for pais, capital in matrizPaisesCapitales:
+        if pais in ["Canadá", "Estados Unidos", "México"]:
+            norteamerica[pais] = capital
+        elif pais in ["Guatemala", "Belice", "Honduras", "El Salvador", "Nicaragua", "Costa Rica", "Panamá"]:
+            centroamerica[pais] = capital
+        elif pais in ["Argentina", "Bolivia", "Brasil", "Chile", "Colombia", "Ecuador", "Paraguay", "Perú", "Uruguay", "Venezuela"]:
+            suramerica[pais] = capital
+
+    # Guardar cada región en archivos JSON dentro de la carpeta
+    with open(os.path.join(carpeta_json, 'norteamerica.json'), 'w') as file:
+        json.dump(norteamerica, file)
+
+    with open(os.path.join(carpeta_json, 'centroamerica.json'), 'w') as file:
+        json.dump(centroamerica, file)
+
+    with open(os.path.join(carpeta_json, 'suramerica.json'), 'w') as file:
+        json.dump(suramerica, file)
+
 
 # Programa Principal
 
@@ -404,6 +443,8 @@ matrizPaisesCapitales = [
     ["Venezuela", "Caracas"]
 ]
 
+# Se crean los json de los paises para gestionar las escalas (America del norte, sur y centro)
+generacion_de_ArPaises()
 
 # Menu de interaccion
 reservas = []
