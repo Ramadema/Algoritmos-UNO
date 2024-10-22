@@ -11,15 +11,15 @@ def menuInicial():
     """Funcion que permite seleccionar una opcion de accion de sesion de usuario."""
     ok = True
     while ok:
-        print("***************************************")
-        print("*           Sistema de Vuelos         *")
-        print("***************************************")
-        print("*                                     *")
-        print("*  1. Registro de Usuarios            *")
-        print("*  2. Iniciar Sesion                  *")
-        print("*  3. Salir                           *")
-        print("*                                     *")
-        print("***************************************")
+        print("*****************************************")
+        print("*           Sistema de Vuelos           *")
+        print("*****************************************")
+        print("*                                       *")
+        print("*        1. Registro de Usuarios        *")
+        print("*        2. Iniciar Sesion              *")
+        print("*        3. Salir                       *")
+        print("*                                       *")
+        print("*****************************************")
         
         try:
             opcion = int(input("Seleccionar una opción: "))
@@ -41,11 +41,11 @@ def menuVuelos():
         print("*       Menú Principal de Selección Vuelos        *")
         print("***************************************************")
         print("*                                                 *")
-        print("*  1. Búsqueda de Vuelos                          *")
-        print("*  2. Reserva de Vuelos                           *")
-        print("*  3. Historial de Vuelos                         *")
-        print("*  4. Cancelar Reservas                           *")
-        print("*  5. Cerrar Sesión                               *")
+        print("*          1. Búsqueda de Vuelos                  *")
+        print("*          2. Reserva de Vuelos                   *")
+        print("*          3. Historial de Vuelos                 *")
+        print("*          4. Cancelar Reservas                   *")
+        print("*          5. Cerrar Sesión                       *")
         print("*                                                 *")
         print("***************************************************")
 
@@ -105,9 +105,9 @@ def imprimirMatrizOrdenada(matriz):
     ancho_capital = 20
     
     print("\n")
-    print('-' * 110)
-    print("\t    Ubicación de Origen\t\t\t        Ubicación de Llegada\t\tFecha\t\tHora")
-    print('-' * 110)
+    print('-' * 130)
+    print("\t    Ubicación de Origen\t\t\t    Ubicación de Llegada\t\t          Fecha\t\tHora")
+    print('-' * 130)
     
     imprimir_vuelo = lambda vuelo: print(f"{vuelo[0]:<{ancho_pais}},{vuelo[1]:<{ancho_capital}}-->   {vuelo[2]:<{ancho_pais}},{vuelo[3]:<{ancho_capital}}\t{vuelo[4]}\t{vuelo[5]}")
 
@@ -317,9 +317,11 @@ def pagarReserva():
     transaccion_exitosa = random.choice([True, False, True, True])
     
     if transaccion_exitosa:
+        time.sleep(2)
         print("\nPago completado con éxito.")
         return True
     else:
+        time.sleep(2)
         print("\nError en la transacción. Vuelve a intentarlo.")
         return False
 
