@@ -204,7 +204,7 @@ def sacar_tildes(texto):
     return texto
 
 
-def mostrar_filtro_vuelos():
+def mostrar_filtro_vuelos(vuelos):
     pais_origen, pais_llegada = obtener_paises()
     os.system('cls' if os.name == 'nt' else 'clear')
     # Buscar vuelos
@@ -416,6 +416,62 @@ def generacion_de_ArPaises():
     with open(os.path.join(carpeta_json, 'suramerica.json'), 'w') as file:
         json.dump(suramerica, file)
 
+def main():
+    reservas = []
+    diccionario_usuarios = {0000:"admin"}
+
+    salir = True
+    salir2 = True
+
+    vuelos = generarVuelos(matrizPaisesCapitales)
+    while salir:
+        seleccion = menuInicial()
+
+        if seleccion == 1:
+            registrarUsuario(diccionario_usuarios)
+
+        elif seleccion == 2:
+            intentos=0
+            os.system('cls' if os.name == 'nt' else 'clear')
+            intentos, usuario_actual = iniciarSesion(diccionario_usuarios, intentos)
+
+            # Pruba de usuarios activos diccionarios
+            print("Prueba Diccionario Usuarios existentes: ",diccionario_usuarios)
+
+
+            salir2 = True
+
+            while salir2:
+                
+                if intentos==1:
+                    intentos=0
+                    seleccion=5
+                else:
+                    seleccion = menuVuelos()
+
+                if seleccion == 1:
+                    # Buscar vuelos               
+                    imprimirMatrizOrdenada(vuelos)
+                    # Seleccionar segun pais de origen y llegada
+                    mostrar_filtro_vuelos(vuelos)
+                elif seleccion == 2:
+                    # Hacer reserva y pagar
+                    hacerReservaDeVuelos(vuelos, reservas, usuario_actual)
+                elif seleccion == 3:
+                    # Historial de reservas
+                    historialReservas(reservas, usuario_actual)  
+                elif seleccion == 4:
+                    # Cancelar reservas
+                    cancelarReserva(reservas, usuario_actual)
+                elif seleccion==5:
+                    # Cerrar sesion
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    print("Sesión cerrada.")
+                    salir2 = False
+        else:
+            print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
+            print("\n\t\t***** ADIOS *****\n")
+            salir = False
 
 # Programa Principal
 
@@ -447,59 +503,5 @@ matrizPaisesCapitales = [
 generacion_de_ArPaises()
 
 # Menu de interaccion
-reservas = []
-diccionario_usuarios = {0000:"admin"}
-
-salir = True
-salir2 = True
-
-vuelos = generarVuelos(matrizPaisesCapitales)
-while salir:
-    seleccion = menuInicial()
-
-    if seleccion == 1:
-        registrarUsuario(diccionario_usuarios)
-
-    elif seleccion == 2:
-        intentos=0
-        os.system('cls' if os.name == 'nt' else 'clear')
-        intentos, usuario_actual = iniciarSesion(diccionario_usuarios, intentos)
-
-        # Pruba de usuarios activos diccionarios
-        print("Prueba Diccionario Usuarios existentes: ",diccionario_usuarios)
-
-
-        salir2 = True
-
-        while salir2:
-            
-            if intentos==1:
-                intentos=0
-                seleccion=5
-            else:
-                seleccion = menuVuelos()
-
-            if seleccion == 1:
-                # Buscar vuelos               
-                imprimirMatrizOrdenada(vuelos)
-                # Seleccionar segun pais de origen y llegada
-                mostrar_filtro_vuelos()
-            elif seleccion == 2:
-                # Hacer reserva y pagar
-                hacerReservaDeVuelos(vuelos, reservas, usuario_actual)
-            elif seleccion == 3:
-                # Historial de reservas
-                historialReservas(reservas, usuario_actual)  
-            elif seleccion == 4:
-                # Cancelar reservas
-                cancelarReserva(reservas, usuario_actual)
-            elif seleccion==5:
-                # Cerrar sesion
-                os.system('cls' if os.name == 'nt' else 'clear')
-                print("Sesión cerrada.")
-                salir2 = False
-    else:
-        print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
-        print("\n\t\t***** ADIOS *****\n")
-        salir = False
+main()
 
