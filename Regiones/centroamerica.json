@@ -1,1 +1,29 @@
-{"Guatemala": "Ciudad de Guatemala", "Belice": "Belmop\u00e1n", "Honduras": "Tegucigalpa", "El Salvador": "San Salvador", "Nicaragua": "Managua", "Costa Rica": "San Jos\u00e9", "Panam\u00e1": "Ciudad de Panam\u00e1"}
+[{
+    "pais":"Belice",
+    "capital":"Belmopán"
+},
+{
+    "pais":"Costa Rica",
+    "capital":"San José"
+},
+{
+    "pais":"El Salvador",
+    "capital":"San Salvador"
+},
+{
+    "pais":"Nicaragua",
+    "capital":"Managua"
+},
+{
+    "pais":"Honduras",
+    "capital":"Tegucigalpa"
+},
+{
+    "pais":"Panamá",
+    "capital":"Ciudad de Panamá"
+},
+{
+    "pais":"Guatemala",
+    "capital":"Ciudad de Guatemala"
+}
+]
