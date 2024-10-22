@@ -1,1 +1,13 @@
-{"Canad\u00e1": "Ottawa", "Estados Unidos": "Washington, D.C.", "M\u00e9xico": "Ciudad de M\u00e9xico"}
+[{
+    "pais":"Estados Unidos",
+    "capital":"Washinton D.C"
+},
+{
+    "pais":"Canadá",
+    "capital":"Ottawa"
+},
+{
+    "pais":"México",
+    "capital":"Ciudad de México"
+}
+]
