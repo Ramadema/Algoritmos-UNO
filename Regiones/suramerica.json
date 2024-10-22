@@ -1,1 +1,51 @@
-{"Argentina": "Buenos Aires", "Bolivia": "La Paz", "Brasil": "Bras\u00edlia", "Chile": "Santiago", "Colombia": "Bogot\u00e1", "Ecuador": "Quito", "Paraguay": "Asunci\u00f3n", "Per\u00fa": "Lima", "Uruguay": "Montevideo", "Venezuela": "Caracas"}
+[
+    {
+        "Pais": "Argentina",
+        "Capital": "Buenos Aires"
+    }
+
+    {
+        "Pais": "Bolivia",
+        "Capital": "La Paz"
+    }
+
+    {
+        "Pais": "Brasil",
+        "Capital": "Brasilia"
+    }
+
+    {
+        "Pais": "Chile",
+        "Capital": "Santiago"
+    }
+
+    {
+        "Pais": "Colombia",
+        "Capital": "Bogotá"
+    }
+
+    {
+        "Pais": "Ecuador",
+        "Capital": "Quito"
+    }
+
+    {
+        "Pais": "Paraguay",
+        "Capital": "Asunción"
+    }
+
+    {
+        "Pais": "Perú",
+        "Capital": "Lima"
+    }
+    
+    {
+        "Pais": "Uruguay",
+        "Capital": "Montevideo"
+    }
+
+    {
+        "Pais": "Venezuela",
+        "Capital": "Caracas"
+    }
+]
