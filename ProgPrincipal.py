@@ -318,10 +318,12 @@ def pagarReserva():
     
     if transaccion_exitosa:
         time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear') 
         print("\nPago completado con éxito.")
         return True
     else:
         time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear') 
         print("\nError en la transacción. Vuelve a intentarlo.")
         return False
 
