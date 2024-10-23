@@ -1,46 +1,46 @@
 [
     {
-        "Pais": "Argentina",
+        "pais": "Argentina",
         "Capital": "Buenos Aires"
     },
 
     {
-        "Pais": "Bolivia",
+        "pais": "Bolivia",
         "Capital": "La Paz"
     },
 
     {
-        "Pais": "Brasil",
+        "pais": "Brasil",
         "Capital": "Brasilia"
     },
 
     {
-        "Pais": "Chile",
+        "pais": "Chile",
         "Capital": "Santiago"
     },
 
     {
-        "Pais": "Colombia",
+        "pais": "Colombia",
         "Capital": "Bogotá"
     },
 
     {
-        "Pais": "Ecuador",
+        "pais": "Ecuador",
         "Capital": "Quito"
     },
 
     {
-        "Pais": "Paraguay",
+        "pais": "Paraguay",
         "Capital": "Asunción"
     },
 
     {
-        "Pais": "Perú",
+        "pais": "Perú",
         "Capital": "Lima"
     },
     
     {
-        "Pais": "Uruguay",
+        "pais": "Uruguay",
         "Capital": "Montevideo"
     },
 
