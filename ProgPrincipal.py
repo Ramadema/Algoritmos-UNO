@@ -95,6 +95,7 @@ def generarVuelos(matriz):
                 fecha, hora = generar_fecha_hora()
                 estado_vuelo = random.choices(estados, probabilidades)[0]
                 vuelos.append((origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado_vuelo))
+    print(vuelos)
 
     return vuelos
 
@@ -387,38 +388,7 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
         
     else:
         print("ERROR. La reserva no se pudo completar debido a un problema con el pago.")
-        
-def generacion_de_ArPaises():
-    # Definir la ruta de la carpeta donde se guardarán los JSON
-    carpeta_json = 'Regiones'
 
-    # Verificar si la carpeta existe, si no, se crea
-    if not os.path.exists(carpeta_json):
-        os.makedirs(carpeta_json)
-
-        # Diccionarios para cada región
-    norteamerica = {}
-    centroamerica = {}
-    suramerica = {}
-
-    # Clasificar los países por región
-    for pais, capital in matrizPaisesCapitales:
-        if pais in ["Canadá", "Estados Unidos", "México"]:
-            norteamerica[pais] = capital
-        elif pais in ["Guatemala", "Belice", "Honduras", "El Salvador", "Nicaragua", "Costa Rica", "Panamá"]:
-            centroamerica[pais] = capital
-        elif pais in ["Argentina", "Bolivia", "Brasil", "Chile", "Colombia", "Ecuador", "Paraguay", "Perú", "Uruguay", "Venezuela"]:
-            suramerica[pais] = capital
-
-    # Guardar cada región en archivos JSON dentro de la carpeta
-    with open(os.path.join(carpeta_json, 'norteamerica.json'), 'w') as file:
-        json.dump(norteamerica, file)
-
-    with open(os.path.join(carpeta_json, 'centroamerica.json'), 'w') as file:
-        json.dump(centroamerica, file)
-
-    with open(os.path.join(carpeta_json, 'suramerica.json'), 'w') as file:
-        json.dump(suramerica, file)
 
 def main():
     reservas = []
