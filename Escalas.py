@@ -1,48 +1,73 @@
 import json
+import random
 
-# Leer los archivos JSON que contienen los países por región
-with open('Regiones/suramerica.json', 'r') as file:
-    suramerica = json.load(file)
+def leerAchivoRegiones(nombre_archivo):
+    with open(nombre_archivo, 'rt') as archivo:
+        return json.load(archivo)
 
-with open('Regiones/norteamerica.json', 'r') as file:
-    norteamerica = json.load(file)
+def gestionarEscalas(vuelos):
+    suramerica = leerAchivoRegiones('Regiones/suramerica.json')
+    norteamerica = leerAchivoRegiones('Regiones/norteamerica.json')
+    centroamerica = leerAchivoRegiones('Regiones/centroamerica.json')
 
+    # Crear listas de países
+    paises_suramerica = {pais['pais'] for pais in suramerica}
+    paises_norteamerica = {pais['pais'] for pais in norteamerica}
+    paises_centroamerica = [pais['pais'] for pais in centroamerica]  
 
-centroamerica = {
-    "Guatemala", "Belice", "Honduras", 
-    "El Salvador", "Nicaragua", "Costa Rica", 
-    "Panamá"
-}
+    # Lista para almacenar los nuevos vuelos con escalas
+    vuelos_con_escalas = []
+    vuelos_escalas = []
 
-# Mtriz de prueba
-matriz_vuelos = [
-    ["Argentina", "Estados Unidos"],  # Requiere escala
-    ["Brasil", "Canadá"],             # Requiere escala
-    ["México", "Chile"],              # No requiere escala
-    ["Colombia", "México"],           # No requiere escala
-    ["Estados Unidos", "Perú"],       # Requiere escala
-    ["Argentina", "Costa Rica"],      # No requiere escala
-    ["Honduras", "Brasil"],            # No requiere escala
-    ["Canadá", "El Salvador"],         # No requiere escala
-    ["Perú", "Panamá"],                # No requiere escala
+    for vuelo in vuelos:
+        pais_salida = vuelo[0]
+        pais_llegada = vuelo[2]
+
+        if (pais_salida in paises_suramerica and pais_llegada in paises_norteamerica) or \
+            (pais_salida in paises_norteamerica and pais_llegada in paises_suramerica):
+                print(f"Vuelo de {pais_salida} a {pais_llegada}: es necesario hacer una escala.")
+        else:
+            print(f"Vuelo de {pais_salida} a {pais_llegada}: el vuelo es directo.")
+    print("\n")
+    # Iterar sobre la matriz de vuelos
+    for vuelo in vuelos:
+        pais_salida = vuelo[0]
+        pais_llegada = vuelo[2]
+
+        if (pais_salida in paises_suramerica and pais_llegada in paises_norteamerica) or \
+           (pais_salida in paises_norteamerica and pais_llegada in paises_suramerica):
+            # Elegir un país aleatorio de Centroamérica
+            pais_random_centroamerica = random.choice(paises_centroamerica)
+
+            # Crear los dos vuelos
+            vuelo_1 = (pais_salida, vuelo[1], pais_random_centroamerica, 'Escala', vuelo[4], vuelo[5], vuelo[6])
+            vuelo_2 = (pais_random_centroamerica, 'Escala', pais_llegada, vuelo[3], vuelo[4], vuelo[5], vuelo[6])
+
+            # Agregar los vuelos de escala a la lista de vuelos escalas
+            vuelos_escalas.append(vuelo_1)
+            vuelos_escalas.append(vuelo_2)
+        else:
+            # Agregar vuelo directo sin cambios
+            vuelos_con_escalas.append(vuelo)
+
+    return vuelos_con_escalas, vuelos_escalas
+
+# Ejemplo de matriz de vuelos (lista de tuplas)
+vuelos = [
+    ('Nicaragua', 'Managua', 'Uruguay', 'Montevideo', '2024-10-31', '01:54', 'A tiempo'),
+    ('Chile', 'Santiago', 'Ecuador', 'Quito', '2024-11-12', '23:36', 'A tiempo'),
+    ('Estados Unidos', 'Washington, D.C.', 'Colombia', 'Bogotá', '2024-11-18', '00:54', 'A tiempo'),
+    ('Paraguay', 'Asunción', 'Canadá', 'Ottawa', '2024-11-12', '09:02', 'A tiempo'),
+    ('Estados Unidos', 'Washington, D.C.', 'Chile', 'Santiago', '2024-11-20', '18:28', 'A tiempo')
 ]
 
-# Función para generar escalas
-def gestionar_escalas(matriz_vuelos, suramerica, norteamerica):
-    print("\n")
-    for vuelo in matriz_vuelos:
-        pais_salida = vuelo[0]
-        pais_llegada = vuelo[1]
-        
-        # se verifica si es un vuelo de América del Norte a América del Sur
-        if pais_salida in norteamerica and pais_llegada in suramerica:
-            print(f"El vuelo de {pais_salida} a {pais_llegada} \t\t\trequiere una escala.")
+# Llamar a la función y mostrar los resultados
+vuelos_con_escalas, vuelos_escalas = gestionarEscalas(vuelos)
 
-        # se verifica si es un vuelo de América del Sur a América del Norte
-        elif pais_salida in suramerica and pais_llegada in norteamerica:
-            print(f"El vuelo de {pais_salida} a {pais_llegada} \t\t\trequiere una escala.")
-        else:
-            print(f"El vuelo de {pais_salida} a {pais_llegada} \t\t\tes directo o dentro de la misma región.")
+print("Vuelos directos:")
+for vuelo in vuelos_con_escalas:
+    print(vuelo)
 
-
-gestionar_escalas(matriz_vuelos, suramerica, norteamerica)
+print("\nVuelos con escalas:")
+for vuelo in vuelos_escalas:
+    print(vuelo)
