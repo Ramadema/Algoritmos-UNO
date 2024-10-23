@@ -1,6 +1,5 @@
 # Programa de sistemas de reserva de Vuelos
 import time
-import json
 import random 
 import os
 import re
@@ -472,9 +471,6 @@ matrizPaisesCapitales = [
     ["Uruguay", "Montevideo"],
     ["Venezuela", "Caracas"]
 ]
-
-# Se crean los json de los paises para gestionar las escalas (America del norte, sur y centro)
-generacion_de_ArPaises()
 
 # Menu de interaccion
 main()
