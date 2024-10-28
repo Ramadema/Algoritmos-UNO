@@ -4,7 +4,7 @@
     # Materia: Algoritmos y estructuras de datos I
     # Integrantes: Ramiro De Marco / Juan Olobardi / Tomas Schiabone
 
-
+# falta agregar butacas y escalas cuando quede 100% funcional al sistema
 
 - Introduccion al proyecto de Sitema de Reserva de Vuelos:
 
