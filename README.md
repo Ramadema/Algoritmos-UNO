@@ -1,63 +1,50 @@
-# Proyecto_SistVuelos_G1
-
-Introduccion al proyecto de Sitema de Reserva de Vuelos
-
-
-El programa de búsqueda de vuelos del Sistema de Reserva de Vuelos permite a los usuarios encontrar opciones de vuelo adecuadas según sus preferencias, como el lugar de salida, el destino y las fechas deseadas. Por ejemplo, un usuario puede buscar vuelos desde Buenos Aires a Madrid, o de Nueva York a Tokio. Al ingresar estos detalles, el programa revisa todas las opciones disponibles y muestra los vuelos que cumplen con los criterios especificados. En caso de que no se encuentren vuelos disponibles o surjan problemas durante la búsqueda, el sistema proporciona mensajes claros para informar al usuario. Además, el programa asegura que la información de los vuelos se mantenga actualizada y evita mostrar resultados repetidos, ofreciendo así una experiencia de búsqueda precisa y fácil de usar.
-
-
-Integrantes 
-
-Ramiro De Marco
-Juan Olobardi 
-Tomas Schiabone
+# Proyecto_SistVuelos_G1                    
+    # UADE
+    # Profesora: Maria Julia Monasterio
+    # Materia: Algoritmos y estructuras de datos I
+    # Integrantes: Ramiro De Marco / Juan Olobardi / Tomas Schiabone
 
 
-Preview Modularización
 
-FUNCIONES
+- Introduccion al proyecto de Sitema de Reserva de Vuelos:
 
-def MenuInicial --> rama
-"Esta Funcion actúa como el punto central de navegación para el usuario. Primero, muestra un listado de opciones disponibles, como buscar vuelos, hacer una reserva o ver reservas existentes. Luego, captura la selección del usuario y dirige la acción correspondiente: llama a la función adecuada para realizar la tarea elegida. Finalmente, después de completar la acción, el menú se vuelve a mostrar para permitir nuevas opciones o salir del programa. En resumen, la función menu organiza y facilita la interacción del usuario con el sistema, manteniendo el flujo de operaciones sencillo y accesible."
+Este programa es un sistema de reserva de vuelos diseñado para facilitar a los usuarios la gestión de sus viajes. Permite registrar nuevos usuarios, iniciar sesión, buscar vuelos, realizar reservas, cancelar reservas y consultar el historial de vuelos. El enfoque principal del sistema son los vuelos entre países de América del Norte, central y del Sur.
 
+Al iniciar el programa, se presenta un menú inicial que ofrece tres opciones: registro de usuarios, inicio de sesión y salida del sistema. 
+Una vez que un usuario inicia sesión, accede a un menú adicional donde puede buscar vuelos disponibles, reservar un vuelo, consultar su historial de reservas o cancelar una reserva existente. El sistema proporciona una experiencia interactiva y fácil de usar, asegurando que los usuarios puedan gestionar sus necesidades de viaje de manera eficiente.
 
-#Usuario
-def registrarUsuario --> juan
-"Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas."
-
-def iniciarSesion --> juan
-"Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones."
-
-def cerrarSesion --> juan
-"Funcion que cierra la sesión del usuario actual, asegurando que la información personal y las reservas estén protegidas."
+El sistema también incluye funcionalidades adicionales como la generación aleatoria de vuelos y estados (a tiempo, retrasado, cancelado), así como validaciones de entrada para asegurar que los datos proporcionados sean correctos. Las contraseñas se validan utilizando expresiones regulares para garantizar que cumplan con los requisitos de seguridad.
 
 
-#Vuelos
-def generarVuelos --> rama
-"La funcion permite generar una cantidad establecida de vuelos entre paises de sudamerica y america del norte o combinacion de ambas.
+- FUNCIONES:
 
-def BusquedaDeVuelos --> juan
-"Esta funcion permite al usuario buscar vuelos disponibles según los criterios especificados, como destino, fecha y número de pasajeros."
+menuInicial: Muestra el menú principal donde los usuarios pueden elegir entre registrarse, iniciar sesión o salir del sistema.
 
+menuVuelos: Presenta un menú adicional para usuarios autenticados, permitiendo seleccionar acciones relacionadas con los vuelos, como búsqueda, reserva, historial, cancelación y cierre de sesión.
 
-#Reservas
-def hacerReservaDeVuelos --> tomi
-"Esta funcion Facilita la reserva de un vuelo seleccionado, solicitando la información del usuario y confirmando la reserva."
+generar_fecha_hora: Crea una fecha y hora aleatoria dentro de los próximos 30 días, utilizada para asignar horarios a los vuelos.
 
-def cancelarReserva --> tomi
-"Esta funcion permite al usuario cancelar una reserva existente, gestionando el reembolso o cambios según las políticas del sistema."
+generarVuelos: Genera una lista de vuelos aleatorios entre países de América del Norte y del Sur, incluyendo detalles como origen, destino, fecha, hora y estado del vuelo.
 
-def consultarStatusDeVuelo --> tomi
-"Esta funcion proporciona información actualizada sobre el estado de un vuelo, como retrasos o cambios en la programación"
+imprimirMatrizOrdenada: Imprime una tabla con la información de los vuelos en un formato ordenado y legible.
 
-def pagarReserva --> rama
-"Esta funcion gestiona el proceso de pago para completar una reserva, incluyendo la elección del método de pago y la confirmación de la transacción"
+registrarUsuario: Permite a nuevos usuarios crear una cuenta en el sistema, validando el PIN y la contraseña según criterios específicos.
 
-def historialReservas --> rama
-"Esta funcion muestra un historial de reservas realizadas por el usuario, incluyendo reservas anteriores y pagos.(antiguas y actuales)"
+iniciarSesion: Permite a los usuarios existentes acceder al sistema mediante su PIN y contraseña, con controles de seguridad para limitar intentos fallidos.
 
+sacar_tildes: Elimina acentos de los nombres de países para facilitar las búsquedas sin errores de acentuación.
 
-PROGRAMA PRINCIPAL
-printeo 
-llamadas a funciones
+mostrar_filtro_vuelos: Permite a los usuarios buscar vuelos basándose en el país de origen y destino ingresado.
+
+cancelarReserva: Facilita la cancelación de reservas existentes por parte del usuario, mostrando las reservas disponibles para cancelar.
+
+consultarStatusDeVuelo: Muestra el estado actual de un vuelo seleccionado y proporciona razones aleatorias en caso de que esté cancelado.
+
+pagarReserva: Gestiona el proceso de pago para completar una reserva, permitiendo a los usuarios seleccionar un método de pago y confirmando la transacción.
+
+historialReservas: Muestra un historial de reservas realizadas por el usuario, incluyendo detalles de vuelos anteriores y pagos.
+
+hacerReservaDeVuelos: Facilita la selección y reserva de un vuelo, incluyendo la verificación del estado del vuelo y el proceso de pago.
+
+main: Es el punto de entrada del programa y se encarga de gestionar el flujo general del sistema de reserva de vuelos.
 
