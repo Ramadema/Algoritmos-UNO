@@ -358,7 +358,7 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     print("\nLista de vuelos disponibles:\n")
     print('-'*90)
     for i,vuelo in enumerate(vuelos):
-        origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado = vuelo
+        origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, = vuelo
         print(f"{i+1}. | {origen_pais:<{ancho_pais}},{origen_capital:<{ancho_capital}}-->   {destino_pais:<{ancho_pais}},{destino_capital:<{ancho_capital}}\t{fecha}\t{hora}")
         print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
 
@@ -387,6 +387,30 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
         
     else:
         print("ERROR. La reserva no se pudo completar debido a un problema con el pago.")
+
+def imprimir_ticket(usuario_actual, vuelo):
+    origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora = vuelo
+    
+    numero_vuelo=random.randint(1000,9999)
+
+    ticket = f"""
+    ****************************************************************************************
+                                           BOARDING PASS                                                                          
+    ****************************************************************************************
+    
+        N° Usuario: {usuario_actual}                    Fecha: {fecha}
+    
+    Desde/From: {origen_pais}, {origen_capital}         Vuelo n°/Flight nr:{numero_vuelo}
+    A/To: {destino_pais}, {destino_capital}             Asiento/Seat:
+    
+        Puerta/Gate: E01                                Hora: {hora}
+
+    ****************************************************************************************
+                                  ¡Gracias por viajar con nosotros!
+    ****************************************************************************************
+    """
+
+    return ticket
 
 
 def main():
