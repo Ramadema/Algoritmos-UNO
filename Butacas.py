@@ -3,21 +3,23 @@ def crearAvion(filas, columnas):
     return asientos
 
 def mostrarAvion(asientos):
-    print("       _______")
-    print("      /       \\")
-    print("     /         \\")
-    print("    /           \\")
-    print("   | A B C D E F |")
-    print("   |             |")
+    print("       ________")
+    print("      /        \\")
+    print("     /          \\")
+    print("    /            \\")
+    print("   | A B C  D E F |")
+    print("   |              |")
 
     for i, fila in enumerate(asientos):
         # el zfill para mantener la estructura de dos digitos de butacas un 0 si es necesario
         id_formateado = str(i + 1).zfill(2)  
+        fila1 = fila[0]+fila[1]+fila[2]
+        fila2 = fila[3]+fila[4]+fila[5]
         # con el join uno todos los elementos de la lista en una sola cadena, utilizando el separador " "
-        print(f"{id_formateado} | {' '.join(fila)} |")
+        print(f"{id_formateado} | {' '.join(fila1)}  {' '.join(fila2)} |")
 
-    print("    \\           /")
-    print("     \\_________/")
+    print("    \\            /")
+    print("     \\__________/")
     print("\n")
 
 def seleccionarAsiento(asientos):
@@ -54,7 +56,7 @@ def seleccionarAsiento(asientos):
                 
 
 # Configuración del avión
-filas = 10  
+filas = 20  
 columnas = 6  
 
 asientos = crearAvion(filas, columnas)

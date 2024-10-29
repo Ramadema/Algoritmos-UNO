@@ -23,8 +23,7 @@ def gestionarEscalas(vuelos):
         pais_salida = vuelo[0]
         pais_llegada = vuelo[2]
 
-        if (pais_salida in paises_suramerica and pais_llegada in paises_norteamerica) or \
-            (pais_salida in paises_norteamerica and pais_llegada in paises_suramerica):
+        if (pais_salida in paises_suramerica and pais_llegada in paises_norteamerica) or (pais_salida in paises_norteamerica and pais_llegada in paises_suramerica):
                 print(f"Vuelo de {pais_salida} a {pais_llegada}: es necesario hacer una escala.")
         else:
             print(f"Vuelo de {pais_salida} a {pais_llegada}: el vuelo es directo.")
@@ -34,8 +33,7 @@ def gestionarEscalas(vuelos):
         pais_salida = vuelo[0]
         pais_llegada = vuelo[2]
 
-        if (pais_salida in paises_suramerica and pais_llegada in paises_norteamerica) or \
-           (pais_salida in paises_norteamerica and pais_llegada in paises_suramerica):
+        if (pais_salida in paises_suramerica and pais_llegada in paises_norteamerica) or (pais_salida in paises_norteamerica and pais_llegada in paises_suramerica):
             # Elegir un país aleatorio de Centroamérica
             pais_random_centroamerica = random.choice(paises_centroamerica)
 
