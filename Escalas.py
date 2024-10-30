@@ -54,7 +54,7 @@ import json
 import random
 
 def leerArchivoRegiones(nombre_archivo):
-    with open(nombre_archivo, 'rt', encoding='utf-8') as archivo:
+    with open(nombre_archivo, "rt", encoding='utf-8') as archivo:
         return json.load(archivo)
 
 def gestionarEscalas(vuelos):
@@ -72,8 +72,8 @@ def gestionarEscalas(vuelos):
     vuelos_escalas = []
 
     for vuelo in vuelos:
-        pais_salida = vuelo['origen_pais']
-        pais_llegada = vuelo['destino_pais']
+        pais_salida = vuelo["origen_pais"]
+        pais_llegada = vuelo["destino_pais"]
 
         if (pais_salida in paises_suramerica and pais_llegada in paises_norteamerica) or (pais_salida in paises_norteamerica and pais_llegada in paises_suramerica):
             print(f"Vuelo de {pais_salida} a {pais_llegada}: es necesario hacer una escala.")
@@ -82,22 +82,22 @@ def gestionarEscalas(vuelos):
 
             # Se crean los dos vuelos de escalas
             vuelo_1 = {
-                'origen_pais': pais_salida,
-                'origen_capital': vuelo['origen_capital'],
-                'destino_pais': pais_random_centroamerica,
-                'destino_capital': 'Escala',  # Podemos poner cualquier cosa
-                'fecha': vuelo['fecha'],
-                'hora': vuelo['hora'],
-                'estado_vuelo': vuelo['estado_vuelo']
+                "origen_pais": pais_salida,
+                "origen_capital": vuelo["origen_capital"],
+                "destino_pais": pais_random_centroamerica,
+                "destino_capital": "Escala",  # Podemos poner cualquier cosa
+                "fecha": vuelo["fecha"],
+                "hora": vuelo["hora"],
+                "estado_vuelo": vuelo["estado_vuelo"]
             }
             vuelo_2 = {
-                'origen_pais': pais_random_centroamerica,
-                'origen_capital': 'Escala',  # Podemos poner cualquier cosa
-                'destino_pais': pais_llegada,
-                'destino_capital': vuelo['destino_capital'],
-                'fecha': vuelo['fecha'],
-                'hora': vuelo['hora'],
-                'estado_vuelo': vuelo['estado_vuelo']
+                "origen_pais": pais_random_centroamerica,
+                "origen_capital": "Escala",  # Podemos poner cualquier cosa
+                "destino_pais": pais_llegada,
+                "destino_capital": vuelo["destino_capital"],
+                "fecha": vuelo["fecha"],
+                "hora": vuelo["hora"],
+                "estado_vuelo": vuelo["estado_vuelo"]
             }
 
             # Se agrega los vuelos de escala a la lista de vuelos escalas
