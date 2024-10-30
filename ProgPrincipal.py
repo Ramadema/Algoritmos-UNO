@@ -2,6 +2,7 @@
 import time
 import random 
 import os
+import json
 import re
 from datetime import datetime, timedelta
 
@@ -79,6 +80,7 @@ def generar_fecha_hora():
 
 def generarVuelos(matriz):
     """Genera una cantidad establecida de vuelos entre países de Sudamérica y América del Norte o combinación de ambas."""
+    vuelosJson = []
     vuelos = []
     estados = ["A tiempo", "Retrasado", "Cancelado"]
     probabilidades = [0.7, 0.2, 0.1]
@@ -96,8 +98,30 @@ def generarVuelos(matriz):
                 estado_vuelo = random.choices(estados, probabilidades)[0]
                 vuelos.append((origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado_vuelo))
 
+                vuelosJson.append({
+                    "origen_pais": origen_pais,
+                    "origen_capital": origen_capital,
+                    "destino_pais": destino_pais,
+                    "destino_capital": destino_capital,
+                    "fecha": fecha,
+                    "hora": hora,
+                    "estado_vuelo": estado_vuelo
+                })
 
+    guardarVuelosEnJson(vuelosJson,'vuelos.json')
+    
     return vuelos
+
+def guardarVuelosEnJson(vuelos, nombre_archivo):
+    """Guarda la lista de vuelos en un archivo JSON dentro de la carpeta 'vuelos'."""
+    os.makedirs('BDvuelos', exist_ok=True)
+    
+    # Ruta completa del archivo apuntando a la carpeta BDvuelos/vuelos.json
+    ruta_archivo = os.path.join('BDvuelos', nombre_archivo)
+    
+    # se utiliza [encoding='utf-8'] y [ensure_ascii=False] para evitar que los caracteres especiales sean codificados en el archivo
+    with open(ruta_archivo, 'wr', encoding='utf-8') as archivo_json:
+        json.dump(vuelos, archivo_json, indent=4, ensure_ascii=False) 
 
 
 def imprimirMatrizOrdenada(matriz):
