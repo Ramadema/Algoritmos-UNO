@@ -400,10 +400,7 @@ def imprimirTicket(usuario_actual, vuelo):
     origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado = vuelo
     
     numero_vuelo=random.randint(1000,9999)
-    numero_asiento=random.randint(1,20)
-    letra_asiento=random.choice(['A', 'B', 'C', 'D', 'E', 'F'])
-    pasaje = numero_asiento
-    # letra_asiento
+    numero_asiento=str(random.randint(1,20)).zfill(2)+random.choice(['A', 'B', 'C', 'D', 'E', 'F'])
 
     ticket = f"""
     ****************************************************************************************
@@ -413,7 +410,7 @@ def imprimirTicket(usuario_actual, vuelo):
         N° Usuario: {usuario_actual}                    Fecha: {fecha}
     
     Desde/From: {origen_pais}, {origen_capital}         Vuelo n°/Flight nr:{numero_vuelo}
-    A/To: {destino_pais}, {destino_capital}             Asiento/Seat: {pasaje}
+    A/To: {destino_pais}, {destino_capital}             Asiento/Seat: {numero_asiento}
     
         Puerta/Gate: E01                                Hora: {hora}
 
