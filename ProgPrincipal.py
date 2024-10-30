@@ -63,6 +63,7 @@ def menuVuelos():
     return -1
 
 
+
 # Funciones
 def generar_fecha_hora():
     """Genera una fecha y hora aleatoria dentro de los próximos 30 días."""
@@ -111,6 +112,8 @@ def generarVuelos(matriz):
     guardarVuelosEnJson(vuelosJson,'vuelos.json')
     
     return vuelos
+
+
 
 def guardarVuelosEnJson(vuelos, nombre_archivo):
     """Guarda la lista de vuelos en un archivo JSON dentro de la carpeta 'vuelos'."""
@@ -216,6 +219,7 @@ def iniciarSesion(diccionario_usuarios, intentos):
 
     return intentos, usuario_actual
 
+
 def sacar_tildes(texto):
     """Funcion que se encarga de reemplazar la variable q entra por la palabra sin tilde"""
     tildes = {
@@ -243,6 +247,7 @@ def mostrar_filtro_vuelos(vuelos):
         print("\n\n")
     else:
         print("No se encontraron vuelos que coincidan.")
+
 
 
 def buscar_vuelos(vuelos, pais_origen, pais_llegada):
@@ -317,7 +322,6 @@ def consultarStatusDeVuelo(vuelo_seleccionado):
         print(f"Estado actual del vuelo: {estado_vuelo}\n")
     
     return estado_vuelo
-
 
 
 def pagarReserva():
@@ -418,7 +422,6 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     else:
         print("ERROR. La reserva no se pudo completar debido a un problema con el pago.")
 
-    
 
 def imprimirTicket(usuario_actual, vuelo):
     origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado = vuelo
@@ -448,6 +451,7 @@ def imprimirTicket(usuario_actual, vuelo):
     print(ticket)
     time.sleep(3)
     os.system('cls' if os.name=='nt' else 'clear')
+
 
 def main():
     reservas = []
