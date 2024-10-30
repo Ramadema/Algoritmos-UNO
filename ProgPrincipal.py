@@ -92,9 +92,10 @@ def generarVuelos(matriz):
                 origen_pais, origen_capital = matriz[i]
                 destino_pais, destino_capital = matriz[j]
                 fecha, hora = generar_fecha_hora()
+                # choices sacar al pingo
                 estado_vuelo = random.choices(estados, probabilidades)[0]
                 vuelos.append((origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado_vuelo))
-    print(vuelos)
+
 
     return vuelos
 
@@ -277,10 +278,15 @@ def consultarStatusDeVuelo(vuelo_seleccionado):
     origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado_vuelo = vuelo_seleccionado
     razones_cancelacion = ["Tormenta", "Vientos fuertes", "Problemas técnicos", "Falta de personal"]
     
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     print(f"Estado del vuelo seleccionado: Origen: {origen_pais}, {origen_capital} -> Destino: {destino_pais}, {destino_capital}")
     print(f"Fecha: {fecha} Hora: {hora}")
     
-    if estado_vuelo == "Cancelado":
+    if estado_vuelo == "Retrasado":
+        razon = random.choice(razones_cancelacion)
+        print(f"Estado actual del vuelo: {estado_vuelo}. Razón: {razon}.\n")
+    elif estado_vuelo == "Cancelado":
         razon = random.choice(razones_cancelacion)
         print(f"Estado actual del vuelo: {estado_vuelo}. Razón: {razon}.\n")
     else:
@@ -358,7 +364,7 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     print("\nLista de vuelos disponibles:\n")
     print('-'*90)
     for i,vuelo in enumerate(vuelos):
-        origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, = vuelo
+        origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado = vuelo
         print(f"{i+1}. | {origen_pais:<{ancho_pais}},{origen_capital:<{ancho_capital}}-->   {destino_pais:<{ancho_pais}},{destino_capital:<{ancho_capital}}\t{fecha}\t{hora}")
         print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
 
@@ -373,9 +379,9 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
             vuelo_seleccionado = vuelos[seleccion-1]
             bandera = False
 
-    estado_vuelo = consultarStatusDeVuelo(vuelo_seleccionado)
+    estado = consultarStatusDeVuelo(vuelo_seleccionado)
 
-    if estado_vuelo == "Cancelado":
+    if estado == "Cancelado":
         print("No puedes reservar este vuelo porque está cancelado. Selecciona otro vuelo.\n")
         return
 
@@ -384,16 +390,20 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
         reservas.append((usuario_actual, vuelo_seleccionado))
         print("\nReserva realizada con ÉXITO\n")
         print(f"Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}  ==  {vuelo_seleccionado[4]}\t{vuelo_seleccionado[5]}\n")
-        
+        imprimirTicket(usuario_actual, vuelo_seleccionado)
     else:
         print("ERROR. La reserva no se pudo completar debido a un problema con el pago.")
 
-def imprimir_ticket(usuario_actual, vuelo):
-    origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora = vuelo
+    
+
+def imprimirTicket(usuario_actual, vuelo):
+    origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado = vuelo
     
     numero_vuelo=random.randint(1000,9999)
-    numero_asiento=random.randint(1,20)+random.choice(['A', 'B', 'C', 'D', 'E', 'F'])
-
+    numero_asiento=random.randint(1,20)
+    letra_asiento=random.choice(['A', 'B', 'C', 'D', 'E', 'F'])
+    pasaje = numero_asiento
+    # letra_asiento
 
     ticket = f"""
     ****************************************************************************************
@@ -403,7 +413,7 @@ def imprimir_ticket(usuario_actual, vuelo):
         N° Usuario: {usuario_actual}                    Fecha: {fecha}
     
     Desde/From: {origen_pais}, {origen_capital}         Vuelo n°/Flight nr:{numero_vuelo}
-    A/To: {destino_pais}, {destino_capital}             Asiento/Seat: {numero_asiento}
+    A/To: {destino_pais}, {destino_capital}             Asiento/Seat: {pasaje}
     
         Puerta/Gate: E01                                Hora: {hora}
 
@@ -411,9 +421,12 @@ def imprimir_ticket(usuario_actual, vuelo):
                                   ¡Gracias por viajar con nosotros!
     ****************************************************************************************
     """
-
-    return ticket
-
+    
+    os.system('cls' if os.name=='nt' else 'clear')
+    time.sleep(1)
+    print(ticket)
+    time.sleep(3)
+    os.system('cls' if os.name=='nt' else 'clear')
 
 def main():
     reservas = []
