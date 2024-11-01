@@ -99,19 +99,6 @@ def generarVuelos(matriz):
     return vuelos
 
 
-
-def guardarVuelosEnJson(vuelos, nombre_archivo):
-    """Guarda la lista de vuelos en un archivo JSON dentro de la carpeta 'vuelos'."""
-    os.makedirs('BDvuelos', exist_ok=True)
-    
-    # Ruta completa del archivo apuntando a la carpeta BDvuelos/vuelos.json
-    ruta_archivo = os.path.join('BDvuelos', nombre_archivo)
-    
-    # se utiliza [encoding='utf-8'] y [ensure_ascii=False] para evitar que los caracteres especiales sean codificados en el archivo
-    with open(ruta_archivo, 'wr', encoding='utf-8') as archivo_json:
-        json.dump(vuelos, archivo_json, indent=4, ensure_ascii=False) 
-
-
 def imprimirMatrizOrdenada(matriz):
     """Funcion que permite la prueba rápida de matriz y datos"""
     ancho_pais = 20
@@ -127,7 +114,7 @@ def imprimirMatrizOrdenada(matriz):
     for vuelo in matriz:
         # Llamada a la función lambda
         imprimir_vuelo(vuelo)  
-        print("-" * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
+        print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
 
 
 #Usuario
