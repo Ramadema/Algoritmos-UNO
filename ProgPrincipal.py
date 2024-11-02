@@ -2,6 +2,7 @@
 import time
 import random 
 import os
+import json
 import re
 from datetime import datetime, timedelta
 
@@ -62,6 +63,7 @@ def menuVuelos():
     return -1
 
 
+
 # Funciones
 def generar_fecha_hora():
     """Genera una fecha y hora aleatoria dentro de los próximos 30 días."""
@@ -79,6 +81,7 @@ def generar_fecha_hora():
 
 def generarVuelos(matriz):
     """Genera una cantidad establecida de vuelos entre países de Sudamérica y América del Norte o combinación de ambas."""
+    vuelosJson = []
     vuelos = []
     estados = ["A tiempo", "Retrasado", "Cancelado"]
     probabilidades = [0.7, 0.2, 0.1]
@@ -92,11 +95,36 @@ def generarVuelos(matriz):
                 origen_pais, origen_capital = matriz[i]
                 destino_pais, destino_capital = matriz[j]
                 fecha, hora = generar_fecha_hora()
+                # choices sacar al pingo
                 estado_vuelo = random.choices(estados, probabilidades)[0]
                 vuelos.append((origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado_vuelo))
-    print(vuelos)
 
+                vuelosJson.append({
+                    "origen_pais": origen_pais,
+                    "origen_capital": origen_capital,
+                    "destino_pais": destino_pais,
+                    "destino_capital": destino_capital,
+                    "fecha": fecha,
+                    "hora": hora,
+                    "estado_vuelo": estado_vuelo
+                })
+
+    guardarVuelosEnJson(vuelosJson,'vuelos.json')
+    
     return vuelos
+
+
+
+def guardarVuelosEnJson(vuelos, nombre_archivo):
+    """Guarda la lista de vuelos en un archivo JSON dentro de la carpeta 'vuelos'."""
+    os.makedirs('BDvuelos', exist_ok=True)
+    
+    # Ruta completa del archivo apuntando a la carpeta BDvuelos/vuelos.json
+    ruta_archivo = os.path.join('BDvuelos', nombre_archivo)
+    
+    # se utiliza [encoding='utf-8'] y [ensure_ascii=False] para evitar que los caracteres especiales sean codificados en el archivo
+    with open(ruta_archivo, 'wt', encoding='utf-8') as archivo_json:
+        json.dump(vuelos, archivo_json, indent=4, ensure_ascii=False) 
 
 
 def imprimirMatrizOrdenada(matriz):
@@ -121,9 +149,6 @@ def imprimirMatrizOrdenada(matriz):
 def registrarUsuario(diccionario_usuarios): 
     """Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas. Recibe la lista de usuarios existente"""
     os.system('cls' if os.name == 'nt' else 'clear')
-    
-    nombre_apellido=input("Ingrese su nombre y apellido: \n")
-    
     nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
     bandera = True
 
@@ -148,10 +173,8 @@ def registrarUsuario(diccionario_usuarios):
             print("Contraseña inválida. Debe tener al menos:\n")
             print(". 8 caracteres\n. 1 letra mayúscula\n. 1 letra minúscula\n. 1 número")
 
-    diccionario_usuarios[nuevo_usuario] = {
-        "nombre y apellido":nombre_apellido,
-        "contrasena":nueva_contraseña
-    }
+    diccionario_usuarios[nuevo_usuario] = nueva_contraseña
+
     print(diccionario_usuarios)
     # os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -176,7 +199,7 @@ def iniciarSesion(diccionario_usuarios, intentos):
         else:
             # Solicitar la contraseña
             contrasena = input("Ingrese su contraseña: \n")
-            if diccionario_usuarios[iniciarSesion] ["contrasena"] == contrasena:
+            if diccionario_usuarios[iniciarSesion] == contrasena:
                 os.system('cls' if os.name == 'nt' else 'clear')    
                 print("Login exitoso")
                 time.sleep(2)
@@ -195,6 +218,7 @@ def iniciarSesion(diccionario_usuarios, intentos):
                     bandera = False
 
     return intentos, usuario_actual
+
 
 def sacar_tildes(texto):
     """Funcion que se encarga de reemplazar la variable q entra por la palabra sin tilde"""
@@ -223,6 +247,7 @@ def mostrar_filtro_vuelos(vuelos):
         print("\n\n")
     else:
         print("No se encontraron vuelos que coincidan.")
+
 
 
 def buscar_vuelos(vuelos, pais_origen, pais_llegada):
@@ -282,17 +307,21 @@ def consultarStatusDeVuelo(vuelo_seleccionado):
     origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado_vuelo = vuelo_seleccionado
     razones_cancelacion = ["Tormenta", "Vientos fuertes", "Problemas técnicos", "Falta de personal"]
     
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     print(f"Estado del vuelo seleccionado: Origen: {origen_pais}, {origen_capital} -> Destino: {destino_pais}, {destino_capital}")
     print(f"Fecha: {fecha} Hora: {hora}")
     
-    if estado_vuelo == "Cancelado":
+    if estado_vuelo == "Retrasado":
+        razon = random.choice(razones_cancelacion)
+        print(f"Estado actual del vuelo: {estado_vuelo}. Razón: {razon}.\n")
+    elif estado_vuelo == "Cancelado":
         razon = random.choice(razones_cancelacion)
         print(f"Estado actual del vuelo: {estado_vuelo}. Razón: {razon}.\n")
     else:
         print(f"Estado actual del vuelo: {estado_vuelo}\n")
     
     return estado_vuelo
-
 
 
 def pagarReserva():
@@ -363,7 +392,7 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     print("\nLista de vuelos disponibles:\n")
     print('-'*90)
     for i,vuelo in enumerate(vuelos):
-        origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado_vuelo = vuelo
+        origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado = vuelo
         print(f"{i+1}. | {origen_pais:<{ancho_pais}},{origen_capital:<{ancho_capital}}-->   {destino_pais:<{ancho_pais}},{destino_capital:<{ancho_capital}}\t{fecha}\t{hora}")
         print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
 
@@ -378,9 +407,9 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
             vuelo_seleccionado = vuelos[seleccion-1]
             bandera = False
 
-    estado_vuelo = consultarStatusDeVuelo(vuelo_seleccionado)
+    estado = consultarStatusDeVuelo(vuelo_seleccionado)
 
-    if estado_vuelo == "Cancelado":
+    if estado == "Cancelado":
         print("No puedes reservar este vuelo porque está cancelado. Selecciona otro vuelo.\n")
         return
 
@@ -389,14 +418,16 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
         reservas.append((usuario_actual, vuelo_seleccionado))
         print("\nReserva realizada con ÉXITO\n")
         print(f"Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}  ==  {vuelo_seleccionado[4]}\t{vuelo_seleccionado[5]}\n")
-        
+        imprimirTicket(usuario_actual, vuelo_seleccionado)
     else:
         print("ERROR. La reserva no se pudo completar debido a un problema con el pago.")
 
-def imprimir_ticket(usuario_actual, vuelo):
-    origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora = vuelo
+
+def imprimirTicket(usuario_actual, vuelo):
+    origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado = vuelo
     
     numero_vuelo=random.randint(1000,9999)
+    numero_asiento=str(random.randint(1,20)).zfill(2)+random.choice(['A', 'B', 'C', 'D', 'E', 'F'])
 
     ticket = f"""
     ****************************************************************************************
@@ -406,7 +437,7 @@ def imprimir_ticket(usuario_actual, vuelo):
         N° Usuario: {usuario_actual}                    Fecha: {fecha}
     
     Desde/From: {origen_pais}, {origen_capital}         Vuelo n°/Flight nr:{numero_vuelo}
-    A/To: {destino_pais}, {destino_capital}             Asiento/Seat:
+    A/To: {destino_pais}, {destino_capital}             Asiento/Seat: {numero_asiento}
     
         Puerta/Gate: E01                                Hora: {hora}
 
@@ -414,16 +445,17 @@ def imprimir_ticket(usuario_actual, vuelo):
                                   ¡Gracias por viajar con nosotros!
     ****************************************************************************************
     """
-
-    return ticket
+    
+    os.system('cls' if os.name=='nt' else 'clear')
+    time.sleep(1)
+    print(ticket)
+    time.sleep(3)
+    os.system('cls' if os.name=='nt' else 'clear')
 
 
 def main():
     reservas = []
-    diccionario_usuarios = {0000:
-                            {"nombre y apellido":"Administrador",
-                             "contrasena":"admin"}
-                            }
+    diccionario_usuarios = {0000:"admin"}
 
     salir = True
     salir2 = True

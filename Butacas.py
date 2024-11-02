@@ -65,7 +65,7 @@ bandera = True
 # prog principal
 while bandera:
     print("\n" + "-" * 40)
-    print("   Boeing 737 - Selección de Asientos")
+    print("   Airbus 737 - Selección de Asientos")
     print("-" * 40)
     mostrarAvion(asientos)
     seleccionarAsiento(asientos)
