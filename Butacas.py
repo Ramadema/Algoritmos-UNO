@@ -35,8 +35,11 @@ def seleccionarAsiento(asientos):
             
         else:
             try:
+                # se onvierte la parte numérica de la selección a un índice de fila.
                 fila = int(seleccion[:-1]) - 1
+                # se obtiene la letra de la columna.
                 letra_columna = seleccion[-1]
+                # El get traduce la letra de columna a un índice.
                 columna = columnas_map.get(letra_columna)
 
                 if fila < 0 or fila >= len(asientos) or columna is None or columna < 0 or columna >= len(asientos[0]):
