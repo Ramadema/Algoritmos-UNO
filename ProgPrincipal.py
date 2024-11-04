@@ -139,10 +139,9 @@ def imprimirMatrizOrdenada(matriz):
     
     imprimir_vuelo = lambda vuelo: print(f"{vuelo[0]:<{ancho_pais}},{vuelo[1]:<{ancho_capital}}-->   {vuelo[2]:<{ancho_pais}},{vuelo[3]:<{ancho_capital}}\t{vuelo[4]}\t{vuelo[5]}")
 
-    for vuelo in matriz:
-        # Llamada a la función lambda
-        imprimir_vuelo(vuelo)  
-        print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
+    list(map(imprimir_vuelo, matriz))
+    
+    print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
 
 
 #Usuario
@@ -257,11 +256,14 @@ def buscar_vuelos(vuelos, pais_origen, pais_llegada):
     pais_origen_sin_tildes = sacar_tildes(pais_origen)
     pais_llegada_sin_tildes = sacar_tildes(pais_llegada)
 
-    for index, vuelo in enumerate(vuelos):  
-        if sacar_tildes(vuelo[0]) == pais_origen_sin_tildes and sacar_tildes(vuelo[2]) == pais_llegada_sin_tildes:
-            # Añadir tupla (index, vuelo), guardo index para posteriormente poder seleccionar la opcion del vuelo que quiero reservar
-            resultados.append((index+1, vuelo))  
-    
+    # Se usa filter para seleccionar vuelos con el origen y destino deseado
+    vuelos_filtrados = filter(
+        lambda vuelo: sacar_tildes(vuelo[0]) == pais_origen_sin_tildes and sacar_tildes(vuelo[2]) == pais_llegada_sin_tildes,
+        vuelos
+    )
+
+    resultados = [(index + 1, vuelo) for index, vuelo in enumerate(vuelos_filtrados)]
+
     return resultados
 
 
@@ -276,7 +278,7 @@ def cancelarReserva(reservas, usuario_actual):
     os.system('cls' if os.name == 'nt' else 'clear')
 
     print("\nReservas del usuario:")
-    reservas_usuario = [reserva for reserva in reservas if reserva[0] == usuario_actual]
+    reservas_usuario = list(filter(lambda reserva: reserva[0] == usuario_actual, reservas))
 
     if not reservas_usuario:
         print("No tiene reservas para cancelar.\n")
@@ -368,7 +370,7 @@ def historialReservas(reservas, usuario_actual):
     bandera = True
 
     print("\nHistorial de reservas del usuario:")
-    reservas_usuario = [reserva for reserva in reservas if reserva[0] == usuario_actual]
+    reservas_usuario = list(filter(lambda reserva: reserva[0] == usuario_actual, reservas))
 
     if not reservas_usuario:
         print("No tiene reservas registradas.\n")
