@@ -148,6 +148,8 @@ def imprimirMatrizOrdenada(matriz):
 def registrarUsuario(diccionario_usuarios): 
     """Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas. Recibe la lista de usuarios existente"""
     os.system('cls' if os.name == 'nt' else 'clear')
+
+    nombre_apellido=input("Ingrese su nombre y apellido: \n")
     nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
     bandera = True
 
@@ -172,7 +174,10 @@ def registrarUsuario(diccionario_usuarios):
             print("Contraseña inválida. Debe tener al menos:\n")
             print(". 8 caracteres\n. 1 letra mayúscula\n. 1 letra minúscula\n. 1 número")
 
-    diccionario_usuarios[nuevo_usuario] = nueva_contraseña
+    diccionario_usuarios[nuevo_usuario] = {
+                                            'nombre_apellido': nombre_apellido,
+                                            'contrasena': nueva_contraseña
+                                            }
 
     print(diccionario_usuarios)
     # os.system('cls' if os.name == 'nt' else 'clear')
@@ -198,7 +203,7 @@ def iniciarSesion(diccionario_usuarios, intentos):
         else:
             # Solicitar la contraseña
             contrasena = input("Ingrese su contraseña: \n")
-            if diccionario_usuarios[iniciarSesion] == contrasena:
+            if diccionario_usuarios[iniciarSesion] ["contrasena"] == contrasena:
                 os.system('cls' if os.name == 'nt' else 'clear')    
                 print("Login exitoso")
                 time.sleep(2)
@@ -409,6 +414,16 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
             vuelo_seleccionado = vuelos[seleccion-1]
             bandera = False
 
+    cantidad_pasajes=int(input("Ingrese la cantidad de pasajes que desee reservar, siendo 8 el máximo permitido: \n"))
+
+    while bandera:
+        if cantidad_pasajes<1 or cantidad_pasajes>8:
+            print("Selección inválida\n")
+            cantidad_pasajes=int(input("Ingrese la cantidad de pasajes que desee reservar, siendo 8 el máximo permitido: \n"))
+        else:
+            bandera = False
+            
+
     estado = consultarStatusDeVuelo(vuelo_seleccionado)
 
     if estado == "Cancelado":
@@ -457,7 +472,10 @@ def imprimirTicket(usuario_actual, vuelo):
 
 def main():
     reservas = []
-    diccionario_usuarios = {0000:"admin"}
+    diccionario_usuarios = {0000:
+                            {"nombre y apellido":"Administrador",
+                            "contrasena":"admin"}
+                            }
 
     salir = True
     salir2 = True
