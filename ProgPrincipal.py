@@ -148,9 +148,10 @@ def imprimirMatrizOrdenada(matriz):
 def registrarUsuario(diccionario_usuarios): 
     """Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas. Recibe la lista de usuarios existente"""
     os.system('cls' if os.name == 'nt' else 'clear')
-
     nombre_apellido=input("Ingrese su nombre y apellido: \n")
+    os.system('cls' if os.name == 'nt' else 'clear')
     nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
+    
     bandera = True
 
     while bandera:
@@ -158,7 +159,7 @@ def registrarUsuario(diccionario_usuarios):
             print("Número de usuario inválido o ya existente\n")
             nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
         else:
-            print("Usuario registrado\n")
+            os.system('cls' if os.name == 'nt' else 'clear')
             bandera = False
 
     while True:
@@ -168,7 +169,11 @@ def registrarUsuario(diccionario_usuarios):
         patron = re.compile(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$')
         
         if patron.match(nueva_contraseña):
-            print("Nueva contraseña registrada\n")
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("Usuario registrado con éxito\n")
+            time.sleep(2)
+            os.system('cls' if os.name == 'nt' else 'clear')
+
             break
         else:
             print("Contraseña inválida. Debe tener al menos:\n")
@@ -180,7 +185,7 @@ def registrarUsuario(diccionario_usuarios):
                                             }
 
     print(diccionario_usuarios)
-    # os.system('cls' if os.name == 'nt' else 'clear')
+
 
 
 def iniciarSesion(diccionario_usuarios, intentos): 
@@ -196,13 +201,13 @@ def iniciarSesion(diccionario_usuarios, intentos):
             intentos += 1
             
             iniciarSesion = int(input("Ingrese su número de usuario: \n"))
-            if intentos == 3:
+            if intentos == 4:
                 intentos = 1
                 print("Demasiados intentos fallidos.")
                 bandera = False
         else:
             # Solicitar la contraseña
-            contrasena = input("Ingrese su contraseña: \n")
+            contrasena = input("\nIngrese su contraseña: \n")
             if diccionario_usuarios[iniciarSesion] ["contrasena"] == contrasena:
                 os.system('cls' if os.name == 'nt' else 'clear')    
                 print("Login exitoso")
@@ -213,12 +218,12 @@ def iniciarSesion(diccionario_usuarios, intentos):
                 bandera = False
             else:
                 os.system('cls' if os.name == 'nt' else 'clear')
-                print("Contraseña incorrecta\n")
+                # el abs unicamente me da el numero absuloto de intentos, el cual debe ser siempre positivo
+                print(f"Contraseña incorrecta. Tiene {abs(intentos-3)} intentos para poder logearse. \n")
                 intentos += 1
 
-                if intentos == 3:
+                if intentos == 4:
                     intentos = 1
-                    print("Demasiados intentos fallidos.")
                     bandera = False
 
     return intentos, usuario_actual
@@ -414,6 +419,7 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
             vuelo_seleccionado = vuelos[seleccion-1]
             bandera = False
 
+
     cantidad_pasajes=int(input("Ingrese la cantidad de pasajes que desee reservar, siendo 8 el máximo permitido: \n"))
 
     while bandera:
@@ -524,6 +530,10 @@ def main():
                     # Cerrar sesion
                     os.system('cls' if os.name == 'nt' else 'clear')
                     print("Sesión cerrada.")
+                    time.sleep(2)
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    
+
                     salir2 = False
         else:
             print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
