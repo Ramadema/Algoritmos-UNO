@@ -253,6 +253,7 @@ def mostrar_filtro_vuelos(vuelos):
         for index, vuelo in resultados:
             # Imprimir índice seguido de los detalles del vuelo
             print(f"{index}) {vuelo[0]} --> {vuelo[2]} - {vuelo[3]} == {vuelo[4]}\t{vuelo[5]}")
+            print('-' * 130)
         print("\n\n")
     else:
         print("No se encontraron vuelos que coincidan.")
@@ -402,7 +403,7 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     ancho_capital = 20
     
     print("\nLista de vuelos disponibles:\n")
-    print('-'*90)
+    print('-'*130)
     for i,vuelo in enumerate(vuelos):
         origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado = vuelo
         print(f"{i+1}. | {origen_pais:<{ancho_pais}},{origen_capital:<{ancho_capital}}-->   {destino_pais:<{ancho_pais}},{destino_capital:<{ancho_capital}}\t{fecha}\t{hora}")
