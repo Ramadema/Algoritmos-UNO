@@ -83,8 +83,7 @@ def generarVuelos(matriz):
     """Genera una cantidad establecida de vuelos entre países de Sudamérica y América del Norte o combinación de ambas."""
     vuelosJson = []
     vuelos = []
-    estados = ["A tiempo", "Retrasado", "Cancelado"]
-    probabilidades = [0.7, 0.2, 0.1]
+    estados = ["A tiempo"] * 7 + ["Retrasado"] * 2 + ["Cancelado"]
     
     for i in range(len(matriz)):
         random.shuffle(matriz)
@@ -95,8 +94,7 @@ def generarVuelos(matriz):
                 origen_pais, origen_capital = matriz[i]
                 destino_pais, destino_capital = matriz[j]
                 fecha, hora = generar_fecha_hora()
-                # choices sacar al pingo
-                estado_vuelo = random.choices(estados, probabilidades)[0]
+                estado_vuelo = random.choice(estados)
                 vuelos.append((origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado_vuelo))
 
                 vuelosJson.append({
