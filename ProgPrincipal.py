@@ -288,14 +288,11 @@ def buscar_vuelos(vuelos, pais_origen, pais_llegada):
     pais_origen_sin_tildes = sacar_tildes(pais_origen)
     pais_llegada_sin_tildes = sacar_tildes(pais_llegada)
 
-    # Se usa filter para seleccionar vuelos con el origen y destino deseado
-    vuelos_filtrados = filter(
-        lambda vuelo: sacar_tildes(vuelo[0]) == pais_origen_sin_tildes and sacar_tildes(vuelo[2]) == pais_llegada_sin_tildes,
-        vuelos
-    )
-
-    resultados = [(index + 1, vuelo) for index, vuelo in enumerate(vuelos_filtrados)]
-
+    for index, vuelo in enumerate(vuelos):  
+        if sacar_tildes(vuelo[0]) == pais_origen_sin_tildes and sacar_tildes(vuelo[2]) == pais_llegada_sin_tildes:
+            # Añadir tupla (index, vuelo), guardo index para posteriormente poder seleccionar la opcion del vuelo que quiero reservar
+            resultados.append((index+1, vuelo)) 
+            
     return resultados
 
 
