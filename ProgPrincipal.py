@@ -129,19 +129,20 @@ def guardarVuelosEnJson(vuelos, nombre_archivo):
 
 def imprimirMatrizOrdenada(matriz):
     """Funcion que permite la prueba rápida de matriz y datos"""
+    os.system('cls' if os.name == 'nt' else 'clear')
     ancho_pais = 20
     ancho_capital = 20
     
     print("\n")
-    print('-' * 130)
+    print('-' * 118)
     print("\t    Ubicación de Origen\t\t\t    Ubicación de Llegada\t\t          Fecha\t\tHora")
-    print('-' * 130)
+    print('-' * 118)
     
     imprimir_vuelo = lambda vuelo: print(f"{vuelo[0]:<{ancho_pais}},{vuelo[1]:<{ancho_capital}}-->   {vuelo[2]:<{ancho_pais}},{vuelo[3]:<{ancho_capital}}\t{vuelo[4]}\t{vuelo[5]}")
 
     list(map(imprimir_vuelo, matriz))
     
-    print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
+    print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 38))
 
 
 def ImprimirVuelosEscalas(vuelos_escalas):
@@ -149,7 +150,7 @@ def ImprimirVuelosEscalas(vuelos_escalas):
     os.system('cls' if os.name == 'nt' else 'clear')
     ancho_pais = 20
     ancho_capital = 20
-    
+
     print("\nEscalas disponibles:\n")
  
     print('-' * 130)
@@ -175,7 +176,7 @@ def registrarUsuario(diccionario_usuarios):
     
     while ok:
         nombre_apellido=input("Ingrese su nombre y apellido: \n")
-        if all(('a' <= char <= 'z' or 'A' <= char <= 'Z') for char in nombre_apellido):
+        if all(('a' <= char <= 'z' or 'A' <= char <= 'Z' or char == ' ') for char in nombre_apellido):
             ok=False
         else:
             print("Error: Solo se permiten letras. Intenta nuevamente.")
@@ -317,13 +318,13 @@ def obtener_paises():
     bandera=True
     while bandera:
         pais_origen = input("Ingrese el país de origen: ").title().strip()
-        if all(('a' <= char <= 'z' or 'A' <= char <= 'Z') for char in pais_origen):
+        if all(('a' <= char <= 'z' or 'A' <= char <= 'Z' or char == ' ') for char in pais_origen):
             bandera=False
         else:
             print("Error: Solo se permiten letras. Intenta nuevamente.")
     while True:
         pais_llegada = input("Ingrese el país de llegada: ").title().strip()
-        if all(('a' <= char <= 'z' or 'A' <= char <= 'Z') for char in pais_llegada):
+        if all(('a' <= char <= 'z' or 'A' <= char <= 'Z' or char == ' ') for char in pais_llegada):
             break
         else:
             print("Error: Solo se permiten letras. Intenta nuevamente.")
@@ -493,12 +494,15 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     ancho_pais = 20
     ancho_capital = 20
     
-    print("\nLista de vuelos disponibles:\n")
-    print('-'*130)
+
+    print("\n")
+    print('-' * 118)
+    print("\t    Ubicación de Origen\t\t\t        Ubicación de Llegada\t\t          Fecha\t\tHora")
+    print('-' * 118)
     for i,vuelo in enumerate(vuelos):
         origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado = vuelo
         print(f"{i+1}. | {origen_pais:<{ancho_pais}},{origen_capital:<{ancho_capital}}-->   {destino_pais:<{ancho_pais}},{destino_capital:<{ancho_capital}}\t{fecha}\t{hora}")
-        print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
+        print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 38))
 
     while bandera:
         try:
