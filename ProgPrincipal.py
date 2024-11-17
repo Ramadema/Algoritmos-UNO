@@ -168,20 +168,31 @@ def ImprimirVuelosEscalas(vuelos_escalas):
 #Usuario
 def registrarUsuario(diccionario_usuarios): 
     """Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas. Recibe la lista de usuarios existente"""
-    os.system('cls' if os.name == 'nt' else 'clear')
-    nombre_apellido=input("Ingrese su nombre y apellido: \n")
-    os.system('cls' if os.name == 'nt' else 'clear')
-    nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
-    
+    ok=True
     bandera = True
-
-    while bandera:
-        if nuevo_usuario < 1000 or nuevo_usuario > 9999 or nuevo_usuario in diccionario_usuarios:
-            print("Número de usuario inválido o ya existente\n")
-            nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
+    
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
+    while ok:
+        nombre_apellido=input("Ingrese su nombre y apellido: \n")
+        if all(('a' <= char <= 'z' or 'A' <= char <= 'Z') for char in nombre_apellido):
+            ok=False
         else:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            bandera = False
+            print("Error: Solo se permiten letras. Intenta nuevamente.")
+    
+    os.system('cls' if os.name == 'nt' else 'clear')
+            
+    while bandera:
+        try:
+            nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
+            if nuevo_usuario < 1000 or nuevo_usuario > 9999 or nuevo_usuario in diccionario_usuarios:
+                print("Número de usuario inválido o ya existente\n")
+                nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
+            else:
+                os.system('cls' if os.name == 'nt' else 'clear')
+                bandera = False
+        except ValueError:
+            print("Error: Debes ingresar solo números.")
 
     while True:
         nueva_contraseña = input("Ingrese una contraseña de al menos 8 caracteres con al menos un número, una letra minúscula y una letra mayúscula: \n")
@@ -212,40 +223,46 @@ def registrarUsuario(diccionario_usuarios):
 def iniciarSesion(diccionario_usuarios, intentos): 
     """Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones."""
     usuario_actual = 0
-    iniciarSesion = int(input("Ingrese su número de usuario: \n"))
     bandera = True
 
     while bandera:
-        if iniciarSesion not in diccionario_usuarios:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            print("Usuario no existente\n")
-            intentos += 1
-            
+        try:
             iniciarSesion = int(input("Ingrese su número de usuario: \n"))
-            if intentos == 4:
-                intentos = 1
-                print("Demasiados intentos fallidos.")
-                bandera = False
-        else:
-            # Solicitar la contraseña
-            contrasena = input("\nIngrese su contraseña: \n")
-            if diccionario_usuarios[iniciarSesion] ["contrasena"] == contrasena:
-                os.system('cls' if os.name == 'nt' else 'clear')    
-                print("Login exitoso")
-                time.sleep(2)
-                os.system('cls' if os.name == 'nt' else 'clear') 
-                intentos = 0
-                usuario_actual = iniciarSesion
-                bandera = False
-            else:
+            if iniciarSesion not in diccionario_usuarios:
                 os.system('cls' if os.name == 'nt' else 'clear')
-                # el abs unicamente me da el numero absuloto de intentos, el cual debe ser siempre positivo
-                print(f"Contraseña incorrecta. Tiene {abs(intentos-3)} intentos para poder logearse. \n")
+                print("Usuario no existente\n")
                 intentos += 1
-
+                iniciarSesion = int(input("Ingrese su número de usuario: \n"))
                 if intentos == 4:
                     intentos = 1
+                    print("Demasiados intentos fallidos.")
                     bandera = False
+            else:
+                os.system('cls' if os.name == 'nt' else 'clear')
+                bandera=False
+        except ValueError:
+            print("Error: Debes ingresar solo números.")
+
+    while True:
+        # Solicitar la contraseña
+        contrasena = input("\nIngrese su contraseña: \n")
+        if diccionario_usuarios[iniciarSesion] ["contrasena"] == contrasena:
+            os.system('cls' if os.name == 'nt' else 'clear')    
+            print("Login exitoso")
+            time.sleep(2)
+            os.system('cls' if os.name == 'nt' else 'clear') 
+            intentos = 0
+            usuario_actual = iniciarSesion
+            break
+        else:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            # el abs unicamente me da el numero absuloto de intentos, el cual debe ser siempre positivo
+            print(f"Contraseña incorrecta. Tiene {abs(intentos-3)} intentos para poder logearse. \n")
+            intentos += 1
+
+            if intentos == 4:
+                intentos = 1
+                bandera = False
 
     return intentos, usuario_actual
 
@@ -297,14 +314,27 @@ def buscar_vuelos(vuelos, pais_origen, pais_llegada):
 
 
 def obtener_paises():
-    pais_origen = input("Ingrese el país de origen: ").title().strip()
-    pais_llegada = input("Ingrese el país de llegada: ").title().strip()
+    bandera=True
+    while bandera:
+        pais_origen = input("Ingrese el país de origen: ").title().strip()
+        if all(('a' <= char <= 'z' or 'A' <= char <= 'Z') for char in pais_origen):
+            bandera=False
+        else:
+            print("Error: Solo se permiten letras. Intenta nuevamente.")
+    while True:
+        pais_llegada = input("Ingrese el país de llegada: ").title().strip()
+        if all(('a' <= char <= 'z' or 'A' <= char <= 'Z') for char in pais_llegada):
+            break
+        else:
+            print("Error: Solo se permiten letras. Intenta nuevamente.")
+    
     return pais_origen, pais_llegada
 
 
 def cancelarReserva(reservas, usuario_actual):
     """Función que permite al usuario cancelar una reserva existente, gestionando el reembolso o cambios según las políticas del sistema. Recibe lista de usuarios y lista de reservas existentes."""
     os.system('cls' if os.name == 'nt' else 'clear')
+    bandera=True
 
     print("\nReservas del usuario:")
     reservas_usuario = list(filter(lambda reserva: reserva[0] == usuario_actual, reservas))
@@ -320,10 +350,17 @@ def cancelarReserva(reservas, usuario_actual):
     # Función lambda para validar la selección de reserva
     validar_seleccion = lambda seleccion: 1 <= seleccion <= len(reservas_usuario)
 
-    seleccion = int(input("\nSeleccione el número de la reserva que desea cancelar: \n"))
-    while not validar_seleccion(seleccion):
-        print("Selección de reserva inválida\n")
-        seleccion = int(input("Seleccione el número de la reserva que desea cancelar: \n"))
+    while bandera:
+        try:
+            seleccion = int(input("\nSeleccione el número de la reserva que desea cancelar: \n"))
+            if not validar_seleccion(seleccion):
+                print("Selección de reserva inválida\n")
+                seleccion = int(input("Seleccione el número de la reserva que desea cancelar: \n"))
+            else:
+                os.system('cls' if os.name == 'nt' else 'clear')
+                bandera=False
+        except ValueError:
+            print("Error: Debes ingresar un número.")
 
     reserva_seleccionada = reservas_usuario[seleccion - 1]
     reservas.remove(reserva_seleccionada)
@@ -367,30 +404,35 @@ def pagarReserva():
     print("Opciones de método de pago:")
     for clave, valor in metodos_pago.items():
         print(f"{clave}. {valor}")
-    
-    metodo_pago = int(input("\nSelecciona un método de pago: "))
 
-    if metodo_pago in metodos_pago:
-        print(f"Método de pago seleccionado: {metodos_pago[metodo_pago]}.")
-    else:
-        print("Método de pago inválido. Intenta de nuevo.")
-        #Vuelvo a la funcion cuando el usuario ponga cualquier otro metodo de pago no existente
-        return pagarReserva()
+    try:
+        metodo_pago = int(input("\nSelecciona un método de pago: "))
 
-    #Utilizacion de procesamiento de pago aleatoreo
-    print("Espere un momento, su pago se esta procesando...")
-    transaccion_exitosa = random.choice([True, False, True, True])
-    
-    if transaccion_exitosa:
-        time.sleep(2)
-        os.system('cls' if os.name == 'nt' else 'clear') 
-        print("\nPago completado con éxito.")
-        return True
-    else:
-        time.sleep(2)
-        os.system('cls' if os.name == 'nt' else 'clear') 
-        print("\nError en la transacción. Vuelve a intentarlo.")
-        return False
+        if metodo_pago in metodos_pago:
+            print(f"Método de pago seleccionado: {metodos_pago[metodo_pago]}.")
+        else:
+            print("Método de pago inválido. Intenta de nuevo.")
+            #Vuelvo a la funcion cuando el usuario ponga cualquier otro metodo de pago no existente
+            return pagarReserva()
+            #Utilizacion de procesamiento de pago aleatoreo
+        
+        print("Espere un momento, su pago se esta procesando...")
+        transaccion_exitosa = random.choice([True, False, True, True])
+        
+        if transaccion_exitosa:
+            time.sleep(2)
+            os.system('cls' if os.name == 'nt' else 'clear') 
+            print("\nPago completado con éxito.")
+            return True
+        else:
+            time.sleep(2)
+            os.system('cls' if os.name == 'nt' else 'clear') 
+            print("\nError en la transacción. Vuelve a intentarlo.")
+            return False
+        
+    except ValueError:
+        print("Error: Debe ingresar solo números.")
+
 
 
 def historialReservas(reservas, usuario_actual):
@@ -446,7 +488,7 @@ def historialReservas(reservas, usuario_actual):
 def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     """Esta funcion Facilita la reserva de un vuelo seleccionado, solicitando la información del usuario y confirmando la reserva. Recibe la matriz de Vuelos, la lista de usuarios existentes y las reservas actuales"""
     os.system('cls' if os.name=='nt' else 'clear')
-
+    ok = True
     bandera = True
     ancho_pais = 20
     ancho_capital = 20
@@ -458,26 +500,28 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
         print(f"{i+1}. | {origen_pais:<{ancho_pais}},{origen_capital:<{ancho_capital}}-->   {destino_pais:<{ancho_pais}},{destino_capital:<{ancho_capital}}\t{fecha}\t{hora}")
         print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
 
-    seleccion = int(input("\nSeleccione el número del vuelo que desea reservar: \n"))
-    bandera = True
-
     while bandera:
-        if seleccion < 1 or seleccion > len(vuelos):
-            print("Selección de vuelo inválida\n")
-            seleccion = int(input("Seleccione el número del vuelo que desea reservar: \n"))
-        else:
-            vuelo_seleccionado = vuelos[seleccion-1]
-            bandera = False
+        try:
+            seleccion = int(input("\nSeleccione el número del vuelo que desea reservar: \n"))
+            if seleccion < 1 or seleccion > len(vuelos):
+                print("Selección de vuelo inválida\n")
+                seleccion = int(input("Seleccione el número del vuelo que desea reservar: \n"))
+            else:
+                vuelo_seleccionado = vuelos[seleccion-1]
+                bandera = False
+        except ValueError:
+            print("Error: Debes ingresar solo números.")
 
-
-    cantidad_pasajes=int(input("Ingrese la cantidad de pasajes que desee reservar, siendo 8 el máximo permitido: \n"))
-
-    while bandera:
-        if cantidad_pasajes<1 or cantidad_pasajes>8:
-            print("Selección inválida\n")
+    while ok:
+        try:
             cantidad_pasajes=int(input("Ingrese la cantidad de pasajes que desee reservar, siendo 8 el máximo permitido: \n"))
-        else:
-            bandera = False
+            if cantidad_pasajes<1 or cantidad_pasajes>8:
+                print("Selección inválida\n")
+                cantidad_pasajes=int(input("Ingrese la cantidad de pasajes que desee reservar, siendo 8 el máximo permitido: \n"))
+            else:
+                ok = False
+        except:
+            print("Error: Debes ingresar solo números.")
             
 
     estado = consultarStatusDeVuelo(vuelo_seleccionado)
@@ -493,7 +537,7 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
         print(f"Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}  ==  {vuelo_seleccionado[4]}\t{vuelo_seleccionado[5]}\n")
         imprimirTicket(usuario_actual, vuelo_seleccionado)
     else:
-        print("ERROR. La reserva no se pudo completar debido a un problema con el pago.")
+        print("Error: La reserva no se pudo completar debido a un problema con el pago.")
 
 
 def imprimirTicket(usuario_actual, vuelo):
