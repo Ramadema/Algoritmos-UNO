@@ -437,23 +437,6 @@ def pagarReserva():
 
 
 def historialReservas(reservas, usuario_actual):
-    # """Esta funcion muestra un historial de reservas realizadas por el usuario, incluyendo reservas anteriores y pagos.(antiguas y actuales) Recibe reservas actuales"""
-    # os.system('cls' if os.name=='nt' else 'clear')
-    # bandera = True
-
-    # print("\nHistorial de reservas del usuario:")
-    # reservas_usuario = list(filter(lambda reserva: reserva[0] == usuario_actual, reservas))
-
-    # if not reservas_usuario:
-    #     print("No tiene reservas registradas.\n")
-    #     return
-
-    # for i, reserva in enumerate(reservas_usuario):
-    #     vuelo = reserva[1]
-    #     print('-' * 80)
-    #     print(f"{i+1}. | Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}  == {vuelo[4]}\t{vuelo[5]}")
-    # print('-' * 80) 
-
     """Esta función muestra un historial de reservas realizadas por el usuario, incluyendo reservas anteriores y pagos.(antiguas y actuales) Recibe reservas actuales."""
     os.system('cls' if os.name == 'nt' else 'clear')
     
@@ -483,7 +466,7 @@ def historialReservas(reservas, usuario_actual):
             archivo.write(linea + '\n')
             archivo.write('-' * 80 + '\n')
 
-    print(f"\nEl historial se ha guardado en el archivo: {nombre_archivo}")
+    print(f"\nLa informacion de sus reservas ha sido actualizada en su historial con numero de usuario {usuario_actual}")
 
 
 def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
@@ -558,7 +541,7 @@ def imprimirTicket(usuario_actual, vuelo):
         N° Usuario: {usuario_actual}                    Fecha: {fecha}
     
     Desde/From: {origen_pais}, {origen_capital}         Vuelo n°/Flight nr:{numero_vuelo}
-    A/To: {destino_pais}, {destino_capital}             Asiento/Seat: {numero_asiento}
+    Asiento/Seat: {numero_asiento}                                                    A/To: {destino_pais}, {destino_capital} 
     
         Puerta/Gate: E01                                Hora: {hora}
 
