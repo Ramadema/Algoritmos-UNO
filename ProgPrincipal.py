@@ -374,10 +374,26 @@ def pagarReserva():
 
 
 def historialReservas(reservas, usuario_actual):
-    """Esta funcion muestra un historial de reservas realizadas por el usuario, incluyendo reservas anteriores y pagos.(antiguas y actuales) Recibe reservas actuales"""
-    os.system('cls' if os.name=='nt' else 'clear')
-    bandera = True
+    # """Esta funcion muestra un historial de reservas realizadas por el usuario, incluyendo reservas anteriores y pagos.(antiguas y actuales) Recibe reservas actuales"""
+    # os.system('cls' if os.name=='nt' else 'clear')
+    # bandera = True
 
+    # print("\nHistorial de reservas del usuario:")
+    # reservas_usuario = list(filter(lambda reserva: reserva[0] == usuario_actual, reservas))
+
+    # if not reservas_usuario:
+    #     print("No tiene reservas registradas.\n")
+    #     return
+
+    # for i, reserva in enumerate(reservas_usuario):
+    #     vuelo = reserva[1]
+    #     print('-' * 80)
+    #     print(f"{i+1}. | Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}  == {vuelo[4]}\t{vuelo[5]}")
+    # print('-' * 80) 
+
+    """Esta función muestra un historial de reservas realizadas por el usuario, incluyendo reservas anteriores y pagos.(antiguas y actuales) Recibe reservas actuales."""
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
     print("\nHistorial de reservas del usuario:")
     reservas_usuario = list(filter(lambda reserva: reserva[0] == usuario_actual, reservas))
 
@@ -385,11 +401,26 @@ def historialReservas(reservas, usuario_actual):
         print("No tiene reservas registradas.\n")
         return
 
-    for i, reserva in enumerate(reservas_usuario):
-        vuelo = reserva[1]
-        print('-' * 80)
-        print(f"{i+1}. | Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}  == {vuelo[4]}\t{vuelo[5]}")
-    print('-' * 80) 
+    # Verificar si la carpeta 'historiales' existe, si no, crearla
+    carpeta_historiales = "historiales"
+    if not os.path.exists(carpeta_historiales):
+        os.makedirs(carpeta_historiales)
+
+    # Crear o sobrescribir el archivo del historial en la carpeta
+    nombre_archivo = os.path.join(carpeta_historiales, f"historial_reservas_{usuario_actual}.txt")
+    with open(nombre_archivo, 'w') as archivo:
+        archivo.write(f"Historial de reservas del usuario: {usuario_actual}\n")
+        archivo.write('-' * 80 + '\n')
+
+        for i, reserva in enumerate(reservas_usuario):
+            vuelo = reserva[1]
+            linea = f"{i+1}. | Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}  == {vuelo[4]}\t{vuelo[5]}"
+            print('-' * 80)
+            print(linea)
+            archivo.write(linea + '\n')
+            archivo.write('-' * 80 + '\n')
+
+    print(f"\nEl historial se ha guardado en el archivo: {nombre_archivo}")
 
 
 def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
