@@ -139,10 +139,13 @@ def imprimirMatrizOrdenada(matriz):
     print('-' * 118)
     
     imprimir_vuelo = lambda vuelo: print(f"{vuelo[0]:<{ancho_pais}},{vuelo[1]:<{ancho_capital}}-->   {vuelo[2]:<{ancho_pais}},{vuelo[3]:<{ancho_capital}}\t{vuelo[4]}\t{vuelo[5]}")
-
-    list(map(imprimir_vuelo, matriz))
+    
+    for vuelo in matriz:
+        imprimir_vuelo(vuelo)
+        print('-' * 118)
     
     print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 38))
+    
 
 
 def ImprimirVuelosEscalas(vuelos_escalas):
@@ -175,25 +178,27 @@ def registrarUsuario(diccionario_usuarios):
     os.system('cls' if os.name == 'nt' else 'clear')
     
     while ok:
+        os.system('cls' if os.name == 'nt' else 'clear')
         nombre_apellido=input("Ingrese su nombre y apellido: \n")
         if all(('a' <= char <= 'z' or 'A' <= char <= 'Z' or char == ' ') for char in nombre_apellido):
             ok=False
         else:
-            print("Error: Solo se permiten letras. Intenta nuevamente.")
+            print("\nError: Solo se permiten letras. Intenta nuevamente.")
     
     os.system('cls' if os.name == 'nt' else 'clear')
             
     while bandera:
         try:
+            os.system('cls' if os.name == 'nt' else 'clear')
             nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
             if nuevo_usuario < 1000 or nuevo_usuario > 9999 or nuevo_usuario in diccionario_usuarios:
-                print("Número de usuario inválido o ya existente\n")
+                print("\nNúmero de usuario inválido o ya existente\n")
                 nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
             else:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 bandera = False
         except ValueError:
-            print("Error: Debes ingresar solo números.")
+            print("\nError: Debes ingresar solo números.")
 
     while True:
         nueva_contraseña = input("Ingrese una contraseña de al menos 8 caracteres con al menos un número, una letra minúscula y una letra mayúscula: \n")
@@ -209,6 +214,7 @@ def registrarUsuario(diccionario_usuarios):
 
             break
         else:
+            os.system('cls' if os.name == 'nt' else 'clear')
             print("Contraseña inválida. Debe tener al menos:\n")
             print(". 8 caracteres\n. 1 letra mayúscula\n. 1 letra minúscula\n. 1 número")
 
@@ -228,12 +234,13 @@ def iniciarSesion(diccionario_usuarios, intentos):
 
     while bandera:
         try:
+            os.system('cls' if os.name == 'nt' else 'clear')
             iniciarSesion = int(input("Ingrese su número de usuario: \n"))
             if iniciarSesion not in diccionario_usuarios:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 print("Usuario no existente\n")
                 intentos += 1
-                iniciarSesion = int(input("Ingrese su número de usuario: \n"))
+                iniciarSesion = int(input("\nIngrese su número de usuario: \n"))
                 if intentos == 4:
                     intentos = 1
                     print("Demasiados intentos fallidos.")
@@ -242,7 +249,7 @@ def iniciarSesion(diccionario_usuarios, intentos):
                 os.system('cls' if os.name == 'nt' else 'clear')
                 bandera=False
         except ValueError:
-            print("Error: Debes ingresar solo números.")
+            print("\nError: Debes ingresar solo números.")
 
     while True:
         # Solicitar la contraseña
@@ -287,12 +294,12 @@ def mostrar_filtro_vuelos(vuelos):
     # Buscar vuelos
     resultados = buscar_vuelos(vuelos, pais_origen, pais_llegada)
 
-    print(f"\nVuelos encontrados para ir desde {pais_origen} hasta {pais_llegada}")
+    print(f"\nVuelos encontrados para ir desde {pais_origen} hasta {pais_llegada}\n")
     if resultados:
         for index, vuelo in resultados:
             # Imprimir índice seguido de los detalles del vuelo
-            print(f"{index}) {vuelo[0]} --> {vuelo[2]} - {vuelo[3]} == {vuelo[4]}\t{vuelo[5]}")
-            print('-' * 130)
+            print(f"{index}) {vuelo[0]}, {vuelo[1]} --> {vuelo[2]}, {vuelo[3]}   ==>   {vuelo[4]}\t{vuelo[5]}")
+            print('-' * 85)
         print("\n\n")
     else:
         print("No se encontraron vuelos que coincidan.")
@@ -317,7 +324,7 @@ def buscar_vuelos(vuelos, pais_origen, pais_llegada):
 def obtener_paises():
     bandera=True
     while bandera:
-        pais_origen = input("Ingrese el país de origen: ").title().strip()
+        pais_origen = input("\nIngrese el país de origen: ").title().strip()
         if all(('a' <= char <= 'z' or 'A' <= char <= 'Z' or char == ' ') for char in pais_origen):
             bandera=False
         else:
@@ -430,7 +437,7 @@ def pagarReserva():
             os.system('cls' if os.name == 'nt' else 'clear') 
             print("\nError en la transacción. Vuelve a intentarlo.")
             return False
-        
+    
     except ValueError:
         print("Error: Debe ingresar solo números.")
 
@@ -466,7 +473,7 @@ def historialReservas(reservas, usuario_actual):
             archivo.write(linea + '\n')
             archivo.write('-' * 80 + '\n')
 
-    print(f"\nLa informacion de sus reservas ha sido actualizada en su historial con numero de usuario {usuario_actual}")
+    print(f"\nLa informacion de sus reservas ha sido actualizada en su historial con numero de usuario {usuario_actual}\n\n")
 
 
 def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
@@ -541,7 +548,7 @@ def imprimirTicket(usuario_actual, vuelo):
         N° Usuario: {usuario_actual}                    Fecha: {fecha}
     
     Desde/From: {origen_pais}, {origen_capital}         Vuelo n°/Flight nr:{numero_vuelo}
-    Asiento/Seat: {numero_asiento}                                                    A/To: {destino_pais}, {destino_capital} 
+    Asiento/Seat: {numero_asiento}                      A/To: {destino_pais}, {destino_capital} 
     
         Puerta/Gate: E01                                Hora: {hora}
 
