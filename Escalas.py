@@ -24,7 +24,7 @@ def gestionarEscalas(vuelos):
         pais_llegada = vuelo['destino_pais']
 
         if (pais_salida in paises_suramerica and pais_llegada in paises_norteamerica) or (pais_salida in paises_norteamerica and pais_llegada in paises_suramerica):
-            print(f"Vuelo de {pais_salida} a {pais_llegada}: es necesario hacer una escala.")
+            # print(f"Vuelo de {pais_salida} a {pais_llegada}: es necesario hacer una escala.")
             # Se elije un país aleatorio de Centroamérica cualquiera
             pais_random_centroamerica = random.choice(paises_centroamerica)
 
@@ -61,10 +61,10 @@ vuelos = leerArchivoRegiones("BDvuelos/vuelos.json")
 
 vuelos_con_escalas, vuelos_escalas = gestionarEscalas(vuelos)
 
-print("\nVuelos directos:")
-for vuelo in vuelos_con_escalas:
-    print(vuelo)
+# print("\nVuelos directos:")
+# for vuelo in vuelos_con_escalas:
+#     print(vuelo)
 
-print("\nVuelos con escalas:")
-for vuelo in vuelos_escalas:
-    print(vuelo)
+# print("\nVuelos con escalas:")
+# for vuelo in vuelos_escalas:
+#     print(vuelo)

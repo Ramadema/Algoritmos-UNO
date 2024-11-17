@@ -5,6 +5,7 @@ import os
 import json
 import re
 from datetime import datetime, timedelta
+from Escalas import vuelos_escalas
 
 # Funciones 
 def menuInicial():
@@ -44,19 +45,20 @@ def menuVuelos():
         print("*          1. Búsqueda de Vuelos                  *")
         print("*          2. Reserva de Vuelos                   *")
         print("*          3. Historial de Vuelos                 *")
-        print("*          4. Cancelar Reservas                   *")
-        print("*          5. Cerrar Sesión                       *")
+        print("*          4. Vuelos con Escalas                  *")
+        print("*          5. Cancelar Reservas                   *")
+        print("*          6. Cerrar Sesión                       *")
         print("*                                                 *")
         print("***************************************************")
 
         try:
             opcion = int(input("\nSeleccionar una opción: "))
             
-            if opcion >= 1 and opcion < 6:
+            if opcion >= 1 and opcion < 7:
                 ok = False
                 return opcion
             else:
-                print("Por favor, elige una opción válida (1-5)")
+                print("Por favor, elige una opción válida (1-6)")
         except ValueError:
             print("Error: Debes ingresar un número.")
 
@@ -141,6 +143,27 @@ def imprimirMatrizOrdenada(matriz):
     
     print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
 
+
+def ImprimirVuelosEscalas(vuelos_escalas):
+    """Funcion que permite la prueba rápida de matriz y datos"""
+    os.system('cls' if os.name == 'nt' else 'clear')
+    ancho_pais = 20
+    ancho_capital = 20
+    
+    print("\nEscalas disponibles:\n")
+ 
+    print('-' * 130)
+    print("\t    Ubicación de Origen\t\t\t    Ubicación de Llegada\t\t          Fecha\t\tHora")
+    print('-' * 130)
+    
+    # Función para imprimir cada vuelo en el formato adecuado
+    imprimir_vuelo = lambda vuelo: print(f"{vuelo['origen_pais']:<{ancho_pais}},{vuelo['origen_capital']:<{ancho_capital}}-->   {vuelo['destino_pais']:<{ancho_pais}},{vuelo['destino_capital']:<{ancho_capital}}\t{vuelo['fecha']}\t{vuelo['hora']}")
+    
+    # Aplicar la función de impresión a cada vuelo en la lista
+    list(map(imprimir_vuelo, vuelos_escalas))
+    
+    print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
+    print("\n\n")
 
 #Usuario
 def registrarUsuario(diccionario_usuarios): 
@@ -277,8 +300,8 @@ def buscar_vuelos(vuelos, pais_origen, pais_llegada):
 
 
 def obtener_paises():
-    pais_origen = input("Ingrese el país de origen: ").title()
-    pais_llegada = input("Ingrese el país de llegada: ").title()
+    pais_origen = input("Ingrese el país de origen: ").title().strip()
+    pais_llegada = input("Ingrese el país de llegada: ").title().strip()
     return pais_origen, pais_llegada
 
 
@@ -554,9 +577,12 @@ def main():
                     # Historial de reservas
                     historialReservas(reservas, usuario_actual)  
                 elif seleccion == 4:
+                    # Imprimir escalas
+                    ImprimirVuelosEscalas(vuelos_escalas)                    
+                elif seleccion == 5:
                     # Cancelar reservas
                     cancelarReserva(reservas, usuario_actual)
-                elif seleccion==5:
+                elif seleccion==6:
                     # Cerrar sesion
                     os.system('cls' if os.name == 'nt' else 'clear')
                     print("Sesión cerrada.")
