@@ -149,8 +149,10 @@ def imprimirMatrizOrdenada(matriz):
 
 
 def ImprimirVuelosEscalas(vuelos_escalas):
-    """Funcion que permite la prueba rápida de matriz y datos"""
+    """Función que permite la prueba rápida de matriz y datos"""
+    import os
     os.system('cls' if os.name == 'nt' else 'clear')
+    
     ancho_pais = 20
     ancho_capital = 20
 
@@ -159,14 +161,31 @@ def ImprimirVuelosEscalas(vuelos_escalas):
     print('-' * 130)
     print("\t    Ubicación de Origen\t\t\t    Ubicación de Llegada\t\t          Fecha\t\tHora")
     print('-' * 130)
+
+    imprimir_vuelo = lambda vuelo: print(
+        f"{vuelo['origen_pais']:<{ancho_pais}},{vuelo['origen_capital']:<{ancho_capital}} -->   "
+        f"{vuelo['destino_pais']:<{ancho_pais}},{vuelo['destino_capital']:<{ancho_capital}}\t"
+        f"{vuelo['fecha']}\t{vuelo['hora']}"
+    )
     
-    # Función para imprimir cada vuelo en el formato adecuado
-    imprimir_vuelo = lambda vuelo: print(f"{vuelo['origen_pais']:<{ancho_pais}},{vuelo['origen_capital']:<{ancho_capital}}-->   {vuelo['destino_pais']:<{ancho_pais}},{vuelo['destino_capital']:<{ancho_capital}}\t{vuelo['fecha']}\t{vuelo['hora']}")
+    vuelo_num = 1
+
+
+    for i in range(0, len(vuelos_escalas) - 1, 2):
+        # Imprimir la etiqueta de vuelo con el número y los países
+        print(f"\nVuelo {vuelo_num}   {vuelos_escalas[i]['origen_pais']}  ==>  {vuelos_escalas[i + 1]['destino_pais']}:")
+        print('*' * 130)
+
+        # Imprimir el primer vuelo
+        imprimir_vuelo(vuelos_escalas[i])
+        
+        # Imprimir el segundo vuelo
+        imprimir_vuelo(vuelos_escalas[i + 1])
+        print('-' * 130)
+        
+        # Incrementar el número del vuelo
+        vuelo_num += 1
     
-    # Aplicar la función de impresión a cada vuelo en la lista
-    list(map(imprimir_vuelo, vuelos_escalas))
-    
-    print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 50))
     print("\n\n")
 
 #Usuario

@@ -1,218 +1,272 @@
 [
     {
-        "origen_pais": "El Salvador",
-        "origen_capital": "San Salvador",
-        "destino_pais": "Panamá",
-        "destino_capital": "Ciudad de Panamá",
-        "fecha": "2024-12-09",
-        "hora": "09:26",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Estados Unidos",
-        "origen_capital": "Washington, D.C.",
-        "destino_pais": "Venezuela",
-        "destino_capital": "Caracas",
-        "fecha": "2024-12-06",
-        "hora": "02:15",
-        "estado_vuelo": "Retrasado"
-    },
-    {
         "origen_pais": "Colombia",
         "origen_capital": "Bogotá",
-        "destino_pais": "Venezuela",
-        "destino_capital": "Caracas",
-        "fecha": "2024-12-01",
-        "hora": "13:55",
+        "destino_pais": "Honduras",
+        "destino_capital": "Tegucigalpa",
+        "fecha": "2024-12-02",
+        "hora": "03:39",
         "estado_vuelo": "A tiempo"
     },
     {
-        "origen_pais": "Ecuador",
-        "origen_capital": "Quito",
-        "destino_pais": "Brasil",
-        "destino_capital": "Brasília",
-        "fecha": "2024-12-13",
-        "hora": "18:18",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Colombia",
-        "origen_capital": "Bogotá",
-        "destino_pais": "Argentina",
-        "destino_capital": "Buenos Aires",
-        "fecha": "2024-11-24",
-        "hora": "10:37",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Belice",
-        "origen_capital": "Belmopán",
+        "origen_pais": "Brasil",
+        "origen_capital": "Brasília",
         "destino_pais": "Bolivia",
         "destino_capital": "La Paz",
-        "fecha": "2024-11-25",
-        "hora": "05:15",
-        "estado_vuelo": "Cancelado"
-    },
-    {
-        "origen_pais": "Bolivia",
-        "origen_capital": "La Paz",
-        "destino_pais": "Nicaragua",
-        "destino_capital": "Managua",
-        "fecha": "2024-12-13",
-        "hora": "04:36",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Belice",
-        "origen_capital": "Belmopán",
-        "destino_pais": "Canadá",
-        "destino_capital": "Ottawa",
-        "fecha": "2024-12-13",
-        "hora": "03:25",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Uruguay",
-        "origen_capital": "Montevideo",
-        "destino_pais": "Nicaragua",
-        "destino_capital": "Managua",
-        "fecha": "2024-12-16",
-        "hora": "10:01",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Nicaragua",
-        "origen_capital": "Managua",
-        "destino_pais": "Argentina",
-        "destino_capital": "Buenos Aires",
-        "fecha": "2024-11-21",
-        "hora": "08:28",
-        "estado_vuelo": "Cancelado"
-    },
-    {
-        "origen_pais": "Honduras",
-        "origen_capital": "Tegucigalpa",
-        "destino_pais": "Colombia",
-        "destino_capital": "Bogotá",
-        "fecha": "2024-12-07",
-        "hora": "14:53",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Canadá",
-        "origen_capital": "Ottawa",
-        "destino_pais": "Nicaragua",
-        "destino_capital": "Managua",
-        "fecha": "2024-12-13",
-        "hora": "05:26",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Guatemala",
-        "origen_capital": "Ciudad de Guatemala",
-        "destino_pais": "Bolivia",
-        "destino_capital": "La Paz",
-        "fecha": "2024-12-14",
-        "hora": "03:18",
+        "fecha": "2024-11-26",
+        "hora": "16:39",
         "estado_vuelo": "A tiempo"
     },
     {
         "origen_pais": "Panamá",
         "origen_capital": "Ciudad de Panamá",
-        "destino_pais": "Uruguay",
-        "destino_capital": "Montevideo",
-        "fecha": "2024-12-01",
-        "hora": "16:05",
+        "destino_pais": "Paraguay",
+        "destino_capital": "Asunción",
+        "fecha": "2024-12-12",
+        "hora": "15:55",
+        "estado_vuelo": "Retrasado"
+    },
+    {
+        "origen_pais": "Belice",
+        "origen_capital": "Belmopán",
+        "destino_pais": "Nicaragua",
+        "destino_capital": "Managua",
+        "fecha": "2024-11-20",
+        "hora": "04:09",
+        "estado_vuelo": "A tiempo"
+    },
+    {
+        "origen_pais": "Brasil",
+        "origen_capital": "Brasília",
+        "destino_pais": "Chile",
+        "destino_capital": "Santiago",
+        "fecha": "2024-12-13",
+        "hora": "01:37",
+        "estado_vuelo": "A tiempo"
+    },
+    {
+        "origen_pais": "Uruguay",
+        "origen_capital": "Montevideo",
+        "destino_pais": "Argentina",
+        "destino_capital": "Buenos Aires",
+        "fecha": "2024-11-20",
+        "hora": "23:53",
+        "estado_vuelo": "Cancelado"
+    },
+    {
+        "origen_pais": "Panamá",
+        "origen_capital": "Ciudad de Panamá",
+        "destino_pais": "Paraguay",
+        "destino_capital": "Asunción",
+        "fecha": "2024-12-05",
+        "hora": "18:02",
+        "estado_vuelo": "Cancelado"
+    },
+    {
+        "origen_pais": "Costa Rica",
+        "origen_capital": "San José",
+        "destino_pais": "Chile",
+        "destino_capital": "Santiago",
+        "fecha": "2024-12-13",
+        "hora": "14:24",
+        "estado_vuelo": "Retrasado"
+    },
+    {
+        "origen_pais": "Costa Rica",
+        "origen_capital": "San José",
+        "destino_pais": "El Salvador",
+        "destino_capital": "San Salvador",
+        "fecha": "2024-11-22",
+        "hora": "05:50",
+        "estado_vuelo": "A tiempo"
+    },
+    {
+        "origen_pais": "Canadá",
+        "origen_capital": "Ottawa",
+        "destino_pais": "Panamá",
+        "destino_capital": "Ciudad de Panamá",
+        "fecha": "2024-12-15",
+        "hora": "19:33",
+        "estado_vuelo": "Retrasado"
+    },
+    {
+        "origen_pais": "Guatemala",
+        "origen_capital": "Ciudad de Guatemala",
+        "destino_pais": "Chile",
+        "destino_capital": "Santiago",
+        "fecha": "2024-11-30",
+        "hora": "14:56",
         "estado_vuelo": "A tiempo"
     },
     {
         "origen_pais": "Nicaragua",
         "origen_capital": "Managua",
-        "destino_pais": "Panamá",
-        "destino_capital": "Ciudad de Panamá",
-        "fecha": "2024-12-07",
-        "hora": "02:36",
+        "destino_pais": "Chile",
+        "destino_capital": "Santiago",
+        "fecha": "2024-12-10",
+        "hora": "02:40",
         "estado_vuelo": "A tiempo"
     },
     {
-        "origen_pais": "Ecuador",
-        "origen_capital": "Quito",
-        "destino_pais": "Panamá",
-        "destino_capital": "Ciudad de Panamá",
-        "fecha": "2024-12-10",
-        "hora": "10:05",
+        "origen_pais": "México",
+        "origen_capital": "Ciudad de México",
+        "destino_pais": "Belice",
+        "destino_capital": "Belmopán",
+        "fecha": "2024-11-29",
+        "hora": "03:07",
+        "estado_vuelo": "A tiempo"
+    },
+    {
+        "origen_pais": "Canadá",
+        "origen_capital": "Ottawa",
+        "destino_pais": "México",
+        "destino_capital": "Ciudad de México",
+        "fecha": "2024-11-20",
+        "hora": "06:01",
         "estado_vuelo": "Retrasado"
     },
     {
-        "origen_pais": "Colombia",
-        "origen_capital": "Bogotá",
-        "destino_pais": "Nicaragua",
-        "destino_capital": "Managua",
-        "fecha": "2024-12-06",
-        "hora": "10:48",
+        "origen_pais": "Paraguay",
+        "origen_capital": "Asunción",
+        "destino_pais": "Perú",
+        "destino_capital": "Lima",
+        "fecha": "2024-12-09",
+        "hora": "06:59",
         "estado_vuelo": "A tiempo"
     },
     {
-        "origen_pais": "Honduras",
-        "origen_capital": "Tegucigalpa",
-        "destino_pais": "Costa Rica",
-        "destino_capital": "San José",
-        "fecha": "2024-11-25",
-        "hora": "13:19",
-        "estado_vuelo": "A tiempo"
+        "origen_pais": "Canadá",
+        "origen_capital": "Ottawa",
+        "destino_pais": "Colombia",
+        "destino_capital": "Bogotá",
+        "fecha": "2024-12-02",
+        "hora": "04:15",
+        "estado_vuelo": "Retrasado"
     },
     {
-        "origen_pais": "Colombia",
-        "origen_capital": "Bogotá",
-        "destino_pais": "Estados Unidos",
-        "destino_capital": "Washington, D.C.",
-        "fecha": "2024-11-26",
-        "hora": "23:29",
+        "origen_pais": "México",
+        "origen_capital": "Ciudad de México",
+        "destino_pais": "Argentina",
+        "destino_capital": "Buenos Aires",
+        "fecha": "2024-12-01",
+        "hora": "00:47",
         "estado_vuelo": "A tiempo"
     },
     {
         "origen_pais": "El Salvador",
         "origen_capital": "San Salvador",
-        "destino_pais": "Belice",
-        "destino_capital": "Belmopán",
-        "fecha": "2024-12-11",
-        "hora": "23:09",
-        "estado_vuelo": "A tiempo"
+        "destino_pais": "Uruguay",
+        "destino_capital": "Montevideo",
+        "fecha": "2024-12-13",
+        "hora": "17:29",
+        "estado_vuelo": "Cancelado"
+    },
+    {
+        "origen_pais": "Perú",
+        "origen_capital": "Lima",
+        "destino_pais": "Uruguay",
+        "destino_capital": "Montevideo",
+        "fecha": "2024-12-05",
+        "hora": "13:38",
+        "estado_vuelo": "Cancelado"
     },
     {
         "origen_pais": "Brasil",
         "origen_capital": "Brasília",
-        "destino_pais": "Costa Rica",
-        "destino_capital": "San José",
-        "fecha": "2024-12-10",
-        "hora": "14:29",
+        "destino_pais": "Bolivia",
+        "destino_capital": "La Paz",
+        "fecha": "2024-11-26",
+        "hora": "17:08",
         "estado_vuelo": "A tiempo"
     },
     {
-        "origen_pais": "Brasil",
-        "origen_capital": "Brasília",
-        "destino_pais": "Costa Rica",
-        "destino_capital": "San José",
-        "fecha": "2024-11-18",
-        "hora": "20:57",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Paraguay",
-        "origen_capital": "Asunción",
-        "destino_pais": "Nicaragua",
-        "destino_capital": "Managua",
-        "fecha": "2024-12-08",
-        "hora": "03:47",
-        "estado_vuelo": "Retrasado"
+        "origen_pais": "Costa Rica",
+        "origen_capital": "San José",
+        "destino_pais": "Uruguay",
+        "destino_capital": "Montevideo",
+        "fecha": "2024-12-12",
+        "hora": "19:42",
+        "estado_vuelo": "Cancelado"
     },
     {
         "origen_pais": "Bolivia",
         "origen_capital": "La Paz",
+        "destino_pais": "Chile",
+        "destino_capital": "Santiago",
+        "fecha": "2024-12-13",
+        "hora": "13:45",
+        "estado_vuelo": "A tiempo"
+    },
+    {
+        "origen_pais": "Guatemala",
+        "origen_capital": "Ciudad de Guatemala",
+        "destino_pais": "Paraguay",
+        "destino_capital": "Asunción",
+        "fecha": "2024-12-02",
+        "hora": "13:59",
+        "estado_vuelo": "A tiempo"
+    },
+    {
+        "origen_pais": "Chile",
+        "origen_capital": "Santiago",
+        "destino_pais": "Estados Unidos",
+        "destino_capital": "Washington, D.C.",
+        "fecha": "2024-12-12",
+        "hora": "20:00",
+        "estado_vuelo": "Retrasado"
+    },
+    {
+        "origen_pais": "Venezuela",
+        "origen_capital": "Caracas",
+        "destino_pais": "Canadá",
+        "destino_capital": "Ottawa",
+        "fecha": "2024-12-04",
+        "hora": "04:12",
+        "estado_vuelo": "A tiempo"
+    },
+    {
+        "origen_pais": "Nicaragua",
+        "origen_capital": "Managua",
+        "destino_pais": "Ecuador",
+        "destino_capital": "Quito",
+        "fecha": "2024-12-01",
+        "hora": "16:52",
+        "estado_vuelo": "Cancelado"
+    },
+    {
+        "origen_pais": "El Salvador",
+        "origen_capital": "San Salvador",
+        "destino_pais": "Argentina",
+        "destino_capital": "Buenos Aires",
+        "fecha": "2024-11-21",
+        "hora": "20:59",
+        "estado_vuelo": "A tiempo"
+    },
+    {
+        "origen_pais": "Chile",
+        "origen_capital": "Santiago",
+        "destino_pais": "Bolivia",
+        "destino_capital": "La Paz",
+        "fecha": "2024-11-24",
+        "hora": "12:15",
+        "estado_vuelo": "A tiempo"
+    },
+    {
+        "origen_pais": "Panamá",
+        "origen_capital": "Ciudad de Panamá",
         "destino_pais": "México",
         "destino_capital": "Ciudad de México",
-        "fecha": "2024-11-26",
-        "hora": "20:20",
+        "fecha": "2024-11-20",
+        "hora": "05:38",
+        "estado_vuelo": "Cancelado"
+    },
+    {
+        "origen_pais": "Colombia",
+        "origen_capital": "Bogotá",
+        "destino_pais": "Canadá",
+        "destino_capital": "Ottawa",
+        "fecha": "2024-11-28",
+        "hora": "00:33",
         "estado_vuelo": "A tiempo"
     },
     {
@@ -220,80 +274,89 @@
         "origen_capital": "Ottawa",
         "destino_pais": "Venezuela",
         "destino_capital": "Caracas",
-        "fecha": "2024-11-30",
-        "hora": "21:44",
+        "fecha": "2024-12-16",
+        "hora": "07:02",
+        "estado_vuelo": "A tiempo"
+    },
+    {
+        "origen_pais": "El Salvador",
+        "origen_capital": "San Salvador",
+        "destino_pais": "Brasil",
+        "destino_capital": "Brasília",
+        "fecha": "2024-11-29",
+        "hora": "19:08",
         "estado_vuelo": "A tiempo"
     },
     {
         "origen_pais": "Argentina",
         "origen_capital": "Buenos Aires",
-        "destino_pais": "Paraguay",
-        "destino_capital": "Asunción",
-        "fecha": "2024-12-09",
-        "hora": "05:37",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Brasil",
-        "origen_capital": "Brasília",
-        "destino_pais": "Colombia",
-        "destino_capital": "Bogotá",
-        "fecha": "2024-11-21",
-        "hora": "07:11",
+        "destino_pais": "Panamá",
+        "destino_capital": "Ciudad de Panamá",
+        "fecha": "2024-12-07",
+        "hora": "09:22",
         "estado_vuelo": "A tiempo"
     },
     {
         "origen_pais": "Honduras",
         "origen_capital": "Tegucigalpa",
-        "destino_pais": "México",
-        "destino_capital": "Ciudad de México",
-        "fecha": "2024-12-18",
-        "hora": "17:08",
+        "destino_pais": "Panamá",
+        "destino_capital": "Ciudad de Panamá",
+        "fecha": "2024-11-27",
+        "hora": "07:44",
+        "estado_vuelo": "Cancelado"
+    },
+    {
+        "origen_pais": "Colombia",
+        "origen_capital": "Bogotá",
+        "destino_pais": "Guatemala",
+        "destino_capital": "Ciudad de Guatemala",
+        "fecha": "2024-12-17",
+        "hora": "02:21",
+        "estado_vuelo": "Retrasado"
+    },
+    {
+        "origen_pais": "Belice",
+        "origen_capital": "Belmopán",
+        "destino_pais": "Panamá",
+        "destino_capital": "Ciudad de Panamá",
+        "fecha": "2024-12-11",
+        "hora": "09:56",
         "estado_vuelo": "A tiempo"
     },
     {
         "origen_pais": "Chile",
         "origen_capital": "Santiago",
-        "destino_pais": "Guatemala",
-        "destino_capital": "Ciudad de Guatemala",
-        "fecha": "2024-12-17",
-        "hora": "01:10",
+        "destino_pais": "Estados Unidos",
+        "destino_capital": "Washington, D.C.",
+        "fecha": "2024-12-09",
+        "hora": "17:00",
+        "estado_vuelo": "Cancelado"
+    },
+    {
+        "origen_pais": "Argentina",
+        "origen_capital": "Buenos Aires",
+        "destino_pais": "Canadá",
+        "destino_capital": "Ottawa",
+        "fecha": "2024-12-12",
+        "hora": "19:53",
         "estado_vuelo": "A tiempo"
     },
     {
-        "origen_pais": "Bolivia",
-        "origen_capital": "La Paz",
-        "destino_pais": "Panamá",
-        "destino_capital": "Ciudad de Panamá",
-        "fecha": "2024-11-19",
-        "hora": "16:03",
-        "estado_vuelo": "Retrasado"
-    },
-    {
-        "origen_pais": "Nicaragua",
-        "origen_capital": "Managua",
-        "destino_pais": "Argentina",
-        "destino_capital": "Buenos Aires",
+        "origen_pais": "Venezuela",
+        "origen_capital": "Caracas",
+        "destino_pais": "Uruguay",
+        "destino_capital": "Montevideo",
         "fecha": "2024-12-18",
-        "hora": "05:24",
+        "hora": "19:59",
         "estado_vuelo": "A tiempo"
     },
     {
-        "origen_pais": "Estados Unidos",
-        "origen_capital": "Washington, D.C.",
-        "destino_pais": "Honduras",
-        "destino_capital": "Tegucigalpa",
-        "fecha": "2024-11-24",
-        "hora": "01:30",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Canadá",
-        "origen_capital": "Ottawa",
+        "origen_pais": "Guatemala",
+        "origen_capital": "Ciudad de Guatemala",
         "destino_pais": "Nicaragua",
         "destino_capital": "Managua",
-        "fecha": "2024-11-27",
-        "hora": "09:10",
+        "fecha": "2024-11-22",
+        "hora": "22:31",
         "estado_vuelo": "A tiempo"
     },
     {
@@ -301,98 +364,62 @@
         "origen_capital": "Buenos Aires",
         "destino_pais": "Canadá",
         "destino_capital": "Ottawa",
-        "fecha": "2024-12-02",
-        "hora": "05:46",
+        "fecha": "2024-12-13",
+        "hora": "11:08",
+        "estado_vuelo": "A tiempo"
+    },
+    {
+        "origen_pais": "Chile",
+        "origen_capital": "Santiago",
+        "destino_pais": "Colombia",
+        "destino_capital": "Bogotá",
+        "fecha": "2024-11-20",
+        "hora": "23:38",
         "estado_vuelo": "A tiempo"
     },
     {
         "origen_pais": "Paraguay",
         "origen_capital": "Asunción",
-        "destino_pais": "Canadá",
-        "destino_capital": "Ottawa",
-        "fecha": "2024-11-24",
-        "hora": "12:31",
-        "estado_vuelo": "Cancelado"
-    },
-    {
-        "origen_pais": "El Salvador",
-        "origen_capital": "San Salvador",
-        "destino_pais": "Panamá",
-        "destino_capital": "Ciudad de Panamá",
+        "destino_pais": "Honduras",
+        "destino_capital": "Tegucigalpa",
         "fecha": "2024-11-27",
-        "hora": "17:31",
-        "estado_vuelo": "Retrasado"
-    },
-    {
-        "origen_pais": "Perú",
-        "origen_capital": "Lima",
-        "destino_pais": "Estados Unidos",
-        "destino_capital": "Washington, D.C.",
-        "fecha": "2024-11-26",
-        "hora": "21:38",
+        "hora": "16:50",
         "estado_vuelo": "A tiempo"
     },
     {
-        "origen_pais": "Costa Rica",
-        "origen_capital": "San José",
-        "destino_pais": "Brasil",
-        "destino_capital": "Brasília",
-        "fecha": "2024-11-29",
-        "hora": "10:30",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Canadá",
-        "origen_capital": "Ottawa",
-        "destino_pais": "Uruguay",
-        "destino_capital": "Montevideo",
-        "fecha": "2024-11-24",
-        "hora": "01:20",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Honduras",
-        "origen_capital": "Tegucigalpa",
+        "origen_pais": "Panamá",
+        "origen_capital": "Ciudad de Panamá",
         "destino_pais": "Bolivia",
         "destino_capital": "La Paz",
-        "fecha": "2024-12-04",
-        "hora": "23:59",
-        "estado_vuelo": "Cancelado"
+        "fecha": "2024-11-26",
+        "hora": "18:06",
+        "estado_vuelo": "A tiempo"
     },
     {
-        "origen_pais": "Nicaragua",
-        "origen_capital": "Managua",
-        "destino_pais": "Perú",
-        "destino_capital": "Lima",
-        "fecha": "2024-11-19",
-        "hora": "14:29",
-        "estado_vuelo": "Cancelado"
+        "origen_pais": "Paraguay",
+        "origen_capital": "Asunción",
+        "destino_pais": "Honduras",
+        "destino_capital": "Tegucigalpa",
+        "fecha": "2024-12-05",
+        "hora": "07:33",
+        "estado_vuelo": "Retrasado"
     },
     {
         "origen_pais": "Brasil",
         "origen_capital": "Brasília",
-        "destino_pais": "Canadá",
-        "destino_capital": "Ottawa",
-        "fecha": "2024-11-21",
-        "hora": "01:41",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Guatemala",
-        "origen_capital": "Ciudad de Guatemala",
-        "destino_pais": "Ecuador",
-        "destino_capital": "Quito",
-        "fecha": "2024-11-22",
-        "hora": "08:22",
+        "destino_pais": "Costa Rica",
+        "destino_capital": "San José",
+        "fecha": "2024-12-02",
+        "hora": "20:11",
         "estado_vuelo": "Retrasado"
     },
     {
-        "origen_pais": "Paraguay",
-        "origen_capital": "Asunción",
-        "destino_pais": "Guatemala",
-        "destino_capital": "Ciudad de Guatemala",
-        "fecha": "2024-12-12",
-        "hora": "05:35",
+        "origen_pais": "Estados Unidos",
+        "origen_capital": "Washington, D.C.",
+        "destino_pais": "Argentina",
+        "destino_capital": "Buenos Aires",
+        "fecha": "2024-12-10",
+        "hora": "19:47",
         "estado_vuelo": "A tiempo"
     },
     {
@@ -400,53 +427,26 @@
         "origen_capital": "Belmopán",
         "destino_pais": "El Salvador",
         "destino_capital": "San Salvador",
-        "fecha": "2024-11-22",
-        "hora": "02:50",
+        "fecha": "2024-12-01",
+        "hora": "01:41",
         "estado_vuelo": "A tiempo"
     },
     {
-        "origen_pais": "Brasil",
-        "origen_capital": "Brasília",
-        "destino_pais": "Perú",
-        "destino_capital": "Lima",
-        "fecha": "2024-12-09",
-        "hora": "14:08",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Canadá",
-        "origen_capital": "Ottawa",
-        "destino_pais": "Brasil",
-        "destino_capital": "Brasília",
-        "fecha": "2024-11-22",
-        "hora": "21:45",
-        "estado_vuelo": "Retrasado"
-    },
-    {
-        "origen_pais": "México",
-        "origen_capital": "Ciudad de México",
+        "origen_pais": "Costa Rica",
+        "origen_capital": "San José",
         "destino_pais": "Colombia",
         "destino_capital": "Bogotá",
-        "fecha": "2024-11-30",
-        "hora": "04:55",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "México",
-        "origen_capital": "Ciudad de México",
-        "destino_pais": "Argentina",
-        "destino_capital": "Buenos Aires",
-        "fecha": "2024-12-03",
-        "hora": "02:36",
-        "estado_vuelo": "A tiempo"
-    },
-    {
-        "origen_pais": "Chile",
-        "origen_capital": "Santiago",
-        "destino_pais": "Honduras",
-        "destino_capital": "Tegucigalpa",
-        "fecha": "2024-12-15",
-        "hora": "19:57",
+        "fecha": "2024-11-28",
+        "hora": "22:51",
         "estado_vuelo": "Retrasado"
+    },
+    {
+        "origen_pais": "Bolivia",
+        "origen_capital": "La Paz",
+        "destino_pais": "Brasil",
+        "destino_capital": "Brasília",
+        "fecha": "2024-12-17",
+        "hora": "18:48",
+        "estado_vuelo": "A tiempo"
     }
 ]
