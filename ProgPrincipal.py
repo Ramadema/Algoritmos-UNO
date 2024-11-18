@@ -7,7 +7,7 @@ import re
 from datetime import datetime, timedelta
 from Escalas import vuelos_escalas
 
-# Funciones 
+# Menús
 def menuInicial():
     """Funcion que permite seleccionar una opcion de accion de sesion de usuario."""
     ok = True
@@ -189,53 +189,70 @@ def ImprimirVuelosEscalas(vuelos_escalas):
     print("\n\n")
 
 #Usuario
-def registrarUsuario(diccionario_usuarios): 
+def registrarUsuario(diccionario_usuarios, intentos): 
     """Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas. Recibe la lista de usuarios existente"""
     ok=True
     bandera = True
+    okey=True
+    intentos=0
     
     os.system('cls' if os.name == 'nt' else 'clear')
     
     while ok:
-        os.system('cls' if os.name == 'nt' else 'clear')
-        nombre_apellido=input("Ingrese su nombre y apellido: \n")
+        nombre_apellido=input("\nIngrese su nombre y apellido: \n")
+        intentos+=1
         if all(('a' <= char <= 'z' or 'A' <= char <= 'Z' or char == ' ') for char in nombre_apellido):
+            intentos=0
             ok=False
         else:
             print("\nError: Solo se permiten letras. Intenta nuevamente.")
+            if intentos==4:
+                intentos==1
+                print("Demasiados intentos fallidos.")
+                menuInicial()
     
     os.system('cls' if os.name == 'nt' else 'clear')
-            
+    
     while bandera:
         try:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
+            nuevo_usuario = int(input("\nIngrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
+            intentos+=1
             if nuevo_usuario < 1000 or nuevo_usuario > 9999 or nuevo_usuario in diccionario_usuarios:
                 print("\nNúmero de usuario inválido o ya existente\n")
-                nuevo_usuario = int(input("Ingrese un pin de 4 dígitos que lo identificará como nuevo usuario: \n"))
+                if intentos==4:
+                    intentos==1
+                    print("Demasiados intentos fallidos.")
+                    ok=True
+                    menuInicial()
             else:
-                os.system('cls' if os.name == 'nt' else 'clear')
+                intentos=0
                 bandera = False
         except ValueError:
             print("\nError: Debes ingresar solo números.")
 
-    while True:
-        nueva_contraseña = input("Ingrese una contraseña de al menos 8 caracteres con al menos un número, una letra minúscula y una letra mayúscula: \n")
-        
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+    while okey:
+        nueva_contraseña = input("\nIngrese una contraseña de al menos 8 caracteres con al menos un número, una letra minúscula y una letra mayúscula: \n")
+        intentos+=1
         # Expresión regular para validar la contraseña
         patron = re.compile(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$')
-        
         if patron.match(nueva_contraseña):
             os.system('cls' if os.name == 'nt' else 'clear')
             print("Usuario registrado con éxito\n")
             time.sleep(2)
             os.system('cls' if os.name == 'nt' else 'clear')
-
-            break
+            intentos=0
+            okey = False
         else:
-            os.system('cls' if os.name == 'nt' else 'clear')
             print("Contraseña inválida. Debe tener al menos:\n")
             print(". 8 caracteres\n. 1 letra mayúscula\n. 1 letra minúscula\n. 1 número")
+            if intentos==4:
+                intentos==1
+                print("Demasiados intentos fallidos.")
+                bandera = True 
+                ok = True
+                menuInicial()
 
     diccionario_usuarios[nuevo_usuario] = {
                                             'nombre_apellido': nombre_apellido,
@@ -244,53 +261,53 @@ def registrarUsuario(diccionario_usuarios):
 
     print(diccionario_usuarios)
 
-
+    return intentos
 
 def iniciarSesion(diccionario_usuarios, intentos): 
     """Funcion que permite a los usuarios existentes iniciar sesión en el sistema para acceder a sus reservas y realizar nuevas transacciones."""
     usuario_actual = 0
     bandera = True
+    ok = True
+    intentos = 0
 
     while bandera:
         try:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            iniciarSesion = int(input("Ingrese su número de usuario: \n"))
+            iniciarSesion = int(input("\nIngrese su número de usuario: \n"))
             if iniciarSesion not in diccionario_usuarios:
-                os.system('cls' if os.name == 'nt' else 'clear')
                 print("Usuario no existente\n")
                 intentos += 1
-                iniciarSesion = int(input("\nIngrese su número de usuario: \n"))
                 if intentos == 4:
                     intentos = 1
                     print("Demasiados intentos fallidos.")
-                    bandera = False
+                    menuInicial()
             else:
-                os.system('cls' if os.name == 'nt' else 'clear')
                 bandera=False
         except ValueError:
             print("\nError: Debes ingresar solo números.")
 
-    while True:
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+    while ok:
         # Solicitar la contraseña
         contrasena = input("\nIngrese su contraseña: \n")
         if diccionario_usuarios[iniciarSesion] ["contrasena"] == contrasena:
-            os.system('cls' if os.name == 'nt' else 'clear')    
+            os.system('cls' if os.name == 'nt' else 'clear')   
             print("Login exitoso")
             time.sleep(2)
             os.system('cls' if os.name == 'nt' else 'clear') 
             intentos = 0
             usuario_actual = iniciarSesion
-            break
+            ok = False
         else:
             os.system('cls' if os.name == 'nt' else 'clear')
             # el abs unicamente me da el numero absuloto de intentos, el cual debe ser siempre positivo
             print(f"Contraseña incorrecta. Tiene {abs(intentos-3)} intentos para poder logearse. \n")
             intentos += 1
-
             if intentos == 4:
                 intentos = 1
-                bandera = False
-
+                print("Demasiados intentos fallidos.")
+                menuInicial()
+                
     return intentos, usuario_actual
 
 
@@ -341,17 +358,18 @@ def buscar_vuelos(vuelos, pais_origen, pais_llegada):
 
 
 def obtener_paises():
-    bandera=True
+    bandera = True
+    ok = True
     while bandera:
         pais_origen = input("\nIngrese el país de origen: ").title().strip()
         if all(('a' <= char <= 'z' or 'A' <= char <= 'Z' or char == ' ') for char in pais_origen):
             bandera=False
         else:
             print("Error: Solo se permiten letras. Intenta nuevamente.")
-    while True:
+    while ok:
         pais_llegada = input("Ingrese el país de llegada: ").title().strip()
         if all(('a' <= char <= 'z' or 'A' <= char <= 'Z' or char == ' ') for char in pais_llegada):
-            break
+            ok = False
         else:
             print("Error: Solo se permiten letras. Intenta nuevamente.")
     
@@ -530,7 +548,6 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
             cantidad_pasajes=int(input("Ingrese la cantidad de pasajes que desee reservar, siendo 8 el máximo permitido: \n"))
             if cantidad_pasajes<1 or cantidad_pasajes>8:
                 print("Selección inválida\n")
-                cantidad_pasajes=int(input("Ingrese la cantidad de pasajes que desee reservar, siendo 8 el máximo permitido: \n"))
             else:
                 ok = False
         except:
@@ -598,7 +615,8 @@ def main():
         seleccion = menuInicial()
 
         if seleccion == 1:
-            registrarUsuario(diccionario_usuarios)
+            intentos=0
+            intentos=registrarUsuario(diccionario_usuarios,intentos)
 
         elif seleccion == 2:
             intentos=0
@@ -613,11 +631,7 @@ def main():
 
             while salir2:
                 
-                if intentos==1:
-                    intentos=0
-                    seleccion=5
-                else:
-                    seleccion = menuVuelos()
+                seleccion = menuVuelos()
 
                 if seleccion == 1:
                     # Buscar vuelos               
@@ -641,8 +655,7 @@ def main():
                     os.system('cls' if os.name == 'nt' else 'clear')
                     print("Sesión cerrada.")
                     time.sleep(2)
-                    os.system('cls' if os.name == 'nt' else 'clear')
-                    
+                    os.system('cls' if os.name == 'nt' else 'clear')    
 
                     salir2 = False
         else:
