@@ -208,7 +208,9 @@ def registrarUsuario(diccionario_usuarios, intentos):
             print("\nError: Solo se permiten letras. Intenta nuevamente.")
             if intentos==4:
                 intentos==1
-                print("Demasiados intentos fallidos.")
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print("\nDemasiados intentos fallidos. Vuelva a comenzar.\n\n")
+                time.sleep(2)
                 menuInicial()
     
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -221,9 +223,10 @@ def registrarUsuario(diccionario_usuarios, intentos):
                 print("\nNúmero de usuario inválido o ya existente\n")
                 if intentos==4:
                     intentos==1
-                    print("Demasiados intentos fallidos.")
-                    ok=True
-                    menuInicial()
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    print("\nDemasiados intentos fallidos. Vuelva a comenzar.\n\n")
+                    time.sleep(2)
+                    registrarUsuario(diccionario_usuarios, intentos)
             else:
                 intentos=0
                 bandera = False
@@ -249,10 +252,10 @@ def registrarUsuario(diccionario_usuarios, intentos):
             print(". 8 caracteres\n. 1 letra mayúscula\n. 1 letra minúscula\n. 1 número")
             if intentos==4:
                 intentos==1
-                print("Demasiados intentos fallidos.")
-                bandera = True 
-                ok = True
-                menuInicial()
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print("\nDemasiados intentos fallidos. Vuelva a comenzar.\n\n")
+                time.sleep(2)
+                registrarUsuario(diccionario_usuarios, intentos)
 
     diccionario_usuarios[nuevo_usuario] = {
                                             'nombre_apellido': nombre_apellido,
@@ -270,15 +273,19 @@ def iniciarSesion(diccionario_usuarios, intentos):
     ok = True
     intentos = 0
 
+    os.system('cls' if os.name == 'nt' else 'clear')
+
     while bandera:
         try:
-            iniciarSesion = int(input("\nIngrese su número de usuario: \n"))
-            if iniciarSesion not in diccionario_usuarios:
+            inicioSesion = int(input("\nIngrese su número de usuario: \n"))
+            if inicioSesion not in diccionario_usuarios:
                 print("Usuario no existente\n")
                 intentos += 1
                 if intentos == 4:
                     intentos = 1
-                    print("Demasiados intentos fallidos.")
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    print("\nDemasiados intentos fallidos. Vuelva a comenzar.\n\n")
+                    time.sleep(2)
                     menuInicial()
             else:
                 bandera=False
@@ -290,13 +297,13 @@ def iniciarSesion(diccionario_usuarios, intentos):
     while ok:
         # Solicitar la contraseña
         contrasena = input("\nIngrese su contraseña: \n")
-        if diccionario_usuarios[iniciarSesion] ["contrasena"] == contrasena:
+        if diccionario_usuarios[inicioSesion] ["contrasena"] == contrasena:
             os.system('cls' if os.name == 'nt' else 'clear')   
             print("Login exitoso")
             time.sleep(2)
             os.system('cls' if os.name == 'nt' else 'clear') 
             intentos = 0
-            usuario_actual = iniciarSesion
+            usuario_actual = inicioSesion
             ok = False
         else:
             os.system('cls' if os.name == 'nt' else 'clear')
@@ -305,8 +312,10 @@ def iniciarSesion(diccionario_usuarios, intentos):
             intentos += 1
             if intentos == 4:
                 intentos = 1
-                print("Demasiados intentos fallidos.")
-                menuInicial()
+                os.system('cls' if os.name == 'nt' else 'clear')
+                print("\nDemasiados intentos fallidos. Vuelva a comenzar.\n\n")
+                time.sleep(2)
+                iniciarSesion(diccionario_usuarios,intentos)
                 
     return intentos, usuario_actual
 
@@ -445,7 +454,7 @@ def pagarReserva():
         2: "Tarjeta de débito",
         3: "QR Mercado Pago"
     }
-    print("\nProceso de pago iniciado.")
+    print("Proceso de pago iniciado.\n")
     print("Opciones de método de pago:")
     for clave, valor in metodos_pago.items():
         print(f"{clave}. {valor}")
@@ -453,10 +462,12 @@ def pagarReserva():
     try:
         metodo_pago = int(input("\nSelecciona un método de pago: "))
 
-        if metodo_pago in metodos_pago:
+        if metodo_pago in metodos_pago and metodo_pago >=1 and metodo_pago < 4:
             print(f"Método de pago seleccionado: {metodos_pago[metodo_pago]}.")
         else:
-            print("Método de pago inválido. Intenta de nuevo.")
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("\nMétodo de pago inválido. Intenta de nuevo.")
+            print("Por favor, elija una opción válida (1-3).\n")
             #Vuelvo a la funcion cuando el usuario ponga cualquier otro metodo de pago no existente
             return pagarReserva()
             #Utilizacion de procesamiento de pago aleatoreo
