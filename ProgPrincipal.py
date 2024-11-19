@@ -335,6 +335,9 @@ def sacar_tildes(texto):
 
 def mostrar_filtro_vuelos(vuelos):
     pais_origen, pais_llegada = obtener_paises()
+    if pais_origen == "-1" or pais_llegada == "-1": 
+        return  
+    
     os.system('cls' if os.name == 'nt' else 'clear')
     # Buscar vuelos
     resultados = buscar_vuelos(vuelos, pais_origen, pais_llegada)
@@ -342,7 +345,6 @@ def mostrar_filtro_vuelos(vuelos):
     print(f"\nVuelos encontrados para ir desde {pais_origen} hasta {pais_llegada}\n")
     if resultados:
         for index, vuelo in resultados:
-            # Imprimir índice seguido de los detalles del vuelo
             print(f"{index}) {vuelo[0]}, {vuelo[1]} --> {vuelo[2]}, {vuelo[3]}   ==>   {vuelo[4]}\t{vuelo[5]}")
             print('-' * 85)
         print("\n\n")
@@ -370,13 +372,18 @@ def obtener_paises():
     bandera = True
     ok = True
     while bandera:
-        pais_origen = input("\nIngrese el país de origen: ").title().strip()
+        pais_origen = input("\nIngrese el país de origen (o -1 para salir): ").title().strip() 
+        if pais_origen == "-1": 
+            return "-1", "-1" 
         if all(('a' <= char <= 'z' or 'A' <= char <= 'Z' or char == ' ') for char in pais_origen):
-            bandera=False
+            bandera = False
         else:
             print("Error: Solo se permiten letras. Intenta nuevamente.")
+    
     while ok:
-        pais_llegada = input("Ingrese el país de llegada: ").title().strip()
+        pais_llegada = input("Ingrese el país de llegada (o -1 para salir): ").title().strip() 
+        if pais_llegada == "-1": 
+            return "-1", "-1" 
         if all(('a' <= char <= 'z' or 'A' <= char <= 'Z' or char == ' ') for char in pais_llegada):
             ok = False
         else:
@@ -448,7 +455,6 @@ def consultarStatusDeVuelo(vuelo_seleccionado):
 
 def pagarReserva():
     """Esta funcion gestiona el proceso de pago para completar una reserva, incluyendo la elección del método de pago y la confirmación de la transacción."""
-    # Creo diccionario que contenga las opciones de pago
     metodos_pago = {
         1: "Tarjeta de crédito",
         2: "Tarjeta de débito",
@@ -458,36 +464,36 @@ def pagarReserva():
     print("Opciones de método de pago:")
     for clave, valor in metodos_pago.items():
         print(f"{clave}. {valor}")
+    print("Ingrese -1 para cancelar el proceso de pago.") 
 
-    try:
-        metodo_pago = int(input("\nSelecciona un método de pago: "))
+    bandera = True  
+    while bandera:
+        try:
+            metodo_pago = input("\nSelecciona un método de pago: ") 
+            if metodo_pago == "-1":  
+                return False  
+            metodo_pago = int(metodo_pago)
+            if metodo_pago in metodos_pago:
+                print(f"Método de pago seleccionado: {metodos_pago[metodo_pago]}.")
+                bandera = False  
+            else:
+                print("\nMétodo de pago inválido. Intenta de nuevo.")
+        except ValueError:
+            print("Error: Debe ingresar solo números.")
 
-        if metodo_pago in metodos_pago and metodo_pago >=1 and metodo_pago < 4:
-            print(f"Método de pago seleccionado: {metodos_pago[metodo_pago]}.")
-        else:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            print("\nMétodo de pago inválido. Intenta de nuevo.")
-            print("Por favor, elija una opción válida (1-3).\n")
-            #Vuelvo a la funcion cuando el usuario ponga cualquier otro metodo de pago no existente
-            return pagarReserva()
-            #Utilizacion de procesamiento de pago aleatoreo
-        
-        print("Espere un momento, su pago se esta procesando...")
-        transaccion_exitosa = random.choice([True, False, True, True])
-        
-        if transaccion_exitosa:
-            time.sleep(2)
-            os.system('cls' if os.name == 'nt' else 'clear') 
-            print("\nPago completado con éxito.")
-            return True
-        else:
-            time.sleep(2)
-            os.system('cls' if os.name == 'nt' else 'clear') 
-            print("\nError en la transacción. Vuelve a intentarlo.")
-            return False
-    
-    except ValueError:
-        print("Error: Debe ingresar solo números.")
+    print("Espere un momento, su pago se está procesando...")
+    transaccion_exitosa = random.choice([True, False, True, True])
+
+    if transaccion_exitosa:
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear') 
+        print("\nPago completado con éxito.")
+        return True
+    else:
+        time.sleep(2)
+        os.system('cls' if os.name == 'nt' else 'clear') 
+        print("\nError en la transacción. Vuelve a intentarlo.")
+        return False
 
 
 
@@ -526,59 +532,63 @@ def historialReservas(reservas, usuario_actual):
 
 def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     """Esta funcion Facilita la reserva de un vuelo seleccionado, solicitando la información del usuario y confirmando la reserva. Recibe la matriz de Vuelos, la lista de usuarios existentes y las reservas actuales"""
-    os.system('cls' if os.name=='nt' else 'clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
+    print("\nIngrese -1 en cualquier momento para regresar al menú de vuelos.") 
     ok = True
     bandera = True
     ancho_pais = 20
     ancho_capital = 20
-    
 
     print("\n")
     print('-' * 118)
     print("\t    Ubicación de Origen\t\t\t        Ubicación de Llegada\t\t          Fecha\t\tHora")
     print('-' * 118)
-    for i,vuelo in enumerate(vuelos):
+    for i, vuelo in enumerate(vuelos):
         origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado = vuelo
         print(f"{i+1}. | {origen_pais:<{ancho_pais}},{origen_capital:<{ancho_capital}}-->   {destino_pais:<{ancho_pais}},{destino_capital:<{ancho_capital}}\t{fecha}\t{hora}")
         print('-' * (ancho_pais + ancho_capital + ancho_pais + ancho_capital + 38))
 
     while bandera:
         try:
-            seleccion = int(input("\nSeleccione el número del vuelo que desea reservar: \n"))
-            if seleccion < 1 or seleccion > len(vuelos):
-                print("Selección de vuelo inválida\n")
-                seleccion = int(input("Seleccione el número del vuelo que desea reservar: \n"))
-            else:
-                vuelo_seleccionado = vuelos[seleccion-1]
+            seleccion = input("\nSeleccione el número del vuelo que desea reservar o '-1' para salir: \n") 
+            if seleccion == "-1":  
+                return  
+            seleccion = int(seleccion)
+            if 1 <= seleccion <= len(vuelos):
+                vuelo_seleccionado = vuelos[seleccion - 1]
                 bandera = False
+            else:
+                print("Selección de vuelo inválida\n")
         except ValueError:
             print("Error: Debes ingresar solo números.")
 
     while ok:
         try:
-            cantidad_pasajes=int(input("Ingrese la cantidad de pasajes que desee reservar, siendo 8 el máximo permitido: \n"))
-            if cantidad_pasajes<1 or cantidad_pasajes>8:
-                print("Selección inválida\n")
-            else:
+            cantidad_pasajes = input("Ingrese la cantidad de pasajes que desee reservar (máximo 8) o '-1' para salir: \n")  
+            if cantidad_pasajes == "-1":  
+                return  
+            cantidad_pasajes = int(cantidad_pasajes)
+            if 1 <= cantidad_pasajes <= 8:
                 ok = False
-        except:
+            else:
+                print("Selección inválida\n")
+        except ValueError:
             print("Error: Debes ingresar solo números.")
-            
 
     estado = consultarStatusDeVuelo(vuelo_seleccionado)
-
     if estado == "Cancelado":
         print("No puedes reservar este vuelo porque está cancelado. Selecciona otro vuelo.\n")
         return
 
-    if pagarReserva():
-        os.system('cls' if os.name=='nt' else 'clear')
-        reservas.append((usuario_actual, vuelo_seleccionado))
-        print("\nReserva realizada con ÉXITO\n")
-        print(f"Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}  ==  {vuelo_seleccionado[4]}\t{vuelo_seleccionado[5]}\n")
-        imprimirTicket(usuario_actual, vuelo_seleccionado)
-    else:
-        print("Error: La reserva no se pudo completar debido a un problema con el pago.")
+    if not pagarReserva():  
+        print("\nLa reserva ha sido cancelada por el usuario.")  
+        return
+
+    os.system('cls' if os.name == 'nt' else 'clear')
+    reservas.append((usuario_actual, vuelo_seleccionado))
+    print("\nReserva realizada con ÉXITO\n")
+    print(f"Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}  ==  {vuelo_seleccionado[4]}\t{vuelo_seleccionado[5]}\n")
+    imprimirTicket(usuario_actual, vuelo_seleccionado)
 
 
 def imprimirTicket(usuario_actual, vuelo):
