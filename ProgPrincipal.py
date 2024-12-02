@@ -416,7 +416,6 @@ def cancelarReserva(reservas, usuario_actual):
             seleccion = int(input("\nSeleccione el número de la reserva que desea cancelar: \n"))
             if not validar_seleccion(seleccion):
                 print("Selección de reserva inválida\n")
-                seleccion = int(input("Seleccione el número de la reserva que desea cancelar: \n"))
             else:
                 os.system('cls' if os.name == 'nt' else 'clear')
                 bandera=False
@@ -617,7 +616,7 @@ def imprimirTicket(usuario_actual, vuelo):
     os.system('cls' if os.name=='nt' else 'clear')
     time.sleep(1)
     print(ticket)
-    time.sleep(3)
+    time.sleep(6)
     os.system('cls' if os.name=='nt' else 'clear')
 
 
