@@ -4,7 +4,6 @@
     # Materia: Algoritmos y estructuras de datos I
     # Integrantes: Ramiro De Marco / Juan Olobardi / Tomas Schiabone
 
-# falta agregar butacas y escalas cuando quede 100% funcional al sistema
 
 - Introduccion al proyecto de Sitema de Reserva de Vuelos:
 
@@ -26,6 +25,8 @@ generar_fecha_hora: Crea una fecha y hora aleatoria dentro de los próximos 30 d
 
 generarVuelos: Genera una lista de vuelos aleatorios entre países de América del Norte y del Sur, incluyendo detalles como origen, destino, fecha, hora y estado del vuelo.
 
+guardarVuelosEnJson: Guarda los datos generados de los vuelos en un archivo JSON para ser utilizados posteriormente por otras funciones.
+
 imprimirMatrizOrdenada: Imprime una tabla con la información de los vuelos en un formato ordenado y legible.
 
 registrarUsuario: Permite a nuevos usuarios crear una cuenta en el sistema, validando el PIN y la contraseña según criterios específicos.
@@ -46,5 +47,21 @@ historialReservas: Muestra un historial de reservas realizadas por el usuario, i
 
 hacerReservaDeVuelos: Facilita la selección y reserva de un vuelo, incluyendo la verificación del estado del vuelo y el proceso de pago.
 
+imprimirTicket: Genera un pase de abordaje con todos los detalles del vuelo reservado, incluyendo el número de asiento, puerta de embarque y datos del usuario.
+
 main: Es el punto de entrada del programa y se encarga de gestionar el flujo general del sistema de reserva de vuelos.
+
+- FUNCIONES ADICIONALES:
+
+crearAvion: Crea una disposición inicial del avión, con filas y columnas de asientos marcados como disponibles.
+
+mostrarAvion: Muestra visualmente la disposición de los asientos en el avión, indicando cuáles están ocupados.
+
+seleccionarAsiento: Permite a los usuarios elegir y reservar un asiento específico en el avión, validando su disponibilidad.
+
+leerArchivoRegiones: Carga los datos de las regiones (América del Norte, Centro y Sur) desde archivos JSON para clasificar vuelos según sus países.
+
+gestionarEscalas: Divide vuelos directos en tramos con escalas, asignando horarios y destinos intermedios de manera automática.
+
+incrementar_hora: Ajusta las horas de salida de los vuelos con escalas para garantizar intervalos realistas entre conexiones.
 
