@@ -1,4 +1,4 @@
-Historial de reservas del usuario: 0
+Historial de reservas del usuario: 1234
 --------------------------------------------------------------------------------
-1. | Origen: Paraguay, Asunción -> Destino: Colombia, Bogotá  == 2024-12-10	16:25
+1. | Origen: Canadá, Ottawa -> Destino: Brasil, Brasília  == 2024-12-14	13:15
 --------------------------------------------------------------------------------

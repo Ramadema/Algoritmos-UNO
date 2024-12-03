@@ -496,38 +496,28 @@ def pagarReserva():
 
 
 
-def historialReservas(reservas, usuario_actual):
+def historialReservas(usuario_actual):
     """Esta función muestra un historial de reservas realizadas por el usuario, incluyendo reservas anteriores y pagos.(antiguas y actuales) Recibe reservas actuales."""
     os.system('cls' if os.name == 'nt' else 'clear')
-    
-    print("\nHistorial de reservas del usuario:")
-    reservas_usuario = list(filter(lambda reserva: reserva[0] == usuario_actual, reservas))
 
-    if not reservas_usuario:
-        print("No tiene reservas registradas.\n")
+    # Verificar la carpeta y el archivo
+    carpeta_historiales = "historiales"
+    nombre_archivo = os.path.join(carpeta_historiales, f"historial_reservas_{usuario_actual}.txt")
+
+    if not os.path.exists(nombre_archivo):
+        print("No se encontró un historial de reservas para este usuario.\n")
         return
 
-    # Verificar si la carpeta 'historiales' existe, si no, crearla
-    carpeta_historiales = "historiales"
-    if not os.path.exists(carpeta_historiales):
-        os.makedirs(carpeta_historiales)
+    # Leer y mostrar el contenido del archivo
+    print("-" * 80)
+    with open(nombre_archivo, 'r') as archivo:
+        contenido = archivo.read()
+        print(contenido)
+    print("-" * 80)
+                
+    
 
-    # Crear o sobrescribir el archivo del historial en la carpeta
-    nombre_archivo = os.path.join(carpeta_historiales, f"historial_reservas_{usuario_actual}.txt")
-    with open(nombre_archivo, 'w') as archivo:
-        archivo.write(f"Historial de reservas del usuario: {usuario_actual}\n")
-        archivo.write('-' * 80 + '\n')
-
-        for i, reserva in enumerate(reservas_usuario):
-            vuelo = reserva[1]
-            linea = f"{i+1}. | Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}  == {vuelo[4]}\t{vuelo[5]}"
-            print('-' * 80)
-            print(linea)
-            archivo.write(linea + '\n')
-            archivo.write('-' * 80 + '\n')
-
-    print(f"\nLa informacion de sus reservas ha sido actualizada en su historial con numero de usuario {usuario_actual}\n\n")
-
+ 
 
 def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     """Esta funcion Facilita la reserva de un vuelo seleccionado, solicitando la información del usuario y confirmando la reserva. Recibe la matriz de Vuelos, la lista de usuarios existentes y las reservas actuales"""
@@ -587,6 +577,28 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     reservas.append((usuario_actual, vuelo_seleccionado))
     print("\nReserva realizada con ÉXITO\n")
     print(f"Vuelo reservado: Origen: {vuelo_seleccionado[0]}, {vuelo_seleccionado[1]} -> Destino: {vuelo_seleccionado[2]}, {vuelo_seleccionado[3]}  ==  {vuelo_seleccionado[4]}\t{vuelo_seleccionado[5]}\n")
+    
+    reservas_usuario = list(filter(lambda reserva: reserva[0] == usuario_actual, reservas))
+
+    # Verificar si la carpeta 'historiales' existe, si no, crearla
+    carpeta_historiales = "historiales"
+    if not os.path.exists(carpeta_historiales):
+        os.makedirs(carpeta_historiales)
+
+    # Crear o sobrescribir el archivo del historial en la carpeta
+    nombre_archivo = os.path.join(carpeta_historiales, f"historial_reservas_{usuario_actual}.txt")
+    with open(nombre_archivo, 'w') as archivo:
+        archivo.write(f"Historial de reservas del usuario: {usuario_actual}\n")
+        archivo.write('-' * 80 + '\n')
+
+        for i, reserva in enumerate(reservas_usuario):
+            vuelo = reserva[1]
+            linea = f"{i+1}. | Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}  == {vuelo[4]}\t{vuelo[5]}"
+            archivo.write(linea + '\n')
+            archivo.write('-' * 80 + '\n')
+
+    print(f"\nLa informacion de sus reservas ha sido actualizada en su historial con numero de usuario {usuario_actual}\n\n")
+
     imprimirTicket(usuario_actual, vuelo_seleccionado)
 
 
@@ -663,7 +675,7 @@ def main():
                     hacerReservaDeVuelos(vuelos, reservas, usuario_actual)
                 elif seleccion == 3:
                     # Historial de reservas
-                    historialReservas(reservas, usuario_actual)  
+                    historialReservas(usuario_actual)  
                 elif seleccion == 4:
                     # Imprimir escalas
                     ImprimirVuelosEscalas(vuelos_escalas)                    
