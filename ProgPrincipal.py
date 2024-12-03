@@ -655,10 +655,6 @@ def main():
             os.system('cls' if os.name == 'nt' else 'clear')
             intentos, usuario_actual = iniciarSesion(diccionario_usuarios, intentos)
 
-            # Pruba de usuarios activos diccionarios
-            print("Prueba Diccionario Usuarios existentes: ",diccionario_usuarios)
-
-
             salir2 = True
 
             while salir2:
