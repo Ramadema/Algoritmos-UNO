@@ -15,15 +15,15 @@ def menuInicial():
     """Funcion que permite seleccionar una opcion de accion de sesion de usuario."""
     ok = True
     while ok:
-        print("*****************************************")
-        print("*           Sistema de Vuelos           *")
-        print("*****************************************")
-        print("*                                       *")
-        print("*        1. Registro de Usuarios        *")
-        print("*        2. Iniciar Sesion              *")
-        print("*        3. Salir                       *")
-        print("*                                       *")
-        print("*****************************************")
+        print(Style.BRIGHT + Fore.CYAN + "*" * 45)
+        print(Fore.CYAN + Style.BRIGHT + "*           ✈️  Sistema de Vuelos ✈️          *")
+        print(Fore.CYAN + Style.BRIGHT + "*" * 45)
+        print(Fore.CYAN + Style.BRIGHT + "*                                           *")
+        print(Fore.CYAN + Style.BRIGHT + "*   1️⃣  Registro de Usuarios                 *")
+        print(Fore.CYAN + Style.BRIGHT + "*   2️⃣  Iniciar Sesión                       *")
+        print(Fore.CYAN + Style.BRIGHT + "*   3️⃣  Salir                                *")
+        print(Fore.CYAN + Style.BRIGHT + "*                                           *")
+        print(Style.BRIGHT + Fore.CYAN + "*" * 45)
         
         try:
             opcion = int(input("Seleccionar una opción: "))
@@ -41,18 +41,18 @@ def menuVuelos():
     """Funcion que permite seleccionar una opcion de accion relacionada a los vuelos segun el usuario ingresado."""
     ok=True
     while ok:
-        print("***************************************************")
-        print("*       Menú Principal de Selección Vuelos        *")
-        print("***************************************************")
-        print("*                                                 *")
-        print("*          1. Búsqueda de Vuelos                  *")
-        print("*          2. Reserva de Vuelos                   *")
-        print("*          3. Historial de Vuelos                 *")
-        print("*          4. Vuelos con Escalas                  *")
-        print("*          5. Cancelar Reservas                   *")
-        print("*          6. Cerrar Sesión                       *")
-        print("*                                                 *")
-        print("***************************************************")
+        print(Style.BRIGHT + Fore.CYAN + "*******************************************************")
+        print(Style.BRIGHT + Fore.CYAN + "*       ✈️  Menú Principal de Selección Vuelos ✈️       *")
+        print(Style.BRIGHT + Fore.CYAN + "*******************************************************")
+        print(Style.BRIGHT + Fore.CYAN + "*                                                     *")
+        print(Style.BRIGHT + Fore.CYAN + "*              1️⃣  Búsqueda de Vuelos                  *")
+        print(Style.BRIGHT + Fore.CYAN + "*              2️⃣  Reserva de Vuelos                   *")
+        print(Style.BRIGHT + Fore.CYAN + "*              3️⃣  Historial de Vuelos                 *")
+        print(Style.BRIGHT + Fore.CYAN + "*              4️⃣  Vuelos con Escalas                  *")
+        print(Style.BRIGHT + Fore.CYAN + "*              5️⃣  Cancelar Reservas                   *")
+        print(Style.BRIGHT + Fore.CYAN + "*              6️⃣  Cerrar Sesión                       *")
+        print(Style.BRIGHT + Fore.CYAN + "*                                                     *")
+        print(Style.BRIGHT + Fore.CYAN + "*******************************************************")
 
         try:
             opcion = int(input("\nSeleccionar una opción: "))
@@ -245,7 +245,9 @@ def registrarUsuario(diccionario_usuarios, intentos):
         patron = re.compile(r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d]{8,}$')
         if patron.match(nueva_contraseña):
             os.system('cls' if os.name == 'nt' else 'clear')
-            print("Usuario registrado con éxito\n")
+            print(Style.BRIGHT + Fore.GREEN + "=" * 50)
+            print(Fore.GREEN + Style.BRIGHT + "\n     ¡USUARIO REGISTRADO CON ÉXITO! 🎉 \n")
+            print(Fore.GREEN + "=" * 50)
             time.sleep(2)
             os.system('cls' if os.name == 'nt' else 'clear')
             intentos=0
@@ -463,7 +465,7 @@ def pagarReserva():
         2: "Tarjeta de débito",
         3: "QR Mercado Pago"
     }
-    print("Proceso de pago iniciado.\n")
+    print("\nProceso de pago iniciado.\n")
     print("Opciones de método de pago:")
     for clave, valor in metodos_pago.items():
         print(f"{clave}. {valor}")
@@ -560,7 +562,7 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     if estado == "Cancelado":
         print("No puedes reservar este vuelo porque está cancelado. Selecciona otro vuelo.\n")
         return
-
+    print("-" * 50)
 
     if not pagarReserva():  
         print("\nLa reserva ha sido cancelada por el usuario.")  
@@ -591,7 +593,7 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
             archivo.write(linea + '\n')
             archivo.write('-' * 80 + '\n')
 
-    print(f"\nLa informacion de sus reservas ha sido actualizada en su historial con numero de usuario {usuario_actual}\n\n")
+    print(f"La informacion de sus reservas ha sido actualizada en su historial con numero de usuario {usuario_actual}\n\n")
 
     imprimirTicket(usuario_actual, vuelo_seleccionado, total_asientos)
 
@@ -765,14 +767,19 @@ def main():
                 elif seleccion==6:
                     # Cerrar sesion
                     os.system('cls' if os.name == 'nt' else 'clear')
-                    print("Sesión cerrada.")
+                    print(Style.BRIGHT + Fore.RED + "=" * 40)
+                    print(Fore.RED + Style.BRIGHT + "        ¡SESION CERRADA! 🔒")
+                    print(Fore.WHITE + "    Gracias por usar el sistema.")
+                    print(Fore.RED + "=" * 40)
                     time.sleep(2)
                     os.system('cls' if os.name == 'nt' else 'clear')    
 
                     salir2 = False
         else:
-            print("\n   ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!!")
-            print("\n\t\t***** ADIOS *****\n")
+            print(Style.BRIGHT + Fore.GREEN + "=" * 70)
+            print(Fore.GREEN + Style.BRIGHT + "   ✈️  ¡¡¡¡Gracias por utilizar nuestro Sistema de Vuelos!!!! ✈️")
+            print(Fore.RED + "\n\t\t       🛑 ADIOS 🛑 \n")
+            print(Fore.GREEN + "=" * 70)
             salir = False
 
 # Programa Principal
