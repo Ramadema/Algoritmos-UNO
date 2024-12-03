@@ -10,7 +10,9 @@ from colorama import Fore, Back, Style, init
 
 init(autoreset=True)
 
-# Menús
+
+""" ********************** MENUES *********************"""
+
 def menuInicial():
     """Funcion que permite seleccionar una opcion de accion de sesion de usuario."""
     ok = True
@@ -67,7 +69,7 @@ def menuVuelos():
 
     return -1
 
-
+""" ********************** GENERACION DE VUELOS Y ARCHIVOS *********************"""
 
 # Funciones
 def generar_fecha_hora():
@@ -191,7 +193,10 @@ def ImprimirVuelosEscalas(vuelos_escalas):
     
     print("\n\n")
 
-#Usuario
+
+""" ********************** REGISTRO E INICIO DE SESION DE USUARIO ********************* """
+
+
 def registrarUsuario(diccionario_usuarios, intentos): 
     """Funcion que permite a nuevos usuarios crear una cuenta en el sistema de reservas. Recibe la lista de usuarios existente"""
     ok=True
@@ -358,6 +363,8 @@ def mostrar_filtro_vuelos(vuelos):
         print("No se encontraron vuelos que coincidan.")
 
 
+""" ********************** FILTRO VUELOS ********************* """
+
 
 def buscar_vuelos(vuelos, pais_origen, pais_llegada):
     # Filtrar la matriz según el país de origen y país de llegada
@@ -398,10 +405,14 @@ def obtener_paises():
     return pais_origen, pais_llegada
 
 
+""" ********************** RESERVAS E HISTORIALES *********************"""
+
+
+
 def cancelarReserva(reservas, usuario_actual):
     """Función que permite al usuario cancelar una reserva existente, gestionando el reembolso o cambios según las políticas del sistema. Recibe lista de usuarios y lista de reservas existentes."""
     os.system('cls' if os.name == 'nt' else 'clear')
-    bandera=True
+    bandera = True
 
     print("\nReservas del usuario:")
     reservas_usuario = list(filter(lambda reserva: reserva[0] == usuario_actual, reservas))
@@ -424,7 +435,7 @@ def cancelarReserva(reservas, usuario_actual):
                 print("Selección de reserva inválida\n")
             else:
                 os.system('cls' if os.name == 'nt' else 'clear')
-                bandera=False
+                bandera = False
         except ValueError:
             print("Error: Debes ingresar un número.")
 
@@ -432,6 +443,35 @@ def cancelarReserva(reservas, usuario_actual):
     reservas.remove(reserva_seleccionada)
 
     print(f"\nReserva cancelada con éxito. Vuelo cancelado: Origen: {reserva_seleccionada[1][0]}, {reserva_seleccionada[1][1]} -> Destino: {reserva_seleccionada[1][2]}, {reserva_seleccionada[1][3]} == {reserva_seleccionada[1][4]}\t{reserva_seleccionada[1][5]}\n")
+
+    # Verificar si la carpeta 'historiales' existe, si no, crearla
+    carpeta_historiales = "historiales"
+    if not os.path.exists(carpeta_historiales):
+        os.makedirs(carpeta_historiales)
+
+    # Crear o sobrescribir el archivo del historial en la carpeta
+    nombre_archivo = os.path.join(carpeta_historiales, f"historial_reservas_{usuario_actual}.txt")
+    
+
+    
+    # Reescribir el historial del usuario después de la cancelación
+    with open(nombre_archivo, 'w') as archivo:
+        archivo.write(f"Historial de reservas del usuario: {usuario_actual}\n")
+        archivo.write('-' * 80 + '\n')
+
+        # Reescribir solo las reservas que quedan (después de la cancelación)
+        reservas_usuario_actualizadas = list(filter(lambda reserva: reserva[0] == usuario_actual, reservas))  # Actualizar reservas del usuario
+        for i, reserva in enumerate(reservas_usuario_actualizadas):
+            vuelo = reserva[1]
+            linea = f"{i+1}. | Origen: {vuelo[0]}, {vuelo[1]} -> Destino: {vuelo[2]}, {vuelo[3]}  == {vuelo[4]}\t{vuelo[5]}"
+            archivo.write(linea + '\n')
+            archivo.write('-' * 80 + '\n')
+    
+    # Leer el archivo actualizado para verificar
+    with open(nombre_archivo, 'r') as archivo:
+       
+        print(archivo.read())
+
 
 
 # Consultas Vuelos
@@ -597,9 +637,31 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
 
     imprimirTicket(usuario_actual, vuelo_seleccionado, total_asientos)
 
+
+
+""" ********************** SELECCION DE ASIENTOS Y ESTRUCTURA DE AVION *********************"""
+
+
 def crearAvion(filas, columnas):
     asientos = [['O' for _ in range(columnas)] for _ in range(filas)]
     return asientos
+
+
+def ocuparAsientosAleatorios(asientos, cantidad):
+    filas = len(asientos)
+    columnas = len(asientos[0])
+    total_asientos = filas * columnas
+
+    if cantidad > total_asientos:
+        cantidad = total_asientos  # No se puede ocupar más asientos de los disponibles.
+
+    # Generar posiciones únicas al azar
+    posiciones = random.sample(range(total_asientos), cantidad)
+    for pos in posiciones:
+        fila = pos // columnas
+        columna = pos % columnas
+        asientos[fila][columna] = 'X'
+
 
 def mostrarAvion(asientos):
     print("       ________")
@@ -670,6 +732,10 @@ def reservarAsientos():
     columnas = 6  
     asientos = crearAvion(filas, columnas)
 
+    numrandom = random.randint(30, 60)
+
+    ocuparAsientosAleatorios(asientos, numrandom)
+
     seleccionados = 0 
     bandera = True
 
@@ -713,7 +779,7 @@ def imprimirTicket(usuario_actual, vuelo, total_asientos):
         """
         print(ticket)
     
-    input("Presione cualquier tecla para continuar.")
+    input("Presione la tecla ENTER para continuar.")
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
