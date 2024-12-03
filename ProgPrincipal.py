@@ -517,8 +517,6 @@ def historialReservas(usuario_actual):
                 
     
 
- 
-
 def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     """Esta funcion Facilita la reserva de un vuelo seleccionado, solicitando la información del usuario y confirmando la reserva. Recibe la matriz de Vuelos, la lista de usuarios existentes y las reservas actuales"""
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -551,23 +549,14 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
         except ValueError:
             print("Error: Debes ingresar solo números.")
 
-    while ok:
-        try:
-            cantidad_pasajes = input("Ingrese la cantidad de pasajes que desee reservar (máximo 8) o '-1' para salir: \n")  
-            if cantidad_pasajes == "-1":  
-                return  
-            cantidad_pasajes = int(cantidad_pasajes)
-            if 1 <= cantidad_pasajes <= 8:
-                ok = False
-            else:
-                print("Selección inválida\n")
-        except ValueError:
-            print("Error: Debes ingresar solo números.")
+    total_asientos = reservarAsientos() 
+      
 
     estado = consultarStatusDeVuelo(vuelo_seleccionado)
     if estado == "Cancelado":
         print("No puedes reservar este vuelo porque está cancelado. Selecciona otro vuelo.\n")
         return
+
 
     if not pagarReserva():  
         print("\nLa reserva ha sido cancelada por el usuario.")  
@@ -580,9 +569,10 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
     
     reservas_usuario = list(filter(lambda reserva: reserva[0] == usuario_actual, reservas))
 
+
     # Verificar si la carpeta 'historiales' existe, si no, crearla
     carpeta_historiales = "historiales"
-    if not os.path.exists(carpeta_historiales):
+    if not os.path.exists(carpeta_historiales): 
         os.makedirs(carpeta_historiales)
 
     # Crear o sobrescribir el archivo del historial en la carpeta
@@ -599,37 +589,127 @@ def hacerReservaDeVuelos(vuelos, reservas, usuario_actual):
 
     print(f"\nLa informacion de sus reservas ha sido actualizada en su historial con numero de usuario {usuario_actual}\n\n")
 
-    imprimirTicket(usuario_actual, vuelo_seleccionado)
+    imprimirTicket(usuario_actual, vuelo_seleccionado, total_asientos)
 
+def crearAvion(filas, columnas):
+    asientos = [['O' for _ in range(columnas)] for _ in range(filas)]
+    return asientos
 
-def imprimirTicket(usuario_actual, vuelo):
+def mostrarAvion(asientos):
+    print("       ________")
+    print("      /        \\")
+    print("     /          \\")
+    print("    /            \\")
+    print("   | A B C  D E F |")
+    print("   |              |")
+
+    for i, fila in enumerate(asientos):
+        # el zfill para mantener la estructura de dos digitos de butacas un 0 si es necesario
+        id_formateado = str(i + 1).zfill(2)  
+        fila1 = fila[0]+fila[1]+fila[2]
+        fila2 = fila[3]+fila[4]+fila[5]
+        # con el join uno todos los elementos de la lista en una sola cadena, utilizando el separador " "
+        print(f"{id_formateado} | {' '.join(fila1)}  {' '.join(fila2)} |")
+
+    print("    \\            /")
+    print("     \\__________/")
+    print("\n")
+
+def seleccionarAsiento(asientos, seleccionados, total_asientos):
+    bandera = True
+    # Mapeo de letras a índices
+    columnas_map = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5} 
+
+    while bandera:
+        if seleccionados >=8:
+            print("Se ha alcanzado el limite de asientos seleccionados.")
+            bandera = False
+            continue
+
+        seleccion = input("Selecciona un asiento (ej. 1A) o '-1' para salir: ").strip().upper()
+        print(seleccion)
+        if seleccion == "-1":
+            bandera = False
+            
+        else:
+            try:
+                # se onvierte la parte numérica de la selección a un índice de fila.
+                fila = int(seleccion[:-1]) - 1
+                # se obtiene la letra de la columna.
+                letra_columna = seleccion[-1]
+                # El get traduce la letra de columna a un índice.
+                columna = columnas_map.get(letra_columna)
+
+                if fila < 0 or fila >= len(asientos) or columna is None or columna < 0 or columna >= len(asientos[0]):
+                    print("Asiento no válido, intenta de nuevo.")
+                    continue
+                
+                if asientos[fila][columna] == 'X':
+                    mostrarAvion(asientos)
+                    print("Asiento ya ocupado, elige otro.")
+                else:
+                    total_asientos.append(seleccion)
+                    asientos[fila][columna] = 'X'
+                    mostrarAvion(asientos)
+                    print(f"Asiento {seleccion} reservado con éxito.")
+                    seleccionados +=1
+
+            except ValueError:
+                print("Entrada no válida, intenta de nuevo.")
+    return seleccionados ,total_asientos
+
+def reservarAsientos(): 
+    total_asientos = []                                          
+    filas = 20  
+    columnas = 6  
+    asientos = crearAvion(filas, columnas)
+
+    seleccionados = 0 
+    bandera = True
+
+    while bandera:
+        print("\n" + "-" * 40)
+        print("   Boing 737 - Selección de Asientos")
+        print("-" * 40)
+        mostrarAvion(asientos)
+        seleccionados, total_asientos = seleccionarAsiento(asientos, seleccionados, total_asientos)
+        print("-" * 40 + "\n")
+
+        bandera = False
+
+    return total_asientos
+
+def imprimirTicket(usuario_actual, vuelo, total_asientos):
     origen_pais, origen_capital, destino_pais, destino_capital, fecha, hora, estado = vuelo
     
     numero_vuelo=random.randint(1000,9999)
-    numero_asiento=str(random.randint(1,20)).zfill(2)+random.choice(['A', 'B', 'C', 'D', 'E', 'F'])
+    
 
-    ticket = f"""
-    ****************************************************************************************
-                                           BOARDING PASS                                                                          
-    ****************************************************************************************
-    
-        N° Usuario: {usuario_actual}                    Fecha: {fecha}
-    
-    Desde/From: {origen_pais}, {origen_capital}         Vuelo n°/Flight nr:{numero_vuelo}
-    Asiento/Seat: {numero_asiento}                      A/To: {destino_pais}, {destino_capital} 
-    
-        Puerta/Gate: E01                                Hora: {hora}
+    for numero_asiento in total_asientos:
+        ticket = f"""
 
-    ****************************************************************************************
-                                  ¡Gracias por viajar con nosotros!
-    ****************************************************************************************
-    """
+            ****************************************************************************************
+                                                BOARDING PASS                                                                          
+            ****************************************************************************************
+            
+                N° Usuario: {usuario_actual}                    Fecha: {fecha}
+            
+            Desde/From: {origen_pais}, {origen_capital}         Vuelo n°/Flight nr:{numero_vuelo}
+            Asiento/Seat: {numero_asiento}                      A/To: {destino_pais}, {destino_capital} 
+            
+                Puerta/Gate: E01                                Hora: {hora}
+
+            ****************************************************************************************
+                                        ¡Gracias por viajar con nosotros!
+            ****************************************************************************************    
+        
+       
+        """
+        print(ticket)
     
-    os.system('cls' if os.name=='nt' else 'clear')
-    time.sleep(1)
-    print(ticket)
-    time.sleep(6)
-    os.system('cls' if os.name=='nt' else 'clear')
+    input()
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 
 
 def main():

@@ -22,12 +22,18 @@ def mostrarAvion(asientos):
     print("     \\__________/")
     print("\n")
 
-def seleccionarAsiento(asientos):
+def seleccionarAsiento(asientos, seleccionados):
+    
     bandera = True
     # Mapeo de letras a índices
     columnas_map = {'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5} 
 
     while bandera:
+        if seleccionados >=8:
+            print("Se ha alcanzado el limite de asientos seleccionados.")
+            bandera = False
+            continue
+
         seleccion = input("Selecciona un asiento (ej. 1A) o '-1' para salir: ").strip().upper()
         print(seleccion)
         if seleccion == "-1":
@@ -53,6 +59,7 @@ def seleccionarAsiento(asientos):
                     asientos[fila][columna] = 'X'
                     mostrarAvion(asientos)
                     print(f"Asiento {seleccion} reservado con éxito.")
+                    seleccionados +=1
 
             except ValueError:
                 print("Entrada no válida, intenta de nuevo.")
@@ -61,8 +68,9 @@ def seleccionarAsiento(asientos):
 # Configuración del avión
 filas = 20  
 columnas = 6  
-
 asientos = crearAvion(filas, columnas)
+
+seleccionados = 0 
 bandera = True
 
 # prog principal
@@ -71,7 +79,7 @@ while bandera:
     print("   Boing 737 - Selección de Asientos")
     print("-" * 40)
     mostrarAvion(asientos)
-    seleccionarAsiento(asientos)
+    seleccionados = seleccionarAsiento(asientos, seleccionados)
     print("-" * 40 + "\n")
 
     bandera = False

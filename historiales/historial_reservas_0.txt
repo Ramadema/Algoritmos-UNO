@@ -1,4 +1,6 @@
 Historial de reservas del usuario: 0
 --------------------------------------------------------------------------------
-1. | Origen: Paraguay, Asunción -> Destino: Colombia, Bogotá  == 2024-12-10	16:25
+1. | Origen: Perú, Lima -> Destino: Argentina, Buenos Aires  == 2024-12-08	22:56
+--------------------------------------------------------------------------------
+2. | Origen: Canadá, Ottawa -> Destino: Costa Rica, San José  == 2024-12-28	13:28
 --------------------------------------------------------------------------------
