@@ -6,6 +6,9 @@ import json
 import re
 from datetime import datetime, timedelta
 from Escalas import vuelos_escalas
+from colorama import Fore, Back, Style, init
+
+init(autoreset=True)
 
 # Menús
 def menuInicial():
@@ -262,8 +265,6 @@ def registrarUsuario(diccionario_usuarios, intentos):
                                             'contrasena': nueva_contraseña
                                             }
 
-    print(diccionario_usuarios)
-
     return intentos
 
 def iniciarSesion(diccionario_usuarios, intentos): 
@@ -299,7 +300,10 @@ def iniciarSesion(diccionario_usuarios, intentos):
         contrasena = input("\nIngrese su contraseña: \n")
         if diccionario_usuarios[inicioSesion] ["contrasena"] == contrasena:
             os.system('cls' if os.name == 'nt' else 'clear')   
-            print("Login exitoso")
+            print(Style.BRIGHT + Fore.GREEN + "=" * 40)
+            print(Fore.GREEN + Style.BRIGHT + "        ¡LOGIN EXITOSO! 🎉")
+            print(Fore.WHITE + "    Bienvenido al sistema, usuario.")
+            print(Fore.GREEN + "=" * 40)
             time.sleep(2)
             os.system('cls' if os.name == 'nt' else 'clear') 
             intentos = 0
@@ -707,7 +711,7 @@ def imprimirTicket(usuario_actual, vuelo, total_asientos):
         """
         print(ticket)
     
-    input()
+    input("Presione cualquier tecla para continuar.")
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
