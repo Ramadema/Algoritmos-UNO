@@ -1,67 +1,137 @@
-# Proyecto_SistVuelos_G1                    
-    # UADE
-    # Profesora: Maria Julia Monasterio
-    # Materia: Algoritmos y estructuras de datos I
-    # Integrantes: Ramiro De Marco / Juan Olobardi / Tomas Schiabone
+# README - Sistema de Reserva de Vuelos
+
+## Introducción
+Este programa es un sistema de reserva de vuelos diseñado para facilitar la gestión de viajes de los usuarios. Permite registrar nuevos usuarios, iniciar sesión, buscar vuelos, realizar reservas, cancelar reservas y consultar el historial de vuelos. El sistema está enfocado en vuelos entre países de América del Norte, Centro y Sur.
+
+Al iniciar el programa, se presenta un menú inicial con tres opciones principales: registro de usuarios, inicio de sesión y salida del sistema. Una vez autenticado, el usuario accede a un menú adicional donde puede realizar distintas acciones relacionadas con los vuelos. El sistema también incluye funcionalidades avanzadas como la generación aleatoria de vuelos y validaciones de seguridad para el manejo de contraseñas.
+
+## Descripción
+Este sistema permite a los usuarios:
+- Registrarse y gestionar sus credenciales de acceso.
+- Buscar vuelos disponibles por origen y destino.
+- Reservar vuelos y seleccionar asientos.
+- Consultar su historial de reservas.
+- Cancelar reservas de vuelos.
+- Ver el estado de los vuelos en tiempo real.
+
+## Características
+- Generación aleatoria de vuelos con estados (a tiempo, retrasado, cancelado).
+- Validación de contraseñas con expresiones regulares.
+- Almacenamiento de datos en formato JSON.
+- Interfaz interactiva y fácil de usar.
+
+## Requisitos
+- Python 3.x
+- Biblioteca `json` (incluida en la librería estándar de Python)
+- Biblioteca `random` (incluida en la librería estándar de Python)
+
+## Instalación
+1. Clonar este repositorio:
+   ```sh
+   git clone https://github.com/usuario/repo.git
+   ```
+2. Navegar al directorio del proyecto:
+   ```sh
+   cd repo
+   ```
+3. Ejecutar el programa:
+   ```sh
+   python script.py
+   ```
+
+## Uso
+Al ejecutar el programa, se mostrará un menú con las siguientes opciones:
+1. Registrar usuario.
+2. Iniciar sesión.
+3. Buscar vuelos.
+4. Reservar un vuelo.
+5. Consultar historial de reservas.
+6. Cancelar una reserva.
+7. Ver estado de un vuelo.
+8. Salir.
+
+El usuario puede interactuar con el menú seleccionando una opción numérica.
+
+## Funcionalidades Principales
+- `menuInicial`: Muestra el menú principal con las opciones de registro, inicio de sesión o salida.
+- `menuVuelos`: Presenta un menú adicional para usuarios autenticados con opciones de búsqueda, reserva y cancelación de vuelos.
+- `generar_fecha_hora`: Genera una fecha y hora aleatoria dentro de los próximos 30 días.
+- `generarVuelos`: Crea una lista de vuelos aleatorios entre países de América del Norte, Centro y Sur.
+- `guardarVuelosEnJson`: Guarda los datos de los vuelos en un archivo JSON.
+- `imprimirMatrizOrdenada`: Muestra los vuelos en un formato estructurado.
+- `registrarUsuario`: Permite a nuevos usuarios registrarse validando su PIN y contraseña.
+- `iniciarSesion`: Autentica a los usuarios mediante PIN y contraseña.
+- `mostrar_filtro_vuelos`: Filtra vuelos según el país de origen y destino.
+- `cancelarReserva`: Permite a los usuarios cancelar reservas existentes.
+- `consultarStatusDeVuelo`: Muestra el estado actual de un vuelo seleccionado.
+- `pagarReserva`: Gestiona el proceso de pago para completar una reserva.
+- `historialReservas`: Muestra el historial de reservas de un usuario.
+- `hacerReservaDeVuelos`: Gestiona la selección y confirmación de una reserva de vuelo.
+- `imprimirTicket`: Genera un pase de abordaje con los detalles de la reserva.
+- `main`: Punto de entrada del programa.
+
+## Funcionalidades Adicionales
+- `crearAvion`: Genera la disposición inicial del avión con filas y asientos disponibles.
+- `mostrarAvion`: Muestra gráficamente la disponibilidad de los asientos.
+- `seleccionarAsiento`: Permite a los usuarios elegir y reservar un asiento.
+- `leerArchivoRegiones`: Carga los datos de las regiones desde archivos JSON.
+- `gestionarEscalas`: Divide vuelos en tramos con escalas automáticas.
+- `incrementar_hora`: Ajusta los horarios de los vuelos con escalas.
 
 
-- Introduccion al proyecto de Sitema de Reserva de Vuelos:
+---
 
-Este programa es un sistema de reserva de vuelos diseñado para facilitar a los usuarios la gestión de sus viajes. Permite registrar nuevos usuarios, iniciar sesión, buscar vuelos, realizar reservas, cancelar reservas y consultar el historial de vuelos. El enfoque principal del sistema son los vuelos entre países de América del Norte, central y del Sur.
+# README - Flight Booking System
 
-Al iniciar el programa, se presenta un menú inicial que ofrece tres opciones: registro de usuarios, inicio de sesión y salida del sistema. 
-Una vez que un usuario inicia sesión, accede a un menú adicional donde puede buscar vuelos disponibles, reservar un vuelo, consultar su historial de reservas o cancelar una reserva existente. El sistema proporciona una experiencia interactiva y fácil de usar, asegurando que los usuarios puedan gestionar sus necesidades de viaje de manera eficiente.
+## Introduction
+This program is a flight booking system designed to help users manage their trips efficiently. It allows users to register, log in, search for flights, make reservations, cancel bookings, and check their booking history. The system focuses on flights between countries in North, Central, and South America.
 
-El sistema también incluye funcionalidades adicionales como la generación aleatoria de vuelos y estados (a tiempo, retrasado, cancelado), así como validaciones de entrada para asegurar que los datos proporcionados sean correctos. Las contraseñas se validan utilizando expresiones regulares para garantizar que cumplan con los requisitos de seguridad.
+When the program starts, an initial menu is presented with three main options: user registration, login, and system exit. Once logged in, users can access additional options related to flight management. The system also includes advanced features such as random flight generation and password security validations.
 
+## Description
+This system allows users to:
+- Register and manage login credentials.
+- Search for available flights by origin and destination.
+- Book flights and select seats.
+- Check their booking history.
+- Cancel flight reservations.
+- View flight status in real time.
 
-- FUNCIONES:
+## Features
+- Random flight generation with status (on time, delayed, canceled).
+- Password validation using regular expressions.
+- Data storage in JSON format.
+- Interactive and user-friendly interface.
 
-menuInicial: Muestra el menú principal donde los usuarios pueden elegir entre registrarse, iniciar sesión o salir del sistema.
+## Requirements
+- Python 3.x
+- `json` library (included in Python standard library)
+- `random` library (included in Python standard library)
 
-menuVuelos: Presenta un menú adicional para usuarios autenticados, permitiendo seleccionar acciones relacionadas con los vuelos, como búsqueda, reserva, historial, cancelación y cierre de sesión.
+## Installation
+1. Clone this repository:
+   ```sh
+   git clone https://github.com/user/repo.git
+   ```
+2. Navigate to the project directory:
+   ```sh
+   cd repo
+   ```
+3. Run the program:
+   ```sh
+   python script.py
+   ```
 
-generar_fecha_hora: Crea una fecha y hora aleatoria dentro de los próximos 30 días, utilizada para asignar horarios a los vuelos.
+## Usage
+When running the program, a menu will be displayed with the following options:
+1. Register user.
+2. Log in.
+3. Search flights.
+4. Book a flight.
+5. Check booking history.
+6. Cancel a booking.
+7. View flight status.
+8. Exit.
 
-generarVuelos: Genera una lista de vuelos aleatorios entre países de América del Norte y del Sur, incluyendo detalles como origen, destino, fecha, hora y estado del vuelo.
-
-guardarVuelosEnJson: Guarda los datos generados de los vuelos en un archivo JSON para ser utilizados posteriormente por otras funciones.
-
-imprimirMatrizOrdenada: Imprime una tabla con la información de los vuelos en un formato ordenado y legible.
-
-registrarUsuario: Permite a nuevos usuarios crear una cuenta en el sistema, validando el PIN y la contraseña según criterios específicos.
-
-iniciarSesion: Permite a los usuarios existentes acceder al sistema mediante su PIN y contraseña, con controles de seguridad para limitar intentos fallidos.
-
-sacar_tildes: Elimina acentos de los nombres de países para facilitar las búsquedas sin errores de acentuación.
-
-mostrar_filtro_vuelos: Permite a los usuarios buscar vuelos basándose en el país de origen y destino ingresado.
-
-cancelarReserva: Facilita la cancelación de reservas existentes por parte del usuario, mostrando las reservas disponibles para cancelar.
-
-consultarStatusDeVuelo: Muestra el estado actual de un vuelo seleccionado y proporciona razones aleatorias en caso de que esté cancelado.
-
-pagarReserva: Gestiona el proceso de pago para completar una reserva, permitiendo a los usuarios seleccionar un método de pago y confirmando la transacción.
-
-historialReservas: Muestra un historial de reservas realizadas por el usuario, incluyendo detalles de vuelos anteriores y pagos.
-
-hacerReservaDeVuelos: Facilita la selección y reserva de un vuelo, incluyendo la verificación del estado del vuelo y el proceso de pago.
-
-imprimirTicket: Genera un pase de abordaje con todos los detalles del vuelo reservado, incluyendo el número de asiento, puerta de embarque y datos del usuario.
-
-main: Es el punto de entrada del programa y se encarga de gestionar el flujo general del sistema de reserva de vuelos.
-
-- FUNCIONES ADICIONALES:
-
-crearAvion: Crea una disposición inicial del avión, con filas y columnas de asientos marcados como disponibles.
-
-mostrarAvion: Muestra visualmente la disposición de los asientos en el avión, indicando cuáles están ocupados.
-
-seleccionarAsiento: Permite a los usuarios elegir y reservar un asiento específico en el avión, validando su disponibilidad.
-
-leerArchivoRegiones: Carga los datos de las regiones (América del Norte, Centro y Sur) desde archivos JSON para clasificar vuelos según sus países.
-
-gestionarEscalas: Divide vuelos directos en tramos con escalas, asignando horarios y destinos intermedios de manera automática.
-
-incrementar_hora: Ajusta las horas de salida de los vuelos con escalas para garantizar intervalos realistas entre conexiones.
+Users can interact with the menu by selecting a numeric option.
 
